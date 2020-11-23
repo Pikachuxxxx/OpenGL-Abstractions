@@ -1,0 +1,31 @@
+#pragma once
+
+#include <iostream>
+#include <string>
+// GLEW
+#define GLEW_STATIC
+#include <GL/glew.h>
+// SOIL - Simple openGL Image Loading Library
+#include <SOIL/SOIL.h>
+
+class Texture2D
+{
+public:
+    GLuint m_TID;
+private:
+    int m_Width;
+    int m_Height;
+    const char* m_FilePath;
+public:
+    Texture2D(const char* path);
+    ~Texture2D();
+
+    void Bind();
+    void Unbind();
+
+    inline int getWidth() const { return m_Width; }
+    inline int getHeight() const { return m_Height; }
+    inline GLuint getTexture() const { return m_TID; }
+private:
+    GLuint loadTexture();
+};
