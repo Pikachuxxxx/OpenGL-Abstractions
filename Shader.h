@@ -8,6 +8,10 @@
 
 #define GLEW_STATIC
 #include <GL/glew.h>
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class Shader
 {
@@ -17,6 +21,8 @@ public:
     Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath = "");
     // Uses the current shader
     void Use();
+
+    void SetUniform4f(const char* name, glm::vec4 value);
 };
 
 #endif

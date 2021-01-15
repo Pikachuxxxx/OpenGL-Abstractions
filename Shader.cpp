@@ -80,9 +80,6 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
         glGetShaderInfoLog(geometry, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n" << infoLog << std::endl;
         // Shader Program
-        this->Program = glCreateProgram();
-        glAttachShader(this->Program, vertex);
-        glAttachShader(this->Program, fragment);
     }
     else if(geometryCode != "")
     {
@@ -91,6 +88,12 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
         glAttachShader(this->Program, vertex);
         glAttachShader(this->Program, fragment);
         glAttachShader(this->Program, geometry);
+    }
+    else
+    {
+        this->Program = glCreateProgram();
+        glAttachShader(this->Program, vertex);
+        glAttachShader(this->Program, fragment);
     }
     glLinkProgram(this->Program);
     // Print linking errors if any
@@ -106,8 +109,16 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
     glDeleteShader(geometry);
 
 }
+
 // Uses the current shader
 void Shader::Use()
 {
     glUseProgram(this->Program);
+}
+
+void Shader::SetUniform4f(const char* name, glm::vec4 value)
+{
+    Use();
+    GLuint location = glGetUniformLocation(Program, name);
+    glUniform4f(location, value.x, value.y, value.z, value.w);
 }
