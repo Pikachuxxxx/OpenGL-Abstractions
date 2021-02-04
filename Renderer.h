@@ -7,8 +7,6 @@
 #include <GL/glew.h>
 // GLFW
 #include <GLFW/glfw3.h>
-// SOIL - Simple openGL Image Loading Library
-#include <SOIL/SOIL.h>
 // GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -24,21 +22,21 @@
 #endif
 
 // Abstractions
-#include "Camera.h"
+#include "Camera3D.h"
 #include "FrameBuffer.h"
 #include "IndexBuffer.h"
-#include "Model.h"
+//#include "Model.h"
 #include "RenderBuffer.h"
 #include "Shader.h"
 #include "Texture2D.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
-#include "CubeMap.h"
+//#include "CubeMap.h"
 
 //==============================================================================
 //Experimental Includes
-#include "Light.h"
-#include "Material.h"
+//#include "Light.h"
+//#include "Material.h"
 //==============================================================================
 
 #define CALCULATE_MODEL_MATRIX()        m_ModelMatrix       = glm::mat4(1.0f); \
@@ -190,7 +188,7 @@ public:
         ib.Unbind();
     }
 
-    void draw_model(Transform& transform, Shader& shader, Model& model)
+  /*  void draw_model(Transform& transform, Shader& shader, Model& model)
     {
         shader.Use();
 
@@ -199,7 +197,7 @@ public:
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         model.Draw(shader);
-    }
+    }*/
 
     void stream_vertices(std::vector<glm::vec3>& v_data, VertexBuffer& vb)
     {

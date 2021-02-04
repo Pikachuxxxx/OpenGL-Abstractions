@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(const char *title, int width, int height) : backgroundColor(maths::vec4(0, 0, 0, 1))
+Window::Window(const char *title, int width, int height) : backgroundColor(glm::vec4(0, 0, 0, 1))
 {
     m_Title = title;
     m_Width = width;
@@ -18,6 +18,10 @@ Window::Window(const char *title, int width, int height) : backgroundColor(maths
     {
         m_HeldMouseButtons[i] = false;
     }
+
+    firstMouse = true;
+    lastMouseX = width / 2;
+    lastMouseY = height / 2;
 }
 
 Window::~Window()
@@ -59,9 +63,9 @@ bool Window::init()
         return false;
     }
 
-    GLCall(glEnable(GL_BLEND));
-    GLCall(glEnable(GL_DEPTH_TEST));
-    GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+    glEnable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     return true;
 }
 
@@ -135,18 +139,20 @@ void Window::getMousePosition(double& x, double& y) const
 
 void Window::clear() const
 {
-	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-    GLCall(glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w));
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 }
 
 void Window::update() const
 {
-    // Replaced with GLCall assert macro
-    /*   GLenum error = glGetError();
-       if(error != GL_NO_ERROR)
-       {
-           std::cout << "ERROR::OpenGL::" << error << std::endl;
-       }*/
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        std::cout << "ERROR::OpenGL::" << error << std::endl;
+    }
+
+    double currentTime = glfwGetTime(); deltaTime = currentTime - m_LastTime; m_LastTime = currentTime;
+
     glfwPollEvents();
     glfwSwapBuffers(m_Window);
 }
@@ -180,7 +186,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void window_resize_callback(GLFWwindow* window, int width, int height)
 {
-    GLCall(glViewport(0, 0, width, height));
+    glViewport(0, 0, width, height);
     Window* wind = (Window *) glfwGetWindowUserPointer(window);
     wind->m_Width = width;
     wind->m_Height = height;
@@ -200,4 +206,16 @@ void mouse_position_callback(GLFWwindow* window, double xpos, double ypos)
     Window* wind = (Window *) glfwGetWindowUserPointer(window);
     wind->m_MouseX = xpos;
     wind->m_MouseY = ypos;
+
+    if (wind->firstMouse)
+    {
+        wind->lastMouseX = xpos;
+        wind->lastMouseY = ypos;
+        wind->firstMouse = false;
+    }
+    wind->deltaMouseX = xpos - wind->lastMouseX;
+    wind->deltaMouseY = wind->lastMouseY - ypos;
+
+    wind->lastMouseX = xpos;
+    wind->lastMouseY = ypos;
 }

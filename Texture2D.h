@@ -6,7 +6,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 // SOIL - Simple openGL Image Loading Library
-#include <SOIL/SOIL.h>
+#include <stb_image.h>
 
 class Texture2D
 {
@@ -15,6 +15,7 @@ public:
 private:
     int m_Width;
     int m_Height;
+    int m_BPP;
     const char* m_FilePath;
 public:
     Texture2D(const char* path);

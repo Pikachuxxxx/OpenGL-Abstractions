@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include "Texture2D.h"
 
 
@@ -11,7 +12,7 @@ Texture2D::~Texture2D() {}
 
 GLuint Texture2D::loadTexture()
 {
-    unsigned char* image = SOIL_load_image(m_FilePath, &m_Width, &m_Height, 0, SOIL_LOAD_RGBA);
+    unsigned char* image = stbi_load(m_FilePath, &m_Width, &m_Height, &m_BPP, 0);
 
     GLuint texture;
     glGenTextures(1, &texture);

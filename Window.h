@@ -8,6 +8,8 @@
 #include <GL/glew.h>
 // GLFW
 #include <GLFW/glfw3.h>
+// GLM
+#include <glm/glm.hpp>
 
 #define MAX_KEYS     1024
 #define MAX_BUTTONS  32
@@ -23,7 +25,9 @@ class Window
 {
 public:
     /// The background color of the Window.
-    maths::vec4 backgroundColor;
+    glm::vec4 backgroundColor;
+    float deltaMouseX, deltaMouseY;
+    mutable float deltaTime;
 public:
     Window(const char *title, int width, int height);
     ~Window();
@@ -70,6 +74,9 @@ private:
     bool            m_ReleasedMouseButtons[MAX_BUTTONS];
     double          m_MouseX;
     double          m_MouseY;
+    bool            firstMouse;
+    float           lastMouseX, lastMouseY;
+    mutable float           m_LastTime;
 private :
     bool init();
     friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);

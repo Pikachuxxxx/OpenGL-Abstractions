@@ -19,7 +19,22 @@ Camera3D::Camera3D(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloa
     this->updateCameraVectors();
 }
 
-// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
+void Camera3D::Update(Window& window)
+{
+    if (window.isKeyHeld(GLFW_KEY_W) || window.isKeyHeld(GLFW_KEY_UP))
+        ProcessKeyboard(FORWARD, window.deltaTime);
+    else if (window.isKeyHeld(GLFW_KEY_S) || window.isKeyHeld(GLFW_KEY_DOWN))
+        ProcessKeyboard(BACKWARD, window.deltaTime);
+    if (window.isKeyHeld(GLFW_KEY_D) || window.isKeyHeld(GLFW_KEY_RIGHT))
+        ProcessKeyboard(RIGHT, window.deltaTime);
+    else if (window.isKeyHeld(GLFW_KEY_A) || window.isKeyHeld(GLFW_KEY_LEFT))
+        ProcessKeyboard(LEFT, window.deltaTime);
+
+    if (window.isKeyHeld(GLFW_MOUSE_BUTTON_RIGHT))
+        ProcessMouseMovement(window.deltaMouseX, window.deltaMouseY);
+}
+
+// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 glm::mat4 Camera3D::GetViewMatrix()
 {
     return glm::lookAt(this->Position, this->Position + this->Front, this->Up);
