@@ -30,8 +30,12 @@ void Camera3D::Update(Window& window)
     else if (window.isKeyHeld(GLFW_KEY_A) || window.isKeyHeld(GLFW_KEY_LEFT))
         ProcessKeyboard(LEFT, window.deltaTime);
 
-    if (window.isKeyHeld(GLFW_MOUSE_BUTTON_RIGHT))
+    if (window.isMouseButtonHeld(GLFW_MOUSE_BUTTON_RIGHT))
+    {
         ProcessMouseMovement(window.deltaMouseX, window.deltaMouseY);
+        window.deltaMouseX = 0.0f;
+        window.deltaMouseY = 0.0f;
+    }
 }
 
 // Returns the view matrix calculated using Euler Angles and the LookAt Matrix
