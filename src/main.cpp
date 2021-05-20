@@ -6,7 +6,7 @@
 
 int main()
 {
-    Window window("Verlet Cloth", 800, 600);
+    Window window("OpenGL Sandbox", 800, 600);
     window.backgroundColor = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
 
     Camera3D cam;
@@ -25,7 +25,7 @@ int main()
     VertexBufferLayout sphere_layout;
     sphere_layout.Push<float>(3);
     sphere_VAO.AddBuffer(sphere_VBO, sphere_layout);
-    Transform sphere_Transform(glm::vec3(2.0f, 0, 0), glm::vec3(0.0f, 90.0f, 0));
+    Transform sphere_Transform(glm::vec3(0.0f, 0, 0), glm::vec3(0.0f, 0.0f, 0), glm::vec3(0.3f));
 
     Texture2D someTex("./src/Textureres/checker_map.png");
 
@@ -38,7 +38,6 @@ int main()
         window.clear();
         cam.Update(window);
         glm::mat4 view_cam = cam.GetViewMatrix();
-        sphere_Transform.rotation = glm::vec3(90.0f, 0.0f, 360.f * sin(glfwGetTime()));
         renderer.set_VP(view_cam, projection, meshShader);
 
         renderer.draw_raw_indices_with_textures(sphere_Transform, meshShader, someTex, sphere_VAO, sphere_IBO);

@@ -165,8 +165,9 @@ public:
         shader.Use();
 
         CALCULATE_MODEL_MATRIX();
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(m_ModelMatrix));
 
-        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         model.Draw(shader);
     }
