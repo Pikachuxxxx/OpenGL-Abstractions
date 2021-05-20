@@ -1,4 +1,4 @@
-#include "window.h"
+#include "Window.h"
 
 Window::Window(const char *title, int width, int height) : backgroundColor(glm::vec4(0, 0, 0, 1))
 {

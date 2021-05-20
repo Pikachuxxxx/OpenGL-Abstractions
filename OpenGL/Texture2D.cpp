@@ -1,6 +1,7 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include "Texture2D.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 Texture2D::Texture2D(const char* path)
     : m_FilePath(path)

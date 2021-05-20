@@ -4,8 +4,6 @@
 #include <string>
 // GLAD
 #include <glad/glad.h>
-// SOIL - Simple openGL Image Loading Library
-#include <stb_image.h>
 
 class Texture2D
 {

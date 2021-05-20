@@ -1,5 +1,7 @@
 #include "CubeMap.h"
 
+// #define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
 CubeMap::CubeMap(std::vector<const char*> cubemapTextures)
     : m_CubemapTextures(cubemapTextures)
@@ -15,11 +17,11 @@ GLuint CubeMap::loadTexture()
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 
-    int width, height;
+    int width, height, bpp;
     unsigned char* image;
     for (int tex = 0; tex < m_CubemapTextures.size(); tex++)
     {
-        image = stbi_load(m_CubemapTextures[tex], &width, &height, 0, SOIL_LOAD_RGB);
+        image = stbi_load(m_CubemapTextures[tex], &width, &height, &bpp, 0);
         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + tex, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     }
 

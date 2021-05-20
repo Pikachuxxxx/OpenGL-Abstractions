@@ -5,8 +5,6 @@
 #include <vector>
 // GLAD
 #include <glad/glad.h>
-// SOIL - Simple openGL Image Loading Library
-#include <SOIL/SOIL.h>
 
 class CubeMap
 {

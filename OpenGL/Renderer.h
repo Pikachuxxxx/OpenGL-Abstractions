@@ -24,13 +24,13 @@
 #include "Camera3D.h"
 #include "FrameBuffer.h"
 #include "IndexBuffer.h"
-//#include "Model.h"
+#include "Model.h"
 #include "RenderBuffer.h"
 #include "Shader.h"
 #include "Texture2D.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
-//#include "CubeMap.h"
+#include "CubeMap.h"
 
 //==============================================================================
 //Experimental Includes
@@ -91,37 +91,6 @@ public:
         glfwTerminate();
     }
 
-    GLFWwindow* Init(int Width, int Height)
-    {
-        if(!glfwInit())
-        return nullptr;
-
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-        GLFWwindow* window;
-        window = glfwCreateWindow(Width, Height, "OpenGL Window", NULL, NULL);
-        if(!window){
-            std::cerr << "Could Not initialise Window" << '\n';
-            glfwTerminate();
-            return nullptr;
-        }
-        glfwMakeContextCurrent(window);
-        glfwSwapInterval(1); // Enable V-Sync
-
-        glewExperimental = GL_TRUE;
-        if(glewInit() != GLEW_OK){
-            std::cerr << "Could Not initialise GLEW" << '\n';
-            return nullptr;
-        }
-
-        glViewport(0, 0, Width, Height);
-
-        return window;
-    }
-
     void Clear()
     {
         glfwPollEvents();
@@ -161,33 +130,37 @@ public:
         shader.Use();
 
         CALCULATE_MODEL_MATRIX();
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(m_ModelMatrix));
 
-        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         va.Bind();
         ib.Bind();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0);
         va.Unbind();
         ib.Unbind();
     }
 
-    void draw_raw_indices_with_textures(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, IndexBuffer& ib, int iCount)
+    void draw_raw_indices_with_textures(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, IndexBuffer& ib)
     {
         shader.Use();
 
         CALCULATE_MODEL_MATRIX();
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(m_ModelMatrix));
 
-        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         texture.Bind();
         va.Bind();
         ib.Bind();
-        glDrawElements(GL_TRIANGLES, iCount, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0);
         va.Unbind();
         ib.Unbind();
     }
 
-  /*  void draw_model(Transform& transform, Shader& shader, Model& model)
+    void draw_model(Transform& transform, Shader& shader, Model& model)
     {
         shader.Use();
 
@@ -196,7 +169,7 @@ public:
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         model.Draw(shader);
-    }*/
+    }
 
     void stream_vertices(std::vector<glm::vec3>& v_data, VertexBuffer& vb)
     {
@@ -234,7 +207,7 @@ public:
 
         CALCULATE_MODEL_MATRIX();
 
-        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
     }
 
     void set_uniforms(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Shader& shader)
@@ -257,6 +230,14 @@ public:
         glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view));
         glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projection));
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    }
+
+    void set_VP(glm::mat4& view, glm::mat4 projection, Shader& shader)
+    {
+        shader.Use();
+
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_View"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Projection"), 1, GL_FALSE, glm::value_ptr(projection));
     }
 
     void enable_FX(Shader& shader, PostProcessing effect)
