@@ -2,9 +2,8 @@
 
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
-// GLEW
-#define GLEW_STATIC
-#include <GL/glew.h>
+// GLAD
+#include <glad/glad.h>
 
 class VertexArray
 {

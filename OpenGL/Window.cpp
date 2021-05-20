@@ -57,11 +57,8 @@ bool Window::init()
     glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
     glfwSetCursorPosCallback(m_Window, mouse_position_callback);
 
-    glewExperimental = GL_TRUE; // To use modern OpenGL features
-    if(glewInit() != GLEW_OK){
-        std::cerr << "ERROR::GLEW::Could Not initialise GLEW" << '\n';
-        return false;
-    }
+    // initialise GLAD using glfw
+    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
     glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);

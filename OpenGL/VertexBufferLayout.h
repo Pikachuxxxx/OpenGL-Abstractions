@@ -1,9 +1,8 @@
 #pragma once
 
 #include <vector>
-// GLEW
-#define GLEW_STATIC
-#include <GL/glew.h>
+// GLAD
+#include <glad/glad.h>
 
 struct VertexBufferLayoutElement
 {

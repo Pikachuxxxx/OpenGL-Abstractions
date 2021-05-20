@@ -4,7 +4,6 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <SOIL/SOIL.h>
 
 #include "Shader.h"
 #include "VertexBuffer.h"

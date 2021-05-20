@@ -2,9 +2,8 @@
 
 #include <iostream>
 #include <cmath>
-// GLEW
-#define GLEW_STATIC
-#include <GL/glew.h>
+// GLAD
+#include <glad/glad.h>
 // GLFW
 #include <GLFW/glfw3.h>
 // GLM

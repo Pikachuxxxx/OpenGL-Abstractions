@@ -2,8 +2,8 @@
 #include <iostream>
 #include <map>
 #include <string>
-// GLEW
-#include <GL/glew.h>
+// GLAD
+#include <glad/glad.h>
 // FreeType
 #include <ft2build.h>
 #include FT_FREETYPE_H

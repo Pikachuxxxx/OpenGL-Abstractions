@@ -2,10 +2,8 @@
 
 // STD. includes
 #include <iostream>
-// GLEW
-#define GL_SILENCE_DEPRECATION
-#define GLEW_STATIC
-#include <GL/glew.h>
+// GLAD
+#include <glad/glad.h>
 // GLFW
 #include <GLFW/glfw3.h>
 // GLM
