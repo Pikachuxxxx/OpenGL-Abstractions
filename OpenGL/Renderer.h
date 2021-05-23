@@ -13,14 +13,15 @@
 #include <glm/gtx/string_cast.hpp>
 
 #ifdef IMPL_IMGUI
-// ImGui
-#include "../imgui-docking/imgui.h"
-#include "../imgui-docking/imgui_internal.h"
-#include "../imgui-docking/imgui_impl_glfw.h"
-#include "../imgui-docking/imgui_impl_opengl3.h"
+    // ImGui
+    #include "imgui.h"
+    #include "imgui_internal.h"
+    #include "backends/imgui_impl_glfw.h"
+    #include "backends/imgui_impl_opengl3.h"
 #endif
 
 // Abstractions
+#include "glassert.h"
 #include "Camera3D.h"
 #include "FrameBuffer.h"
 #include "IndexBuffer.h"
@@ -67,23 +68,22 @@ class Renderer
 public:
     glm::vec4   backgroundColor;
     glm::vec3   viewPos;
-    glm::mat4&  m_View;
-    glm::mat4&  m_Projection;
 private:
     glm::mat4   m_ModelMatrix;
+    glm::mat4   m_View;
+    glm::mat4   m_Projection;
     GLuint      m_UniformBuffer;
 public:
-    Renderer(glm::mat4& view, glm::mat4& projection)
-        : m_View(view), m_Projection(projection)
+    Renderer()
     {
         m_ModelMatrix = glm::mat4(1.0f);
 
-        glGenBuffers(1, &m_UniformBuffer);
-        glBindBuffer(GL_UNIFORM_BUFFER, m_UniformBuffer);
-        glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_DYNAMIC_DRAW);
-        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        GL_CALL(glGenBuffers(1, &m_UniformBuffer));
+        GL_CALL(glBindBuffer(GL_UNIFORM_BUFFER, m_UniformBuffer));
+        GL_CALL(glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW));
+        GL_CALL(glBindBuffer(GL_UNIFORM_BUFFER, 0));
         // now bind this buffer to the block index
-        glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_UniformBuffer, 0, 2 * sizeof(glm::mat4));
+        GL_CALL(glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_UniformBuffer, 0, 2 * sizeof(glm::mat4)));
     }
 
     ~Renderer()
@@ -94,8 +94,8 @@ public:
     void Clear()
     {
         glfwPollEvents();
-        glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
-        glClear(GL_COLOR_BUFFER_BIT);
+        GL_CALL(glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w));
+        GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
     }
 
     void draw_raw_arrays_with_textures(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, int verticesCount)
@@ -108,7 +108,7 @@ public:
 
         texture.Bind();
         va.Bind();
-        glDrawArrays(GL_POINTS, 0, verticesCount);
+        GL_CALL(glDrawArrays(GL_POINTS, 0, verticesCount));
         va.Unbind();
     }
 
@@ -121,7 +121,7 @@ public:
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         va.Bind();
-        glDrawArrays(GL_POINTS, 0, verticesCount);
+        GL_CALL(glDrawArrays(GL_POINTS, 0, verticesCount));
         va.Unbind();
     }
 
@@ -130,14 +130,13 @@ public:
         shader.Use();
 
         CALCULATE_MODEL_MATRIX();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(m_ModelMatrix));
 
-        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         va.Bind();
         ib.Bind();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0);
+        GL_CALL(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
+        GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0));
         va.Unbind();
         ib.Unbind();
     }
@@ -147,15 +146,14 @@ public:
         shader.Use();
 
         CALCULATE_MODEL_MATRIX();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(m_ModelMatrix));
 
-        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         texture.Bind();
         va.Bind();
         ib.Bind();
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0);
+        GL_CALL(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
+        GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0));
         va.Unbind();
         ib.Unbind();
     }
@@ -165,9 +163,8 @@ public:
         shader.Use();
 
         CALCULATE_MODEL_MATRIX();
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(m_ModelMatrix));
 
-        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         model.Draw(shader);
     }
@@ -183,7 +180,7 @@ public:
         }
         // memset(buffer, 0, sizeof(v_data));
         memcpy(buffer, &(v_data)[0], v_data.size() * 3 * sizeof(float));
-        glUnmapBuffer(GL_ARRAY_BUFFER);
+        GL_CALL(glUnmapBuffer(GL_ARRAY_BUFFER));
         vb.Unbind();
     }
 
@@ -198,7 +195,7 @@ public:
         }
         // memset(buffer, 0, 60000);// This should be for the entirety of the index buffer because we don't want old data
         memcpy(buffer, &(i_data)[0], i_data.size() * sizeof(unsigned int));
-        glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
+        GL_CALL(glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER));
         ib.Unbind();
     }
 
@@ -208,37 +205,37 @@ public:
 
         CALCULATE_MODEL_MATRIX();
 
-        // set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
     }
 
     void set_uniforms(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Shader& shader)
     {
         shader.Use();
 
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_View"), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(model)));
+        GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_View"), 1, GL_FALSE, glm::value_ptr(view)));
+        GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Projection"), 1, GL_FALSE, glm::value_ptr(projection)));
 
-        glBindBuffer(GL_UNIFORM_BUFFER, m_UniformBuffer);
-        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view));
-        glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projection));
-        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        GL_CALL(glBindBuffer(GL_UNIFORM_BUFFER, m_UniformBuffer));
+        GL_CALL(glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view)));
+        GL_CALL(glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projection)));
+        GL_CALL(glBindBuffer(GL_UNIFORM_BUFFER, 0));
     }
 
-    void set_VP_uniform_buffers(glm::mat4& view, glm::mat4 projection)
+    void set_VP_uniform_buffers(const glm::mat4& view, const glm::mat4& projection)
     {
-        glBindBuffer(GL_UNIFORM_BUFFER, m_UniformBuffer);
-        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view));
-        glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projection));
-        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        GL_CALL(glBindBuffer(GL_UNIFORM_BUFFER, m_UniformBuffer));
+        GL_CALL(glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view)));
+        GL_CALL(glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projection)));
+        GL_CALL(glBindBuffer(GL_UNIFORM_BUFFER, 0));
     }
 
     void set_VP(glm::mat4& view, glm::mat4 projection, Shader& shader)
     {
         shader.Use();
 
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_View"), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_View"), 1, GL_FALSE, glm::value_ptr(view)));
+        GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Projection"), 1, GL_FALSE, glm::value_ptr(projection)));
     }
 
     void enable_FX(Shader& shader, PostProcessing effect)
@@ -257,4 +254,7 @@ public:
         if(effect == PostProcessing::GrayScale)
             glUniform1i(glGetUniformLocation(shader.Program, "u_PP_EnableGrayScale"), 0);
     }
+
+    inline void SetViewMatrix(const glm::mat4& view) { m_View = view; }
+    inline void SetProjectionMatrix(const glm::mat4& proj) {m_Projection = proj; }
 };

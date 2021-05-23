@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include <Renderer.h>
-#include "sphere.h"
+#include "utils/sphere.h"
 
 int main()
 {
@@ -13,7 +13,8 @@ int main()
     glm::mat4 view = glm::mat4(1.0f);//cam.GetViewMatrix();
     glm::mat4 projection = glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f);
 
-    Renderer renderer(view, projection);
+    Renderer renderer;
+    renderer.SetProjectionMatrix(projection);
     GenerateSphereSmooth(10, 14, 14);
 
     VertexArray sphere_VAO;
@@ -27,21 +28,23 @@ int main()
     sphere_VAO.AddBuffer(sphere_VBO, sphere_layout);
     Transform sphere_Transform(glm::vec3(0.0f, 0, 0), glm::vec3(0.0f, 0.0f, 0), glm::vec3(0.3f));
 
-    Texture2D someTex("./src/Textureres/checker_map.png");
+    Texture2D someTex("./src/Textures/checker_map.png");
 
     Shader meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag");
 
-    Model model("./src/models/Man.obj");
+    Model sodacanModel("./src/models/sodacan/14025_Soda_Can_v3_l3.obj");
 
     while(!window.closed())
     {
         window.clear();
         cam.Update(window);
-        glm::mat4 view_cam = cam.GetViewMatrix();
-        renderer.set_VP(view_cam, projection, meshShader);
+        renderer.SetViewMatrix(cam.GetViewMatrix());
+        renderer.SetProjectionMatrix(projection);
 
+        // someTex.Bind();
         renderer.draw_raw_indices_with_textures(sphere_Transform, meshShader, someTex, sphere_VAO, sphere_IBO);
-        renderer.draw_model(sphere_Transform, meshShader, model);
+        renderer.draw_model(sphere_Transform, meshShader, sodacanModel);
+        // sodacanModel.Draw(meshShader);
         window.update();
     }
     return EXIT_SUCCESS;

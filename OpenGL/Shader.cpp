@@ -108,6 +108,9 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
     glDeleteShader(fragment);
     glDeleteShader(geometry);
 
+    // Bind the shader to uniform buffer block index = 0
+    unsigned int viewProjectionBindingIndex = glGetUniformBlockIndex(this->Program, "VPMatrices");
+   glUniformBlockBinding(this->Program, viewProjectionBindingIndex, 0);
 }
 
 // Uses the current shader
