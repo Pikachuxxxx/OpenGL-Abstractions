@@ -1,6 +1,7 @@
 #pragma once
 
 // OpenGL Renderer
+#define IMPL_IMGUI
 #include <Renderer.h>
 // Project Includes
 #include "utils/sphere.h"
@@ -8,19 +9,59 @@
 class Sandbox
 {
 public:
-    Sandbox(const char* windowTitle, const int& widht, const int& height) : gameWindow(windowTitle, width, height), renderer(glm::mat4(1.0f), )
+    Sandbox(const char* windowTitle = "OpenGL SandBox", const int& width = 800, const int& height = 600) : window(windowTitle, width, height)
     {
+        window.backgroundColor = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
 
+        // Init the renderer
+        glm::mat4 projection = glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f);
+        renderer.SetProjectionMatrix(projection);
     }
-    ~Sandbox() = default;
+    ~Sandbox() {}
 
     void Run()
     {
+        // ImGui Setup code
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        // io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+        // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+        // Setup Platform/Renderer bindings
+        ImGui_ImplGlfw_InitForOpenGL(window.getGLFWwindow(), true);
+        const char* glsl_version = "#version 410";
+        ImGui_ImplOpenGL3_Init(glsl_version);
+        //==============================================================================
         OnStart();
+        //==============================================================================
+        while(!window.closed())
+        {
+            window.clear();
+            camera.Update(window);
+            renderer.SetViewMatrix(camera.GetViewMatrix());
+            //==============================================================================
+            OnUpdate();
+            //==============================================================================
+            OnRender();
+            //==============================================================================
+            // ImGui Loop
+            // Start the Dear ImGui frame
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+            //==============================================================================
+            OnImGuiRender();
+            //==============================================================================
+            ImGui::Render();
+            // ImGui::UpdatePlatformWindows();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+            //==============================================================================
+            window.update();
+        }
 
     }
 protected:
-    Window gameWindow;
+    Window window;
     Camera3D camera;
     Renderer renderer;
 protected:

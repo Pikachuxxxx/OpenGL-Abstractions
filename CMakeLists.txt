@@ -19,7 +19,7 @@ include_directories(
     "${CMAKE_SOURCE_DIR}/vendor/GLM"
     "${CMAKE_SOURCE_DIR}/vendor/STB"
     "${CMAKE_SOURCE_DIR}/OpenGL"
-    # "${CMAKE_SOURCE_DIR}/vendor/imgui"
+    "${CMAKE_SOURCE_DIR}/vendor/imgui"
 )
 
 link_directories(
@@ -40,13 +40,13 @@ file(GLOB_RECURSE OpenGL_HEADER_FILES
 )
 
 file(GLOB VENDOR_SRC_FILES
-    # ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_glfw.cpp
-    # ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_opengl3.cpp
-    # ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
-    # ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
-    # ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
-    # ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
-    # ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_glfw.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_opengl3.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui.cpp
     ${CMAKE_SOURCE_DIR}/vendor/GLAD/src/glad.c
 )
 

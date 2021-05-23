@@ -12,13 +12,13 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
 
-#ifdef IMPL_IMGUI
+// #ifdef IMPL_IMGUI
     // ImGui
-    #include "imgui.h"
-    #include "imgui_internal.h"
-    #include "backends/imgui_impl_glfw.h"
-    #include "backends/imgui_impl_opengl3.h"
-#endif
+    #include <imgui.h>
+    #include <imgui_internal.h>
+    #include <backends/imgui_impl_glfw.h>
+    #include <backends/imgui_impl_opengl3.h>
+// #endif
 
 // Abstractions
 #include "glassert.h"
