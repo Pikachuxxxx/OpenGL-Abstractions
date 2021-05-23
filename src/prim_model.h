@@ -9,7 +9,7 @@ public:
     Model sodacanModel;
     Transform sphere_Transform;
 
-    PrimModel() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), sphere_Transform(glm::vec3(0.0f, 0, 0), glm::vec3(0.0f, 0.0f, 0), glm::vec3(0.3f)), sodacanModel("./src/models/sodacan/14025_Soda_Can_v3_l3.obj") {}
+    PrimModel() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), sphere_Transform(glm::vec3(0.0f, 0, -2), glm::vec3(0.0f, 0.0f, 0), glm::vec3(0.3f)), sodacanModel("./src/models/sodacan/14025_Soda_Can_v3_l3.obj") {}
     ~PrimModel() {}
 
     void OnStart() override
