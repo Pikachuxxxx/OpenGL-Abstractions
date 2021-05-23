@@ -3,8 +3,6 @@
 // OpenGL Renderer
 #define IMPL_IMGUI
 #include <Renderer.h>
-// Project Includes
-#include "utils/sphere.h"
 
 class Sandbox
 {
@@ -17,6 +15,7 @@ public:
         glm::mat4 projection = glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f);
         renderer.SetProjectionMatrix(projection);
     }
+
     ~Sandbox() {}
 
     void Run()
