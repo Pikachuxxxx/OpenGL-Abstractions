@@ -43,7 +43,6 @@ public:
 
     void OnRender() override
     {
-        glActiveTexture(GL_TEXTURE0); // activate texture unit first
         renderer.draw_raw_arrays_with_textures(origin, meshShader, checkerTex, cubevao, 36);
         // renderer.draw_model(sphere_Transform, meshShader, sodacanModel);
         // renderer.draw_model(sphere_Transform, meshShader, stormtrooper);

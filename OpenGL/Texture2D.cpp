@@ -14,9 +14,23 @@ Texture2D::~Texture2D() {}
 GLuint Texture2D::loadTexture()
 {
     unsigned char* image = stbi_load(m_FilePath, &m_Width, &m_Height, &m_BPP, 0);
+    std::cout << "Image details : " << std::endl;
+    std::cout << "\tFile path : " << m_FilePath << std::endl;
+    std::cout << "\tDimensions : (" << m_Width << ", " << m_Height << ")" << std::endl;
+    std::cout << "\tBits per pixel : " << m_BPP << std::endl;
 
     if (!image)
         std::cout << "Failed to load texture" << std::endl;
+
+    GLint imageFormat;
+    switch (m_BPP) {
+        case 3:
+            imageFormat = GL_RGB;
+            break;
+        case 4:
+            imageFormat = GL_RGBA;
+            break;
+    }
 
     GLuint texture;
     glEnable(GL_TEXTURE_2D);
@@ -26,7 +40,7 @@ GLuint Texture2D::loadTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, m_Width, m_Height, 0, imageFormat, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, 0);
 
