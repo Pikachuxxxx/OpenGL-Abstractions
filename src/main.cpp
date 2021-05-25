@@ -1,12 +1,12 @@
 // Std. Includes
 #include <iostream>
 
-#include "ExampleScene.h"
+#include "prim_model.h"
 
 int main()
 {
-    ExampleScene exampleScene;
-    exampleScene.Run();
+    PrimModel scene;
+    scene.Run();
 
     return EXIT_SUCCESS;
 }

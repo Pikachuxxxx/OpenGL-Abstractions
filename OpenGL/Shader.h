@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <unordered_map>
 
 // GLAD
 #include <glad/glad.h>
@@ -22,7 +23,17 @@ public:
     // Uses the current shader
     void Use();
 
-    void SetUniform4f(const char* name, glm::vec4 value);
+    void setUniform1f(const GLchar* name, float value);
+    void setUniform1fv(const GLchar* name, float* value, GLsizei count);
+    void setUniform1i(const GLchar* name, int value);
+    void setUniform1iv(const GLchar* name, int* value, GLsizei count);
+    void setUniform2f(const GLchar* name, const glm::vec2& vector);
+    void setUniform3f(const GLchar* name, const glm::vec3& vector);
+    void setUniform4f(const GLchar* name, const glm::vec4& vector);
+    void SetUniformMat4f(const char* name, const glm::mat4& value);
+private:
+    std::unordered_map<std::string, GLint> m_ShaderLocationCache;
+    GLint getUniformLocation(const std::string& name);
 };
 
 #endif

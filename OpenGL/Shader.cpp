@@ -113,15 +113,59 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
    glUniformBlockBinding(this->Program, viewProjectionBindingIndex, 0);
 }
 
+GLint Shader::getUniformLocation(const std::string& name)
+{
+    Use();
+    if(m_ShaderLocationCache.find(name) != m_ShaderLocationCache.end())
+        return m_ShaderLocationCache[name];
+
+    GLint location = glGetUniformLocation(Program, name.c_str());
+    m_ShaderLocationCache[name] = location;
+    return location;
+}
+
 // Uses the current shader
 void Shader::Use()
 {
     glUseProgram(this->Program);
 }
 
-void Shader::SetUniform4f(const char* name, glm::vec4 value)
+void Shader::setUniform1f(const GLchar* name, float value)
 {
-    Use();
-    GLuint location = glGetUniformLocation(Program, name);
-    glUniform4f(location, value.x, value.y, value.z, value.w);
+    glUniform1f(getUniformLocation(name), value);
+}
+
+void Shader::setUniform1fv(const GLchar* name, float* value, GLsizei count)
+{
+    glUniform1fv(getUniformLocation(name), count, value);
+}
+
+void Shader::setUniform1i(const GLchar* name, int value)
+{
+    glUniform1i(getUniformLocation(name), value);
+}
+
+void Shader::setUniform1iv(const GLchar* name, int* value, GLsizei count)
+{
+    glUniform1iv(getUniformLocation(name), count, value);
+}
+
+void Shader::setUniform2f(const GLchar* name, const glm::vec2& vector)
+{
+    glUniform2f(getUniformLocation(name), vector.x, vector.y);
+}
+
+void Shader::setUniform3f(const GLchar* name, const glm::vec3& vector)
+{
+    glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
+}
+
+void Shader::setUniform4f(const GLchar* name, const glm::vec4& vector)
+{
+    glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
+}
+
+void Shader::SetUniformMat4f(const char* name, const glm::mat4& value)
+{
+    glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 }
