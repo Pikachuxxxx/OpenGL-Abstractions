@@ -16,13 +16,14 @@ in VS_OUT {
 out vec4 color;
 
 uniform sampler2D texture_diffuse1;
-uniform sampler2D texture_diffuse2;
-uniform sampler2D texture_diffuse3;
-uniform sampler2D texture_specular1;
-uniform sampler2D texture_specular2;
+// uniform sampler2D texture_diffuse2;
+// uniform sampler2D texture_diffuse3;
+// uniform sampler2D texture_specular1;
+// uniform sampler2D texture_specular2;
 
 void main()
 {
-    color = texture(texture_diffuse1, vs_in.texCoords);
     // color = vec4(1, 0, 1, 1);
+    color = vec4(vs_in.texCoords, 0.0f, 1.0f);
+    color = texture(texture_diffuse1, vs_in.texCoords);
 }

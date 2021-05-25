@@ -108,7 +108,7 @@ public:
 
         texture.Bind();
         va.Bind();
-        GL_CALL(glDrawArrays(GL_POINTS, 0, verticesCount));
+        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
         va.Unbind();
     }
 
@@ -121,7 +121,7 @@ public:
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         va.Bind();
-        GL_CALL(glDrawArrays(GL_POINTS, 0, verticesCount));
+        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
         va.Unbind();
     }
 
