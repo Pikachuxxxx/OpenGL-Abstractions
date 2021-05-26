@@ -19,7 +19,9 @@ include_directories(
     "${CMAKE_SOURCE_DIR}/vendor/GLM"
     "${CMAKE_SOURCE_DIR}/vendor/STB"
     "${CMAKE_SOURCE_DIR}/OpenGL"
-    "${CMAKE_SOURCE_DIR}/vendor/imgui"
+    "${CMAKE_SOURCE_DIR}/vendor/ImGui"
+    "${CMAKE_SOURCE_DIR}/vendor/ImGuizmo"
+    "${CMAKE_SOURCE_DIR}/src"
 )
 
 link_directories(
@@ -40,13 +42,17 @@ file(GLOB_RECURSE OpenGL_HEADER_FILES
 )
 
 file(GLOB VENDOR_SRC_FILES
-    ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_glfw.cpp
-    ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_opengl3.cpp
-    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
-    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
-    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
-    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
-    ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGui/backends/imgui_impl_glfw.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGui/backends/imgui_impl_opengl3.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGui/imgui_demo.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGui/imgui_draw.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGui/imgui_tables.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGui/imgui_widgets.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGui/imgui.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGuizmo/ImCurveEdit.
+    ${CMAKE_SOURCE_DIR}/vendor/ImGuizmo/ImGradient.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGuizmo/ImGuizmo.cpp
+    ${CMAKE_SOURCE_DIR}/vendor/ImGuizmo/ImSequencer.cpp
     ${CMAKE_SOURCE_DIR}/vendor/GLAD/src/glad.c
 )
 

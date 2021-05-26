@@ -48,6 +48,10 @@ public:
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
+            // ImGuizmo Initializaiton
+            ImGuizmo::BeginFrame();
+            ImGuiIO& io = ImGui::GetIO();
+        	ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
             //==============================================================================
             OnImGuiRender();
             //==============================================================================

@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "prim_model.h"
+#include "Lighting/Materials.h"
 
 int main()
 {
-    PrimModel scene;
+    Materials scene;
     scene.Run();
 
     return EXIT_SUCCESS;

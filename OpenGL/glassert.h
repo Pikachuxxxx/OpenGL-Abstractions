@@ -13,10 +13,11 @@
     #define ASSERT(x) if (!(x)) {} // For other platforms we don't trigger any debug functions we just record the assertion failure and report it
 #endif
 /// Check the OpenGL functions for any errors and reports them
-#define GL_CALL(x)   GLClearError();\
-                    (x);\
-                    ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+// #define GL_CALL(x)   GLClearError();\
+//                     (x);\
+//                     ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
+#define GL_CALL(x) (x);
 /// Checks for any OpenGL errors
 static void GLClearError()
 {

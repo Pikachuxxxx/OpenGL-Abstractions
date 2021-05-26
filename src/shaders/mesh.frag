@@ -15,15 +15,18 @@ in VS_OUT {
 
 out vec4 color;
 
+uniform vec3 lightColor;
 uniform sampler2D texture_diffuse1;
-// uniform sampler2D texture_diffuse2;
-// uniform sampler2D texture_diffuse3;
-// uniform sampler2D texture_specular1;
-// uniform sampler2D texture_specular2;
+uniform sampler2D texture_diffuse2;
+uniform sampler2D texture_diffuse3;
+uniform sampler2D texture_specular1;
+uniform sampler2D texture_specular2;
 
 void main()
 {
-    // color = vec4(1, 0, 1, 1);
-    color = vec4(vs_in.texCoords, 0.0f, 1.0f);
-    color = texture(texture_diffuse1, vs_in.texCoords);
+    // color = vec4(1, 0, 1, 1); // Testing if anythign being rendered
+    // color = vec4(vs_in.texCoords, 0.0f, 1.0f); // Testing UV Coordinates
+    // color = vec4(vs_in.normal, 1.0f); // Testing Normal cooridinates
+    // color = texture(texture_diffuse1, vs_in.texCoords);
+    color = vec4(lightColor, 1.0f);
 }
