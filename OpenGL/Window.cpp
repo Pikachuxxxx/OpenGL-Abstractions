@@ -142,11 +142,11 @@ void Window::clear() const
 
 void Window::update() const
 {
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cout << "ERROR::OpenGL::" << error << std::endl;
-    }
+    // GLenum error = glGetError();
+    // if (error != GL_NO_ERROR)
+    // {
+    //     std::cout << "ERROR::OpenGL::" << error << std::endl;
+    // }
 
     double currentTime = glfwGetTime(); deltaTime = currentTime - m_LastTime; m_LastTime = currentTime;
 

@@ -55,35 +55,53 @@
 //                                         m_ModelMatrix       = glm::scale(m_ModelMatrix, transform.scale);
 struct Transform
 {
-    glm::vec3   position;
-    glm::vec3   rotation;
-    glm::vec3   scale;
+    glm::vec3   position = glm::vec3(0.0f);
+    glm::vec3   rotation = glm::vec3(0.0f);
+    glm::vec3   scale = glm::vec3(1.0f);
+    glm::mat4   transformMatrix = glm::mat4(1.0f);
 
     Transform(glm::vec3 pos = glm::vec3(0, 0, 0), glm::vec3 rot = glm::vec3(0, 0, 0), glm::vec3 scale = glm::vec3(1, 1, 1))
         : position(pos), rotation(rot), scale(scale)
     {
-    }
-
-    Transform AttachGuizmo(ImGuizmo::OPERATION operation, const glm::mat4& view, const glm::mat4& projection)
-    {
-        static glm::mat4 transformMatrix = glm::mat4(1.0f);
-        transformMatrix = glm::mat4(1.0f);
         transformMatrix = glm::translate(transformMatrix, position);
         transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.x), glm::vec3(1, 0, 0));
         transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.y), glm::vec3(0, 1, 0));
         transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.z), glm::vec3(0, 0, 1));
         transformMatrix = glm::scale(transformMatrix, scale);
+    }
 
-        ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), operation, ImGuizmo::MODE::WORLD, &transformMatrix[0][0]);
+    Transform AttachGuizmo(ImGuizmo::OPERATION operation, const glm::mat4& view, const glm::mat4& projection)
+    {
+        // static glm::mat4 transformMatrix = glm::mat4(1.0f);
+        // transformMatrix = glm::mat4(1.0f);
+        // transformMatrix = glm::translate(transformMatrix, position);
+        // transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.x), glm::vec3(1, 0, 0));
+        // transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.y), glm::vec3(0, 1, 0));
+        // transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.z), glm::vec3(0, 0, 1));
+        // transformMatrix = glm::scale(transformMatrix, scale);
+
+        // Transform transform(position, rotation, scale);
+        ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), operation, ImGuizmo::MODE::WORLD, &(this->transformMatrix[0][0]));
         float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-        ImGuizmo::DecomposeMatrixToComponents(&transformMatrix[0][0], matrixTranslation, matrixRotation, matrixScale);
-        return Transform(   glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]),
-                            glm::vec3(matrixRotation[0], matrixRotation[1], matrixRotation[2]),
-                            glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]));
+        ImGuizmo::DecomposeMatrixToComponents(&(this->transformMatrix[0][0]), matrixTranslation, matrixRotation, matrixScale);
+        this->position = glm::vec3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]);
+        this->rotation = glm::vec3(matrixRotation[0], matrixRotation[1], matrixRotation[2]);
+        this->scale = glm::vec3(matrixScale[0], matrixScale[1], matrixScale[2]);
+        // this->transformMatrix = transformMatrix;
+        return *this;
+    }
+
+    friend std::ostream& operator<<(std::ostream& stream, const Transform& transform)
+    {
+        stream << "Transform\n" << "|\n|---> Position : [" << transform.position.x << ", " << transform.position.z << ", " << transform.position.x << "]\n" <<
+        "|\n|---> Rotation : [" << transform.rotation.x << ", " << transform.rotation.y << ", " << transform.rotation.z << "]\n" <<
+        "|\n|---> Scale : [" << transform.scale.x << ", " << transform.scale.y << ", " << transform.scale.z << "]" << std::endl;
+
+        return stream;
     }
 };
 
-#define ATTACH_GUIZMO() AttachGuizmo(ImGuizmo::OPERATION::TRANSLATE, renderer.GetViewMatrix(), renderer.GetProjectionMatrix());
+#define ATTACH_GUIZMO(x, operation) x = x.AttachGuizmo(operation, renderer.GetViewMatrix(), renderer.GetProjectionMatrix());
 
 enum PostProcessing
 {
@@ -126,20 +144,6 @@ public:
         GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
     }
 
-    void draw_raw_arrays_with_textures(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, int verticesCount)
-    {
-        shader.Use();
-
-        CALCULATE_MODEL_MATRIX();
-
-        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
-
-        texture.Bind();
-        va.Bind();
-        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
-        va.Unbind();
-    }
-
     void draw_raw_arrays(Transform& transform, Shader& shader, VertexArray& va, int verticesCount)
     {
         shader.Use();
@@ -150,7 +154,33 @@ public:
 
         va.Bind();
         GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
-        va.Unbind();
+    }
+
+    void draw_raw_arrays_with_texture(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, int verticesCount)
+    {
+        shader.Use();
+
+        CALCULATE_MODEL_MATRIX();
+
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+
+        texture.Bind();
+        va.Bind();
+        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
+    }
+
+    void draw_raw_arrays_with_textures(Transform& transform, Shader& shader, std::vector<Texture2D>& textures, VertexArray& va, int verticesCount)
+    {
+        shader.Use();
+
+        CALCULATE_MODEL_MATRIX();
+
+        set_uniforms(transform.transformMatrix, m_View, m_Projection, shader);
+
+        for (size_t i = 0; i < textures.size(); i++)
+            textures[i].Bind();
+        va.Bind();
+        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
     }
 
     void draw_raw_indices(Transform& transform, Shader& shader, VertexArray& va, IndexBuffer& ib)
@@ -165,8 +195,6 @@ public:
         ib.Bind();
         GL_CALL(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
         GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0));
-        va.Unbind();
-        ib.Unbind();
     }
 
     void draw_raw_indices_with_textures(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, IndexBuffer& ib)
@@ -182,8 +210,6 @@ public:
         ib.Bind();
         GL_CALL(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
         GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0));
-        va.Unbind();
-        ib.Unbind();
     }
 
     void draw_model(Transform& transform, Shader& shader, Model& model)

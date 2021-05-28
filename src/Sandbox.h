@@ -9,7 +9,7 @@ class Sandbox
 public:
     Sandbox(const char* windowTitle = "OpenGL SandBox", const int& width = 800, const int& height = 600) : window(windowTitle, width, height)
     {
-        window.backgroundColor = glm::vec4(0.2f, 0.2f, 0.2f, 1.0f);
+        window.backgroundColor = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
 
         // Init the renderer
         glm::mat4 projection = glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f);

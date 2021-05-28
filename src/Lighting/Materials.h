@@ -9,12 +9,12 @@ public:
     Cube sourceCube;
     Cube cube;
     Shader meshShader;
-    Shader lightingShader;
+    Shader materialShader;
     Transform origin;
     Transform lightSource;
     glm::vec3 lightColor;
 public:
-    Materials() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), lightingShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/phong.frag"),
+    Materials() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), materialShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/material.frag"),
                 lightSource(glm::vec3(2.0f, 1.5f, -2.0f))
                 {}
     ~Materials() {}
@@ -33,10 +33,15 @@ public:
     void OnRender() override
     {
         // Phong lighting model
-        lightingShader.setUniform3f("lightColor", lightColor);
-        lightingShader.setUniform3f("lightPos", lightSource.position);
-        lightingShader.setUniform3f("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
-        renderer.draw_raw_arrays(origin, lightingShader, sourceCube.vao, 36);
+        materialShader.setUniform3f("lightColor", lightColor);
+        materialShader.setUniform3f("lightPos", lightSource.position);
+        materialShader.setUniform3f("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
+        // Set the material properties
+        materialShader.setUniform3f("material.ambinet", glm::vec3(1.0f, 0.5f, 0.31f));
+        materialShader.setUniform3f("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
+        materialShader.setUniform3f("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+        materialShader.setUniform1f("material.shininess", 32.0f);
+        renderer.draw_raw_arrays(origin, materialShader, sourceCube.vao, 36);
 
         // Light source cube
         meshShader.setUniform3f("lightColor", lightColor);

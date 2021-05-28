@@ -3,8 +3,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-Texture2D::Texture2D(const char* path)
-    : m_FilePath(path)
+Texture2D::Texture2D(const char* path, int slotID)
+    : m_SlotID(slotID), m_FilePath(path)
 {
     m_TID = loadTexture();
 }
@@ -40,7 +40,7 @@ GLuint Texture2D::loadTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, m_Width, m_Height, 0, imageFormat, GL_UNSIGNED_BYTE, image);
+    GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, m_Width, m_Height, 0, imageFormat, GL_UNSIGNED_BYTE, image));
     glGenerateMipmap(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -48,6 +48,7 @@ GLuint Texture2D::loadTexture()
 }
 void Texture2D::Bind()
 {
+    glActiveTexture(GL_TEXTURE0 + m_SlotID);
     glBindTexture(GL_TEXTURE_2D, m_TID);
 }
 

@@ -4,18 +4,20 @@
 #include <string>
 // GLAD
 #include <glad/glad.h>
+#include "glassert.h"
 
 class Texture2D
 {
 public:
     GLuint m_TID;
 private:
+    int m_SlotID;
     int m_Width;
     int m_Height;
     int m_BPP;
     const char* m_FilePath;
 public:
-    Texture2D(const char* path);
+    Texture2D(const char* path, int slotID = 0);
     ~Texture2D();
 
     void Bind();

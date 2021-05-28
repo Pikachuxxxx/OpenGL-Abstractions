@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "Lighting/Materials.h"
+#include "Lighting/LightCasters.h"
 
 int main()
 {
-    Materials scene;
+    LightCasters scene;
     scene.Run();
 
     return EXIT_SUCCESS;
