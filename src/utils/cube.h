@@ -45,22 +45,6 @@ static float cubeVertices[] = {
    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 };
 
-// static VertexArray cubevao;
-// static VertexBuffer *cubevbo;
-//
-// static void AllocateCube()
-// {
-//     cubevao.Bind();
-//     cubevbo = new VertexBuffer(cubeVertices, sizeof(cubeVertices));
-//     cubevbo->Bind();
-//     VertexBufferLayout cubelayout;
-//     cubelayout.Push<float>(3); // position
-//     cubelayout.Push<float>(3); // normals
-//     cubelayout.Push<float>(2); // uv coords
-//     cubevao.AddBuffer(*cubevbo, cubelayout);
-// }
-
-
 class Cube
 {
 public:

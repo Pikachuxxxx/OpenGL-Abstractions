@@ -136,18 +136,12 @@ void Window::getMousePosition(double& x, double& y) const
 
 void Window::clear() const
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
+	// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 }
 
 void Window::update() const
 {
-    // GLenum error = glGetError();
-    // if (error != GL_NO_ERROR)
-    // {
-    //     std::cout << "ERROR::OpenGL::" << error << std::endl;
-    // }
-
     double currentTime = glfwGetTime(); deltaTime = currentTime - m_LastTime; m_LastTime = currentTime;
 
     glfwPollEvents();

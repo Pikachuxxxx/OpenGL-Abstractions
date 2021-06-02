@@ -47,12 +47,6 @@
                                         m_ModelMatrix       = glm::rotate(m_ModelMatrix, (float)glm::radians(transform.rotation.z), glm::vec3(0, 0, 1)); \
                                         m_ModelMatrix       = glm::scale(m_ModelMatrix, transform.scale);
 
-// #define CALCULATE_TRANSFORM_MATRIX(Transform)    m_ModelMatrix       = glm::mat4(1.0f); \
-//                                         m_ModelMatrix       = glm::translate(m_ModelMatrix, transform.position); \
-//                                         m_ModelMatrix       = glm::rotate(m_ModelMatrix, (float)glm::radians(transform.rotation.x), glm::vec3(1, 0, 0)); \
-//                                         m_ModelMatrix       = glm::rotate(m_ModelMatrix, (float)glm::radians(transform.rotation.y), glm::vec3(0, 1, 0)); \
-//                                         m_ModelMatrix       = glm::rotate(m_ModelMatrix, (float)glm::radians(transform.rotation.z), glm::vec3(0, 0, 1)); \
-//                                         m_ModelMatrix       = glm::scale(m_ModelMatrix, transform.scale);
 struct Transform
 {
     glm::vec3   position = glm::vec3(0.0f);
@@ -73,12 +67,12 @@ struct Transform
     Transform AttachGuizmo(ImGuizmo::OPERATION operation, const glm::mat4& view, const glm::mat4& projection)
     {
         // static glm::mat4 transformMatrix = glm::mat4(1.0f);
-        // transformMatrix = glm::mat4(1.0f);
-        // transformMatrix = glm::translate(transformMatrix, position);
-        // transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.x), glm::vec3(1, 0, 0));
-        // transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.y), glm::vec3(0, 1, 0));
-        // transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.z), glm::vec3(0, 0, 1));
-        // transformMatrix = glm::scale(transformMatrix, scale);
+        transformMatrix = glm::mat4(1.0f);
+        transformMatrix = glm::translate(transformMatrix, position);
+        transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.x), glm::vec3(1, 0, 0));
+        transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.y), glm::vec3(0, 1, 0));
+        transformMatrix = glm::rotate(transformMatrix, (float)glm::radians(rotation.z), glm::vec3(0, 0, 1));
+        transformMatrix = glm::scale(transformMatrix, scale);
 
         // Transform transform(position, rotation, scale);
         ImGuizmo::Manipulate(glm::value_ptr(view), glm::value_ptr(projection), operation, ImGuizmo::MODE::WORLD, &(this->transformMatrix[0][0]));
@@ -109,6 +103,20 @@ enum PostProcessing
     GrayScale
 };
 
+struct RenderingOptions
+{
+    enum PrimitivesDrawMode{
+        TRIANGLES,
+        POINTS,
+        LINES
+    }drawMode = TRIANGLES;
+    bool enableWireframeMode = false;
+    bool isSelected = false;
+
+    RenderingOptions(PrimitivesDrawMode drawMode = TRIANGLES, bool enableWireframeMode = false, bool isSelected = false)
+    : drawMode(drawMode), enableWireframeMode(enableWireframeMode), isSelected(isSelected) {}
+};
+
 class Renderer
 {
 public:
@@ -119,8 +127,9 @@ private:
     glm::mat4   m_View;
     glm::mat4   m_Projection;
     GLuint      m_UniformBuffer;
+    Shader outlineShader;
 public:
-    Renderer()
+    Renderer() : outlineShader("./src/shaders/mesh.vert", "./src/shaders/outline.frag")
     {
         m_ModelMatrix = glm::mat4(1.0f);
 
@@ -144,7 +153,7 @@ public:
         GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
     }
 
-    void draw_raw_arrays(Transform& transform, Shader& shader, VertexArray& va, int verticesCount)
+    void draw_raw_arrays(Transform& transform, Shader& shader, VertexArray& va, int verticesCount, const RenderingOptions& options = RenderingOptions())
     {
         shader.Use();
 
@@ -153,10 +162,10 @@ public:
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         va.Bind();
-        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
     }
 
-    void draw_raw_arrays_with_texture(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, int verticesCount)
+    void draw_raw_arrays_with_texture(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, int verticesCount, const RenderingOptions& options = RenderingOptions())
     {
         shader.Use();
 
@@ -166,10 +175,10 @@ public:
 
         texture.Bind();
         va.Bind();
-        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
     }
 
-    void draw_raw_arrays_with_textures(Transform& transform, Shader& shader, std::vector<Texture2D>& textures, VertexArray& va, int verticesCount)
+    void draw_raw_arrays_with_textures(Transform& transform, Shader& shader, std::vector<Texture2D>& textures, VertexArray& va, int verticesCount, const RenderingOptions& options = RenderingOptions())
     {
         shader.Use();
 
@@ -180,10 +189,10 @@ public:
         for (size_t i = 0; i < textures.size(); i++)
             textures[i].Bind();
         va.Bind();
-        GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
     }
 
-    void draw_raw_indices(Transform& transform, Shader& shader, VertexArray& va, IndexBuffer& ib)
+    void draw_raw_indices(Transform& transform, Shader& shader, VertexArray& va, IndexBuffer& ib, const RenderingOptions& options = RenderingOptions())
     {
         shader.Use();
 
@@ -193,11 +202,10 @@ public:
 
         va.Bind();
         ib.Bind();
-        GL_CALL(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
-        GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0));
+        SELECT_MODE_AND_DRAW_INDICES(options, ib);
     }
 
-    void draw_raw_indices_with_textures(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, IndexBuffer& ib)
+    void draw_raw_indices_with_textures(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, IndexBuffer& ib, const RenderingOptions& options = RenderingOptions())
     {
         shader.Use();
 
@@ -208,8 +216,7 @@ public:
         texture.Bind();
         va.Bind();
         ib.Bind();
-        GL_CALL(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
-        GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0));
+        SELECT_MODE_AND_DRAW_INDICES(options, ib);
     }
 
     void draw_model(Transform& transform, Shader& shader, Model& model)
@@ -307,6 +314,77 @@ public:
 
         if(effect == PostProcessing::GrayScale)
             glUniform1i(glGetUniformLocation(shader.Program, "u_PP_EnableGrayScale"), 0);
+    }
+
+    void SELECT_MODE_AND_DRAW_ARRAYS(Transform transform, const VertexArray& va, const int& verticesCount, const RenderingOptions& options)
+    {
+        // if(options.isSelected)
+        // {
+        //     glStencilMask(0xFF); // Enable writing to the stescil buffer
+        //     glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
+        //     glStencilFunc(GL_ALWAYS, 1, 0xFF); // All fragments pass the stencil test with reference value 1
+        //     glEnable(GL_DEPTH_TEST);
+        //     glDepthFunc(GL_LESS);
+        // }
+        // else
+        // {
+        //     glStencilMask(0xFF);
+        //     glStencilOp(GL_KEEP, GL_REPLACE, GL_KEEP);
+        //     glStencilFunc(GL_ALWAYS, 1, 0xFF);
+        //     glEnable(GL_DEPTH_TEST);
+        //     glDepthFunc(GL_LESS);
+        // }
+
+        if(options.enableWireframeMode) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        switch (options.drawMode) {
+            case RenderingOptions::TRIANGLES:
+                GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
+                break;
+            case RenderingOptions::POINTS:
+                GL_CALL(glDrawArrays(GL_POINTS, 0, verticesCount));
+                break;
+            case RenderingOptions::LINES:
+                GL_CALL(glDrawArrays(GL_LINES, 0, verticesCount));
+                break;
+        }
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        // Now draw the same
+        // if(options.isSelected)
+        // {
+        //     glStencilMask(0xFF); // Disable writing to the stencil buffer
+        //     glStencilOp(GL_ZERO, GL_ZERO, GL_INVERT);
+        //     glStencilFunc(GL_EQUAL, 0, 0xFF);
+        //     glDepthFunc(GL_ALWAYS);
+        //
+        //     transform.scale = glm::vec3(1.02f);
+        //     CALCULATE_MODEL_MATRIX();
+        //     outlineShader.Use();
+        //     set_uniforms(m_ModelMatrix, m_View, m_Projection, outlineShader);
+        //     va.Bind();
+        //     GL_CALL(glDrawArrays(GL_TRIANGLES, 0, verticesCount));
+        // }
+        // glStencilMask(0xFF);
+        // glClear(GL_STENCIL_BUFFER_BIT);
+    }
+
+    void SELECT_MODE_AND_DRAW_INDICES(const RenderingOptions& options, IndexBuffer ib)
+    {
+        if(options.enableWireframeMode) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+        switch (options.drawMode) {
+            case RenderingOptions::TRIANGLES:
+                GL_CALL(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, 0));
+                break;
+            case RenderingOptions::POINTS:
+                GL_CALL(glDrawElements(GL_POINTS, ib.GetCount(), GL_UNSIGNED_INT, 0));
+                break;
+            case RenderingOptions::LINES:
+                GL_CALL(glDrawElements(GL_LINES, ib.GetCount(), GL_UNSIGNED_INT, 0));
+                break;
+        }
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
     }
 
     inline void SetViewMatrix(const glm::mat4& view) { m_View = view; }

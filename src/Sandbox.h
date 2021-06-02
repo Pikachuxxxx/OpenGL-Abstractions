@@ -3,17 +3,25 @@
 // OpenGL Renderer
 #define IMPL_IMGUI
 #include <Renderer.h>
+// Utilities
+#include <utils/cube.h>
+#include <utils/quad.h>
+#include <utils/random.h>
+#include <utils/sphere.h>
 
 class Sandbox
 {
 public:
-    Sandbox(const char* windowTitle = "OpenGL SandBox", const int& width = 800, const int& height = 600) : window(windowTitle, width, height)
+    Sandbox(const char* windowTitle = "OpenGL SandBox", const int& width = 1280, const int& height = 720) : window(windowTitle, width, height)
     {
         window.backgroundColor = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
 
         // Init the renderer
-        glm::mat4 projection = glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(45.0f, float(width / height), 0.1f, 100.0f);
         renderer.SetProjectionMatrix(projection);
+
+        // Initialising the random time for random number generation
+        srand((unsigned) time(0));
     }
 
     ~Sandbox() {}
@@ -38,6 +46,7 @@ public:
             window.clear();
             camera.Update(window);
             renderer.SetViewMatrix(camera.GetViewMatrix());
+            renderer.SetProjectionMatrix(glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f));
             //==============================================================================
             OnUpdate();
             //==============================================================================

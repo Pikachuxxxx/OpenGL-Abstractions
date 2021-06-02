@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "Lighting/LightCasters.h"
+#include "AdvancedGL/AdvancedGLScene.h"
 
 int main()
 {
-    LightCasters scene;
+    AdvancedGLScene scene;
     scene.Run();
 
     return EXIT_SUCCESS;

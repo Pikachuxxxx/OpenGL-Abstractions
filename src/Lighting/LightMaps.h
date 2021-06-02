@@ -18,7 +18,7 @@ public:
     Transform lightSource;
     glm::vec3 lightColor;
 public:
-    LightMaps() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), lightMapsShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/lightMaps.frag"),
+    LightMaps() : Sandbox("Light Maps"), meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), lightMapsShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/lightMaps.frag"),
                 lightSource(glm::vec3(2.0f, 1.5f, -2.0f)),
                 containerDiffuse("./src/textures/container_D.png", 0), containerSpecular("./src/textures/container_S.png", 1), containerEmission("./src/textures/grid.png", 2)
                 {}
@@ -42,20 +42,24 @@ public:
     {
         // Phong lighting model
         // Vertex shader uniforms
-        lightMapsShader.setUniform3f("lightPos", lightSource.position);
         // Fragment shader uniforms
-        lightMapsShader.setUniform3f("lightColor", lightColor);
+        lightMapsShader.setUniform3f("viewPos", camera.Position);
         lightMapsShader.setUniform3f("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
         // Set the material properties
         lightMapsShader.setUniform1i("material.diffuse", 0);
         lightMapsShader.setUniform1i("material.specular", 1);
         lightMapsShader.setUniform1i("material.emission", 2);
         lightMapsShader.setUniform1f("material.shininess", 64.0f);
+        // Set the light properties
+        lightMapsShader.setUniform3f("light.position", lightSource.position);
+        lightMapsShader.setUniform3f("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
+        lightMapsShader.setUniform3f("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
+        lightMapsShader.setUniform3f("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
         renderer.draw_raw_arrays_with_textures(origin, lightMapsShader, containerTexs, sourceCube.vao, 36);
 
         // Light source cube
         meshShader.setUniform3f("lightColor", lightColor);
-        renderer.draw_raw_arrays(lightSource, meshShader, cube.vao, 36);
+        renderer.draw_raw_arrays_with_texture(lightSource, meshShader, metal, cube.vao, 36);
     }
 
     void OnImGuiRender() override
