@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "Lighting/LightCasters.h"
+#include "AdvancedLighting/BlinnPhong.h"
 
 int main()
 {
-    LightCasters scene;
+    BlinnPhong scene;
     scene.Run();
 
     return EXIT_SUCCESS;
