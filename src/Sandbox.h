@@ -5,6 +5,7 @@
 #include <Renderer.h>
 // Utilities
 #include <utils/cube.h>
+#include <utils/plane.h>
 #include <utils/quad.h>
 #include <utils/random.h>
 #include <utils/sphere.h>

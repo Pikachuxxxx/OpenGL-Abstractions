@@ -1,18 +1,17 @@
 #pragma once
 
-float quadVertices[] = {
+float QuadVertices[] = {
        // positions            // normals         // texcoords
-        10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-       -10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  0.0f,
-       -10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f,
-
-        10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-       -10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f,
-        10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  1.0f
+        1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
+       -1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  0.0f,
+       -1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  -1.0f,
+        1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
+       -1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  -1.0f,
+        1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  -1.0f
 };
 
-// TODO: Add subdivisions while generating quad vertices, or add logic to subdivide mesh
-// TODO: Use generative methods for the quad, use some hacky way for subdivision or hardocing is the simplest way
+// TODO: Add subdivisions while generating Plane vertices, or add logic to subdivide mesh
+// TODO: Use generative methods for the Plane, use some hacky way for subdivision or hardocing is the simplest way
 class Quad
 {
 public:
@@ -22,7 +21,7 @@ public:
    Quad()
    {
        vao.Bind();
-       vbo = new VertexBuffer(quadVertices, sizeof(quadVertices));
+       vbo = new VertexBuffer(QuadVertices, sizeof(QuadVertices));
        vbo->Bind();
        VertexBufferLayout Quadlayout;
        Quadlayout.Push<float>(3); // position

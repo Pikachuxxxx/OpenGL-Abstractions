@@ -33,6 +33,7 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "CubeMap.h"
+#include "FrameBuffer.h"
 
 //==============================================================================
 //Experimental Includes

@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedGL/AdvancedGLScene.h"
+#include "AdvancedGL/PostProcessBuffers.h"
 
 int main()
 {
-    AdvancedGLScene scene;
+    PostProcessBuffers scene;
     scene.Run();
 
     return EXIT_SUCCESS;
