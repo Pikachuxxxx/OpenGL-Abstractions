@@ -12,13 +12,13 @@ private:
     std::vector<const char*> m_CubemapTextures;
     GLuint m_TID;
 public:
-    CubeMap(std::vector<const char*> cubemapTextures);
+    CubeMap();
     ~CubeMap();
 
     void Bind();
     void Unbind();
 
     inline GLuint getCubeMapTextureID() const { return m_TID; }
-private:
-    GLuint loadTexture();
+public:
+    GLint loadTextures(std::vector<const char*> cubemapTextures);
 };

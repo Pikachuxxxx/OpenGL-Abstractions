@@ -14,13 +14,14 @@ Texture2D::~Texture2D() {}
 GLuint Texture2D::loadTexture()
 {
     unsigned char* image = stbi_load(m_FilePath, &m_Width, &m_Height, &m_BPP, 0);
-    std::cout << "Image details : " << std::endl;
-    std::cout << "\tFile path : " << m_FilePath << std::endl;
-    std::cout << "\tDimensions : (" << m_Width << ", " << m_Height << ")" << std::endl;
-    std::cout << "\tBits per pixel : " << m_BPP << std::endl;
-
     if (!image)
-        std::cout << "Failed to load texture" << std::endl;
+        std::cout << "Failed to load texture : " << m_FilePath << std::endl;
+    else {
+        std::cout << "Image details : " << std::endl;
+        std::cout << "\tFile path : " << m_FilePath << std::endl;
+        std::cout << "\tDimensions : (" << m_Width << ", " << m_Height << ")" << std::endl;
+        std::cout << "\tBits per pixel : " << m_BPP << std::endl;
+    }
 
     GLint imageFormat;
     switch (m_BPP) {

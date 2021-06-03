@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedGL/PostProcessBuffers.h"
+#include "Lighting/LightCasters.h"
 
 int main()
 {
-    PostProcessBuffers scene;
+    LightCasters scene;
     scene.Run();
 
     return EXIT_SUCCESS;

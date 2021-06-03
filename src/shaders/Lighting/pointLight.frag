@@ -10,11 +10,15 @@ struct Material
 
 struct Light
 {
-    vec3 direction;
+    vec3 position;
 
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    float constant;
+    float linear;
+    float quadratic;
 };
 
 in VS_OUT {
@@ -32,15 +36,12 @@ uniform Light light;
 
 void main()
 {
-
-
     // Ambient lighting
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, vs_in.texCoords));
 
     // Diffuse Lighting
     vec3 normal = normalize(vs_in.normal);
-    // vec3 lightDir = normalize(vs_in.lightPos - vs_in.FragPos); // Repalced using a constant light direction
-    vec3 lightDir = normalize(-light.direction);
+    vec3 lightDir = normalize(light.position - vs_in.FragPos);
     float diff = max(dot(normal, lightDir), 0.0f);
     vec3 diffuse = light.diffuse * (diff * vec3(texture(material.diffuse, vs_in.texCoords)));
 
@@ -52,6 +53,14 @@ void main()
 
     // Emission shading
     vec3 emission = vec3(texture(material.emission, vs_in.texCoords));
+
+    // attenuation
+    float distance = length(light.position - vs_in.FragPos);
+    float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+
+    ambient *= attenuation;
+    diffuse *= attenuation;
+    specular *= attenuation;
 
     // Calculate the final lighting color
     vec3 result = (ambient + diffuse + specular);

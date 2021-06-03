@@ -2,11 +2,11 @@
 
 #include "Sandbox.h"
 
-class SandboxSceneTemplate : public Sandbox
+class BlinnPhong : public Sandbox
 {
 public:
-    SandboxSceneTemplate() {}
-    ~SandboxSceneTemplate() {}
+    BlinnPhong() {}
+    ~BlinnPhong() {}
 
     void OnStart() override
     {

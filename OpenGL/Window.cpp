@@ -39,6 +39,7 @@ bool Window::init()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
     m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
     if(!m_Window)
@@ -61,6 +62,7 @@ bool Window::init()
     int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
     glEnable(GL_BLEND);
+    glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     return true;
@@ -136,8 +138,8 @@ void Window::getMousePosition(double& x, double& y) const
 
 void Window::clear() const
 {
-	// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
 }
 
 void Window::update() const
