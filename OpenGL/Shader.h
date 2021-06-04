@@ -30,7 +30,7 @@ public:
     void setUniform2f(const GLchar* name, const glm::vec2& vector);
     void setUniform3f(const GLchar* name, const glm::vec3& vector);
     void setUniform4f(const GLchar* name, const glm::vec4& vector);
-    void SetUniformMat4f(const char* name, const glm::mat4& value);
+    void setUniformMat4f(const char* name, const glm::mat4& value);
 private:
     std::unordered_map<std::string, GLint> m_ShaderLocationCache;
     GLint getUniformLocation(const std::string& name);

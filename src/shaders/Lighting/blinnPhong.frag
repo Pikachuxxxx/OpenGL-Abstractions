@@ -31,6 +31,7 @@ in VS_OUT {
 out vec4 color;
 
 uniform vec3 viewPos;
+uniform vec3 objectColor;
 uniform Material material;
 uniform Light light;
 
@@ -48,7 +49,8 @@ void main()
     // Specular shading
     vec3 viewDir = normalize(viewPos - vs_in.FragPos);
     vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
+    vec3 halywayDir = normalize(lightDir + viewDir);
+    float spec = pow(max(dot(viewDir, halywayDir), 0.0f), material.shininess);
     // vec3 specular = light.specular * (spec * vec3(texture(material.specular, vs_in.texCoords)));
     vec3 specular = light.specular * (spec * material.specular);
 
@@ -65,11 +67,11 @@ void main()
 
     // Calculate the final lighting color
     vec3 result = (ambient + diffuse + specular);
-    color = vec4(result, 1.0f);
+    // color = vec4(result, 1.0f);
     // color = vec4(vec3(texture(material.emission, vs_in.texCoords)), 1.0f);
 
     // Gamma correction
-    // float gamma = 2.2;
-    // vec3 fragcolor = pow(result, vec3(1.0/gamma));
-    // color = vec4(fragcolor, 1.0f);
+    float gamma = 2.2;
+    vec3 fragcolor = pow(result, vec3(1.0/gamma));
+    color = vec4(fragcolor, 1.0f);
 }

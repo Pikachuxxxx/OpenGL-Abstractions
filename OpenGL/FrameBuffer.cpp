@@ -33,7 +33,7 @@ FrameBuffer::~FrameBuffer()
 void FrameBuffer::Bind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, m_BufferID);
-	// glBindTexture(GL_TEXTURE_2D, m_RenderTexture);
+	glBindTexture(GL_TEXTURE_2D, m_RenderTexture);
 }
 
 void FrameBuffer::Unbind() const

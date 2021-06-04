@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/BlinnPhong.h"
+#include "AdvancedLighting/ShadowMapping.h"
 
 int main()
 {
-    BlinnPhong scene;
+    ShadowMapping scene;
     scene.Run();
 
     return EXIT_SUCCESS;

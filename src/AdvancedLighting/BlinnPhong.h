@@ -2,8 +2,11 @@
 
 #include "Sandbox.h"
 
+// TODO: Move the structs to the Renderer class
+// TODO: Create a Macro for setting the shader values and attatching ImGui controls
 struct Material
 {
+    // Ambient and Diffuse values are calculated using the diffuse map
     glm::vec3 specular = glm::vec3(1.0f);
     float shininess = 64.0f;
 };
@@ -28,6 +31,7 @@ private:
     Cube sourceCube;
     Shader meshShader;
     Shader pointLightShader;
+    Shader blinnPhongPointLightShader;
     Texture2D wood;
     Transform lightSource;
     Transform origin;
@@ -37,7 +41,8 @@ private:
     glm::vec3 lightColor;
 public:
     BlinnPhong() : Sandbox("Advance Lighting"), wood("./src/textures/wood.png"),
-    meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), pointLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/pointLight.frag")
+    meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), pointLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/pointLight.frag"),
+    blinnPhongPointLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/blinnPhong.frag")
      {}
     ~BlinnPhong() {}
 
@@ -46,6 +51,8 @@ public:
         lightSource.scale = glm::vec3(0.3f);
         lightSource.position = glm::vec3(2.0f, 1.5f, -2.0f);
         woodTransform.scale = glm::vec3(0.5f, 0.5f, 0.5f);
+
+        // glEnable(GL_FRAMEBUFFER_SRGB);
     }
 
     void OnUpdate() override
@@ -73,6 +80,25 @@ public:
         pointLightShader.setUniform1f("light.constant", pointLight.constant);
         pointLightShader.setUniform1f("light.linear",   pointLight.linear);
         pointLightShader.setUniform1f("light.quadratic",pointLight.quadratic);
+
+        // Blinn Phong Point light shader
+        // Phong lighting model
+        blinnPhongPointLightShader.setUniform3f("viewPos", camera.Position);
+        blinnPhongPointLightShader.setUniform3f("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
+        // Set the material properties
+        blinnPhongPointLightShader.setUniform1i("material.diffuse", 0);
+        blinnPhongPointLightShader.setUniform3f("material.specular", woodMaterial.specular);
+        blinnPhongPointLightShader.setUniform1i("material.emission", 2);
+        blinnPhongPointLightShader.setUniform1f("material.shininess", woodMaterial.shininess);
+        // Set the light properties
+        // TODO: Convert to Uniform buffer later
+        blinnPhongPointLightShader.setUniform3f("light.position", pointLight.position);
+        blinnPhongPointLightShader.setUniform3f("light.ambient",  pointLight.ambient);
+        blinnPhongPointLightShader.setUniform3f("light.diffuse",  pointLight.diffuse);
+        blinnPhongPointLightShader.setUniform3f("light.specular", pointLight.specular);
+        blinnPhongPointLightShader.setUniform1f("light.constant", pointLight.constant);
+        blinnPhongPointLightShader.setUniform1f("light.linear",   pointLight.linear);
+        blinnPhongPointLightShader.setUniform1f("light.quadratic",pointLight.quadratic);
         renderer.draw_raw_arrays_with_texture(woodTransform, pointLightShader, wood, plane.vao, 6);
 
         // Light source cube

@@ -165,7 +165,7 @@ void Shader::setUniform4f(const GLchar* name, const glm::vec4& vector)
     glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
 }
 
-void Shader::SetUniformMat4f(const char* name, const glm::mat4& value)
+void Shader::setUniformMat4f(const char* name, const glm::mat4& value)
 {
     glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 }
