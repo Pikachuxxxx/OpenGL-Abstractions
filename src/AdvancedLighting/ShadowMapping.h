@@ -50,6 +50,7 @@ private:
     GLuint depthMap;
     glm::mat4 lightProjection;
     FrameBuffer debugFBO;
+    std::vector<Transform> cubeTransforms;
 public:
     ShadowMapping() : Sandbox("Shadow Mapping"), wood("./src/textures/wood.png", 0), marble("./src/textures/marble.jpg", 0),
     depthMapShader("./src/shaders/Lighting/depthMap.vert", "./src/shaders/empty.frag"),
@@ -75,6 +76,8 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
         glDrawBuffer(GL_NONE);
         glReadBuffer(GL_NONE);
@@ -85,6 +88,12 @@ public:
 
         float near_plane = 1.0f, far_plane = 17.5f;
         lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+
+        for(uint32_t i = 0; i < 10; i++)
+        {
+            Transform transform(glm::vec3((float)GetRandomFloatInc(-5, 5), (float)GetRandomFloatInc(0, 10), (float)GetRandomFloatInc(-3, 3)), glm::vec3((float)GetRandomIntInc(-60, 60)));
+            cubeTransforms.push_back(transform);
+        }
     }
 
     void OnUpdate() override
@@ -110,8 +119,9 @@ public:
         depthMapShader.setUniformMat4f("u_LightSpaceMatrix", lightSpaceMatrix);
         depthMapShader.setUniformMat4f("u_Model", lightModel);
 
-        renderer.draw_raw_arrays_with_texture(woodTransform, depthMapShader, wood, plane.vao, 6);
-        renderer.draw_raw_arrays_with_texture(origin, depthMapShader, marble, cube.vao, 36);
+            renderer.draw_raw_arrays_with_texture(woodTransform, depthMapShader, wood, plane.vao, 6);
+        for(uint32_t i = 0; i < 10; i++)
+            renderer.draw_raw_arrays_with_texture(cubeTransforms[i], depthMapShader, marble, cube.vao, 36);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -166,7 +176,8 @@ public:
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         renderer.draw_raw_arrays_with_texture(woodTransform, shadowShader, wood, plane.vao, 6);
-        renderer.draw_raw_arrays_with_texture(origin, shadowShader, marble, cube.vao, 36);
+        for(uint32_t i = 0; i < 10; i++)
+            renderer.draw_raw_arrays_with_texture(cubeTransforms[i], shadowShader, marble, cube.vao, 36);
 
         // Light source cube
         meshShader.setUniform3f("lightColor", lightColor);

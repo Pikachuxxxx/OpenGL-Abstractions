@@ -38,7 +38,7 @@ public:
 
         for(uint32_t i = 0; i < 10; i++)
         {
-            Transform transform(glm::vec3((float)GetRandomFloatInc(-5, 5), (float)GetRandomFloatInc(-5, 5), (float)GetRandomFloatInc(-5, 5)), glm::vec3((float)GetRandomIntInc(-60, 60)));
+            Transform transform(glm::vec3((float)GetRandomFloatInc(-5, 5), (float)GetRandomFloatInc(0, 10), (float)GetRandomFloatInc(-5, 5)), glm::vec3((float)GetRandomIntInc(-60, 60)));
             cubeTransforms.push_back(transform);
         }
     }
