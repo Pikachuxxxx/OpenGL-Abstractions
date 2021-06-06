@@ -86,8 +86,9 @@ public:
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
 
-        float near_plane = 1.0f, far_plane = 17.5f;
-        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+        float near_plane = 1.0f, far_plane = 100.0f;
+        lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
+        // lightProjection = glm::ortho((float)window.getWidth(), (float)-window.getWidth(), (float)window.getHeight(), (float)-window.getHeight(), near_plane, far_plane);
 
         for(uint32_t i = 0; i < 10; i++)
         {
@@ -98,6 +99,7 @@ public:
 
     void OnUpdate() override
     {
+        // lightSource.position = camera.Position;
         pointLight.position = lightSource.position;
     }
 
@@ -108,7 +110,8 @@ public:
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::mat4 lightView = glm::lookAt(pointLight.position, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 lightView = glm::lookAt(pointLight.position /*+ camera.Position*/, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        // lightView = glm::inverse(camera.GetViewMatrix());
         glm::mat4 lightSpaceMatrix = lightProjection * lightView;
         glm::mat4 lightModel(1.0f);
         lightModel       = glm::mat4(1.0f);

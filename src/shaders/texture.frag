@@ -11,6 +11,7 @@ uniform bool enableDepthColors;
 uniform vec3 lightColor;
 uniform sampler2D texture_diffuse;
 uniform sampler2D texture_specular;
+uniform sampler2D texture_normal;
 
 float near = 0.25;
 float far = 100.0;

@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/ShadowMapping.h"
+#include "AdvancedGL/NormalMapping.h"
 
 int main()
 {
-    ShadowMapping scene;
+    NormalMapping scene;
     scene.Run();
 
     return EXIT_SUCCESS;

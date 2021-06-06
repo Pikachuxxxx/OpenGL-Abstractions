@@ -38,16 +38,14 @@ public:
 
     void OnRender() override
     {
-        // glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // Replace the stencil buffer values if both the stencil and depth test passes
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_STENCIL_TEST);
+        glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
 
-        // TODO: Move this to Window class
         glStencilMask(0xFF);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         glClearColor(window.backgroundColor.x, window.backgroundColor.y, window.backgroundColor.z, window.backgroundColor.w);
 
-        // // Draw the Floor
-        // glStencilMask(0x00); // Disable writing to the stencil buffer
-        // renderer.draw_raw_arrays_with_texture(origin, meshShader, metal, plane.vao, 6);
 
         // Draw the cubes while recording to the stencil buffer
         glStencilMask(0xFF); // Enable writing to the stencil buffer
@@ -59,29 +57,29 @@ public:
         cubePosition.scale = glm::vec3(1.0f);
         renderer.draw_raw_arrays_with_texture(cubePosition, meshShader, marble, cube.vao, 36);
 
-        glStencilMask(0xFF); // Disable writing to the stencil buffer
+        glStencilMask(0x00); // Disable writing to the stencil buffer
         glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
         glDepthMask(GL_FALSE);
         glDepthFunc(GL_ALWAYS);
         cubePosition.scale = glm::vec3(1.02f);
-        cubePosition2.scale = glm::vec3(1.02f);
         renderer.draw_raw_arrays(cubePosition, outlineShader, cube.vao, 36);
 
-        glClear(GL_STENCIL_BUFFER_BIT);
-
-        glStencilFunc(GL_ALWAYS, 1, 0xFF);
-        glStencilMask(0xFF);
-        glDepthMask(GL_TRUE);
-        glDepthFunc(GL_LESS);
-        cubePosition2.scale = glm::vec3(1.0f);
-        renderer.draw_raw_arrays_with_texture(cubePosition2, meshShader, marble, cube.vao, 36);
-
-        glStencilMask(0xFF);
-        glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-        glDepthMask(GL_FALSE);
-        glDepthFunc(GL_ALWAYS);
-        cubePosition2.scale = glm::vec3(1.02f);
-        renderer.draw_raw_arrays(cubePosition2, outlineShader, cube.vao, 36);
+        // glClear(GL_STENCIL_BUFFER_BIT);
+        //
+        // glStencilFunc(GL_ALWAYS, 1, 0xFF);
+        // glStencilMask(0xFF);
+        // glDepthMask(GL_TRUE);
+        // glDepthFunc(GL_LESS);
+        // cubePosition2.scale = glm::vec3(1.0f);
+        // renderer.draw_raw_arrays_with_texture(cubePosition2, meshShader, marble, cube.vao, 36);
+        //
+        // glStencilMask(0xFF);
+        // glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+        // glDepthMask(GL_FALSE);
+        // glClearDepth(1.0f);
+        // glDepthFunc(GL_ALWAYS);
+        // cubePosition2.scale = glm::vec3(1.02f);
+        // renderer.draw_raw_arrays(cubePosition2, outlineShader, cube.vao, 36);
 
         // renderer.draw_raw_arrays_with_texture(cubePosition, meshShader, marble, cube.vao, 36, RenderingOptions(RenderingOptions::TRIANGLES, false, true));
         // renderer.draw_raw_arrays_with_texture(cubePosition2, meshShader, marble, cube.vao, 36, RenderingOptions(RenderingOptions::TRIANGLES, false, false));
