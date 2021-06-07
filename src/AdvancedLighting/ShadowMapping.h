@@ -86,7 +86,7 @@ public:
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
 
-        float near_plane = 1.0f, far_plane = 100.0f;
+        float near_plane = 1.0f, far_plane = 40.0f;
         lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
         // lightProjection = glm::ortho((float)window.getWidth(), (float)-window.getWidth(), (float)window.getHeight(), (float)-window.getHeight(), near_plane, far_plane);
 
@@ -116,7 +116,7 @@ public:
         glm::mat4 lightModel(1.0f);
         lightModel       = glm::mat4(1.0f);
         lightModel       = glm::translate(lightModel, pointLight.position);
-        lightModel       = glm::scale(lightModel, lightSource.scale);
+        // lightModel       = glm::scale(lightModel, lightSource.scale);
 
         depthMapShader.Use();
         depthMapShader.setUniformMat4f("u_LightSpaceMatrix", lightSpaceMatrix);
