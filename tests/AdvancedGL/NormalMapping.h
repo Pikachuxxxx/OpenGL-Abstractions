@@ -39,8 +39,8 @@ private:
     PointLight pointLight;
     glm::vec3 lightColor;
 public:
-    NormalMapping() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), pointLightNormalShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/pointLightNormal.frag"),
-     brick("./src/textures/brickwall.jpg", 0), brickNormal("./src/textures/brickwall_normal.jpg", 2),
+    NormalMapping() : meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), pointLightNormalShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLightNormal.frag"),
+     brick("./tests/textures/brickwall.jpg", 0), brickNormal("./tests/textures/brickwall_normal.jpg", 2),
      planeTransform(glm::vec3(0.0f), glm::vec3(90.0f, 0.0f, 0.0f))
     {}
     ~NormalMapping() {}

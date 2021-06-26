@@ -15,10 +15,10 @@ public:
     VertexBuffer *cubevbo;
     Texture2D checkerTex;
 
-    PrimModel() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"),
+    PrimModel() : meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"),
     sphere_Transform(glm::vec3(0.0f, 0, -2), glm::vec3(0.0f, 0.0f, 0), glm::vec3(0.3f)),
-    sodacanModel("./src/models/sodacan/14025_Soda_Can_v3_l3.obj"), stormtrooper("./src/models/Stormtrooper/Stormtrooper.obj"),
-    checkerTex("./src/textures/checker_map.png")
+    sodacanModel("./tests/models/sodacan/14025_Soda_Can_v3_l3.obj"), stormtrooper("./tests/models/Stormtrooper/Stormtrooper.obj"),
+    checkerTex("./tests/textures/checker_map.png")
     {}
 
     ~PrimModel() {}

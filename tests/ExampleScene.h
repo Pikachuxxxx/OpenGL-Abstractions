@@ -14,7 +14,7 @@ public:
   Shader meshShader;
   Transform sphere_Transform;
 public:
-    ExampleScene() : meshShader("./src/shaders/default.vert", "./src/shaders/default.frag"), sphere_Transform(glm::vec3(0.0f, 0, 0), glm::vec3(0.0f, 90.0f, 0)) {}
+    ExampleScene() : meshShader("./tests/shaders/default.vert", "./tests/shaders/default.frag"), sphere_Transform(glm::vec3(0.0f, 0, 0), glm::vec3(0.0f, 90.0f, 0)) {}
     ~ExampleScene() {}
 
     void OnStart() override

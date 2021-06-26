@@ -22,9 +22,9 @@ public:
     glm::vec3 lightColor;
     glm::vec3 lightDirection;
 public:
-    LightCasters() : Sandbox("Light Casters"), meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), directionalLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/directionalLight.frag"),
-                pointLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/pointLight.frag"), spotLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/spotLight.frag"), lightSource(glm::vec3(2.0f, 1.5f, -2.0f)),
-                containerDiffuse("./src/textures/container_D.png", 0), containerSpecular("./src/textures/container_S.png", 1), containerEmission("./src/textures/grid.png", 2)
+    LightCasters() : Sandbox("Light Casters"), meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), directionalLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/directionalLight.frag"),
+                pointLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLight.frag"), spotLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/spotLight.frag"), lightSource(glm::vec3(2.0f, 1.5f, -2.0f)),
+                containerDiffuse("./tests/textures/container_D.png", 0), containerSpecular("./tests/textures/container_S.png", 1), containerEmission("./tests/textures/grid.png", 2)
                 {}
     ~LightCasters() {}
 

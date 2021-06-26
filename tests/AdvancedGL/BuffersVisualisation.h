@@ -15,9 +15,9 @@ private:
     FrameBuffer colorBuffer;
     FrameBuffer depthBuffer;
 public:
-    BuffersVisualisation() : Sandbox("BuffersVisualisation"), meshShader("./src/shaders/mesh.vert", "./src/shaders/texture.frag"), windowTex("./src/textures/window.png", 0), grass("./src/textures/grass.png", 0),
+    BuffersVisualisation() : Sandbox("BuffersVisualisation"), meshShader("./tests/shaders/mesh.vert", "./tests/shaders/texture.frag"), windowTex("./tests/textures/window.png", 0), grass("./tests/textures/grass.png", 0),
      planePosition(glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.0f, 90.0f, 90.0f), glm::vec3(0.1f)),
-     metal("./src/textures/metal.png", 0), colorBuffer(window.getWidth(), window.getHeight()), depthBuffer(window.getWidth(), window.getHeight())
+     metal("./tests/textures/metal.png", 0), colorBuffer(window.getWidth(), window.getHeight()), depthBuffer(window.getWidth(), window.getHeight())
      {}
     ~BuffersVisualisation() {}
 

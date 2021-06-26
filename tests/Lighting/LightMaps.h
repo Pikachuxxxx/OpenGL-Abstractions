@@ -18,9 +18,9 @@ public:
     Transform lightSource;
     glm::vec3 lightColor;
 public:
-    LightMaps() : Sandbox("Light Maps"), meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), lightMapsShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/lightMaps.frag"),
+    LightMaps() : Sandbox("Light Maps"), meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), lightMapsShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/lightMaps.frag"),
                 lightSource(glm::vec3(2.0f, 1.5f, -2.0f)),
-                containerDiffuse("./src/textures/container_D.png", 0), containerSpecular("./src/textures/container_S.png", 1), containerEmission("./src/textures/grid.png", 2)
+                containerDiffuse("./tests/textures/container_D.png", 0), containerSpecular("./tests/textures/container_S.png", 1), containerEmission("./tests/textures/grid.png", 2)
                 {}
     ~LightMaps() {}
 

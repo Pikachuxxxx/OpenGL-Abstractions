@@ -13,9 +13,9 @@ private:
     Texture2D grass;
     Texture2D metal;
 public:
-    Blending() : Sandbox("Blending"), meshShader("./src/shaders/mesh.vert", "./src/shaders/texture.frag"), windowTex("./src/textures/window.png", 0), grass("./src/textures/grass.png", 0),
+    Blending() : Sandbox("Blending"), meshShader("./tests/shaders/mesh.vert", "./tests/shaders/texture.frag"), windowTex("./tests/textures/window.png", 0), grass("./tests/textures/grass.png", 0),
      planePosition(glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.0f, 90.0f, 90.0f), glm::vec3(0.1f)),
-     metal("./src/textures/metal.png", 0)
+     metal("./tests/textures/metal.png", 0)
      {}
     ~Blending() {}
 

@@ -14,7 +14,7 @@ public:
     Transform lightSource;
     glm::vec3 lightColor;
 public:
-    Colors() :  meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), colorShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/color.frag"),
+    Colors() :  meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), colorShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/color.frag"),
                 lightSource(glm::vec3(2.0f, 1.5f, -a.0f))
                 {}
     ~Colors() {}

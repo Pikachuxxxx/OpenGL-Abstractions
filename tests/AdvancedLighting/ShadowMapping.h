@@ -52,10 +52,10 @@ private:
     FrameBuffer debugFBO;
     std::vector<Transform> cubeTransforms;
 public:
-    ShadowMapping() : Sandbox("Shadow Mapping"), wood("./src/textures/wood.png", 0), marble("./src/textures/marble.jpg", 0),
-    depthMapShader("./src/shaders/Lighting/depthMap.vert", "./src/shaders/empty.frag"),
-    meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), pointLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/pointLight.frag"),
-    debugFBO(window.getWidth(), window.getHeight()), debugShader("./src/shaders/quad.vert", "./src/shaders/depthMapVis.frag"), shadowShader("./src/shaders/Lighting/shadow.vert", "./src/shaders/Lighting/shadow.frag")
+    ShadowMapping() : Sandbox("Shadow Mapping"), wood("./tests/textures/wood.png", 0), marble("./tests/textures/marble.jpg", 0),
+    depthMapShader("./tests/shaders/Lighting/depthMap.vert", "./tests/shaders/empty.frag"),
+    meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), pointLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLight.frag"),
+    debugFBO(window.getWidth(), window.getHeight()), debugShader("./tests/shaders/quad.vert", "./tests/shaders/depthMapVis.frag"), shadowShader("./tests/shaders/Lighting/shadow.vert", "./tests/shaders/Lighting/shadow.frag")
      {}
     ~ShadowMapping() {}
 

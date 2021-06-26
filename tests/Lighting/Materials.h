@@ -21,7 +21,7 @@ public:
         float shininess;
     } material;
 public:
-    Materials() : Sandbox("Materials"), meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), materialShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/material.frag"),
+    Materials() : Sandbox("Materials"), meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), materialShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/material.frag"),
                 lightSource(glm::vec3(2.0f, 1.5f, -2.0f))
                 {}
     ~Materials() {}

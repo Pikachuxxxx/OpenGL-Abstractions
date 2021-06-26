@@ -21,7 +21,7 @@ include_directories(
     "${CMAKE_SOURCE_DIR}/OpenGL"
     "${CMAKE_SOURCE_DIR}/vendor/ImGui"
     "${CMAKE_SOURCE_DIR}/vendor/ImGuizmo"
-    "${CMAKE_SOURCE_DIR}/src"
+    "${CMAKE_SOURCE_DIR}/tests"
 )
 
 link_directories(
@@ -57,7 +57,7 @@ file(GLOB VENDOR_SRC_FILES
 )
 
 file(GLOB SOURCE_FILES
-    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_SOURCE_DIR}/tests/main.cpp
 )
 
 # Compile the source files for the executable

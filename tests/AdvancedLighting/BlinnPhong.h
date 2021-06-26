@@ -40,9 +40,9 @@ private:
     PointLight pointLight;
     glm::vec3 lightColor;
 public:
-    BlinnPhong() : Sandbox("Advance Lighting"), wood("./src/textures/wood.png"),
-    meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), pointLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/pointLight.frag"),
-    blinnPhongPointLightShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/blinnPhong.frag")
+    BlinnPhong() : Sandbox("Advance Lighting"), wood("./tests/textures/wood.png"),
+    meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), pointLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLight.frag"),
+    blinnPhongPointLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/blinnPhong.frag")
      {}
     ~BlinnPhong() {}
 

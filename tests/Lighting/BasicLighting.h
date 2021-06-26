@@ -17,8 +17,8 @@ public:
     Transform lightSource;
     glm::vec3 lightColor;
 public:
-    BasicLighting() : meshShader("./src/shaders/mesh.vert", "./src/shaders/mesh.frag"), phongShader("./src/shaders/mesh.vert", "./src/shaders/Lighting/phong.frag"),
-                        gouradShader("./src/shaders/Lighting/gourad.vert", "./src/shaders/Lighting/gourad.frag"),
+    BasicLighting() : meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), phongShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/phong.frag"),
+                        gouradShader("./tests/shaders/Lighting/gourad.vert", "./tests/shaders/Lighting/gourad.frag"),
                 lightSource(glm::vec3(1.2f, 1.0f, 2.0f), glm::vec3(0.0f), glm::vec3(0.2f)), gourad(glm::vec3(-2.0f, 0.0f, 0.0f))
                 {}
     ~BasicLighting() {}

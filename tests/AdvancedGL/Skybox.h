@@ -15,8 +15,8 @@ private:
     Texture2D cubeTex;
     GLint skyboxTex;
 public:
-    Skybox() : Sandbox("Skybox"), skyboxShader("./src/shaders/skybox.vert", "./src/shaders/skybox.frag"), meshShader("./src/shaders/mesh.vert", "./src/shaders/texture.frag"),
-    cubeTex("./src/textures/container_D.png", 0)
+    Skybox() : Sandbox("Skybox"), skyboxShader("./tests/shaders/skybox.vert", "./tests/shaders/skybox.frag"), meshShader("./tests/shaders/mesh.vert", "./tests/shaders/texture.frag"),
+    cubeTex("./tests/textures/container_D.png", 0)
     {}
 
     ~Skybox() {}
@@ -24,12 +24,12 @@ public:
     void OnStart() override
     {
         std::vector<const char*> faces = {
-            "./src/textures/skybox/right.jpg",
-            "./src/textures/skybox/left.jpg",
-            "./src/textures/skybox/top.jpg",
-            "./src/textures/skybox/bottom.jpg",
-            "./src/textures/skybox/front.jpg",
-            "./src/textures/skybox/back.jpg"
+            "./tests/textures/skybox/right.jpg",
+            "./tests/textures/skybox/left.jpg",
+            "./tests/textures/skybox/top.jpg",
+            "./tests/textures/skybox/bottom.jpg",
+            "./tests/textures/skybox/front.jpg",
+            "./tests/textures/skybox/back.jpg"
         };
 
         skyboxTex = skybox.loadTextures(faces);

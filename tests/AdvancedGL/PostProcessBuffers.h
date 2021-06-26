@@ -23,11 +23,11 @@ private:
     Texture2D grass;
     Texture2D metal;
 public:
-    PostProcessBuffers() : Sandbox("Post Processing"), meshShader("./src/shaders/mesh.vert", "./src/shaders/texture.frag"), windowTex("./src/textures/window.png", 0), grass("./src/textures/grass.png", 0),
+    PostProcessBuffers() : Sandbox("Post Processing"), meshShader("./tests/shaders/mesh.vert", "./tests/shaders/texture.frag"), windowTex("./tests/textures/window.png", 0), grass("./tests/textures/grass.png", 0),
      planePosition(glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.0f, 90.0f, 90.0f), glm::vec3(0.1f)),
-     metal("./src/textures/metal.png", 0), colorBuffer(window.getWidth(), window.getHeight()), depthBuffer(window.getWidth(), window.getHeight()),
-     sharpenShader("./src/shaders/quad.vert", "./src/shaders/sharpenkernel.frag"), sharpenKernelEffect(window.getWidth(), window.getHeight()), blurShader("./src/shaders/quad.vert", "./src/shaders/blur.frag"),
-     blurKernelEffect(window.getWidth(), window.getHeight()), edgeDetectionEffect(window.getWidth(), window.getHeight()), edgeShader("./src/shaders/quad.vert", "./src/shaders/edge.frag")
+     metal("./tests/textures/metal.png", 0), colorBuffer(window.getWidth(), window.getHeight()), depthBuffer(window.getWidth(), window.getHeight()),
+     sharpenShader("./tests/shaders/quad.vert", "./tests/shaders/sharpenkernel.frag"), sharpenKernelEffect(window.getWidth(), window.getHeight()), blurShader("./tests/shaders/quad.vert", "./tests/shaders/blur.frag"),
+     blurKernelEffect(window.getWidth(), window.getHeight()), edgeDetectionEffect(window.getWidth(), window.getHeight()), edgeShader("./tests/shaders/quad.vert", "./tests/shaders/edge.frag")
      {}
     ~PostProcessBuffers() {}
 

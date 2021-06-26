@@ -17,8 +17,8 @@ private:
     Texture2D marble;
     bool enableDepthColors = false;
 public:
-    Outlining() : meshShader("./src/shaders/mesh.vert", "./src/shaders/texture.frag"), metal("./src/textures/metal.png", 0), marble("./src/textures/marble.jpg", 0),
-    outlineShader("./src/shaders/mesh.vert", "./src/shaders/outline.frag")
+    Outlining() : meshShader("./tests/shaders/mesh.vert", "./tests/shaders/texture.frag"), metal("./tests/textures/metal.png", 0), marble("./tests/textures/marble.jpg", 0),
+    outlineShader("./tests/shaders/mesh.vert", "./tests/shaders/outline.frag")
     {}
     ~Outlining() {}
 
@@ -58,8 +58,11 @@ public:
         renderer.draw_raw_arrays_with_texture(cubePosition, meshShader, marble, cube.vao, 36);
 
         glStencilMask(0x00); // Disable writing to the stencil buffer
+        renderer.draw_raw_arrays_with_texture(cubePosition2, meshShader, marble, cube.vao, 36);
+
+        glStencilMask(0x00); // Disable writing to the stencil buffer
         glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-        glDepthMask(GL_FALSE);
+        glDepthMask(GL_TRUE);
         glDepthFunc(GL_ALWAYS);
         cubePosition.scale = glm::vec3(1.02f);
         renderer.draw_raw_arrays(cubePosition, outlineShader, cube.vao, 36);
