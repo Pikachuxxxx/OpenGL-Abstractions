@@ -1,0 +1,4350 @@
+(?)
+[ Copy "Hello, world!" to clipboard ]
+### Window options ###
+### Widgets ###
+### Layout & Scrolling ###
+> Child windows
+    (?)
+    [ ] Disable Mouse Wheel
+    [ ] Disable Menu
+0000: scrollable region
+0001: scrollable region
+0002: scrollable region
+0003: scrollable region
+0004: scrollable region
+0005: scrollable region
+0006: scrollable region
+0007: scrollable region
+0008: scrollable region
+0009: scrollable region
+0010: scrollable region
+0011: scrollable region
+0012: scrollable region
+0013: scrollable region
+0014: scrollable region
+0015: scrollable region
+0016: scrollable region
+0017: scrollable region
+0018: scrollable region
+0019: scrollable region
+0020: scrollable region
+0021: scrollable region
+0022: scrollable region
+0023: scrollable region
+0024: scrollable region
+0025: scrollable region
+0026: scrollable region
+0027: scrollable region
+0028: scrollable region
+0029: scrollable region
+0030: scrollable region
+0031: scrollable region
+0032: scrollable region
+0033: scrollable region
+0034: scrollable region
+0035: scrollable region
+0036: scrollable region
+0037: scrollable region
+0038: scrollable region
+0039: scrollable region
+0040: scrollable region
+0041: scrollable region
+0042: scrollable region
+0043: scrollable region
+0044: scrollable region
+0045: scrollable region
+0046: scrollable region
+0047: scrollable region
+0048: scrollable region
+0049: scrollable region
+0050: scrollable region
+0051: scrollable region
+0052: scrollable region
+0053: scrollable region
+0054: scrollable region
+0055: scrollable region
+0056: scrollable region
+0057: scrollable region
+0058: scrollable region
+0059: scrollable region
+0060: scrollable region
+0061: scrollable region
+0062: scrollable region
+0063: scrollable region
+0064: scrollable region
+0065: scrollable region
+0066: scrollable region
+0067: scrollable region
+0068: scrollable region
+0069: scrollable region
+0070: scrollable region
+0071: scrollable region
+0072: scrollable region
+0073: scrollable region
+0074: scrollable region
+0075: scrollable region
+0076: scrollable region
+0077: scrollable region
+0078: scrollable region
+0079: scrollable region
+0080: scrollable region
+0081: scrollable region
+0082: scrollable region
+0083: scrollable region
+0084: scrollable region
+0085: scrollable region
+0086: scrollable region
+0087: scrollable region
+0088: scrollable region
+0089: scrollable region
+0090: scrollable region
+0091: scrollable region
+0092: scrollable region
+0093: scrollable region
+0094: scrollable region
+0095: scrollable region
+0096: scrollable region
+0097: scrollable region
+0098: scrollable region
+0099: scrollable region
+Menu
+| [ 000 ] | [ 001 ] |
+| [ 002 ] | [ 003 ] |
+| [ 004 ] | [ 005 ] |
+| [ 006 ] | [ 007 ] |
+| [ 008 ] | [ 009 ] |
+| [ 010 ] | [ 011 ] |
+| [ 012 ] | [ 013 ] |
+| [ 014 ] | [ 015 ] |
+| [ 016 ] | [ 017 ] |
+| [ 018 ] | [ 019 ] |
+| [ 020 ] | [ 021 ] |
+| [ 022 ] | [ 023 ] |
+| [ 024 ] | [ 025 ] |
+| [ 026 ] | [ 027 ] |
+| [ 028 ] | [ 029 ] |
+| [ 030 ] | [ 031 ] |
+| [ 032 ] | [ 033 ] |
+| [ 034 ] | [ 035 ] |
+| [ 036 ] | [ 037 ] |
+| [ 038 ] | [ 039 ] |
+| [ 040 ] | [ 041 ] |
+| [ 042 ] | [ 043 ] |
+| [ 044 ] | [ 045 ] |
+| [ 046 ] | [ 047 ] |
+| [ 048 ] | [ 049 ] |
+| [ 050 ] | [ 051 ] |
+| [ 052 ] | [ 053 ] |
+| [ 054 ] | [ 055 ] |
+| [ 056 ] | [ 057 ] |
+| [ 058 ] | [ 059 ] |
+| [ 060 ] | [ 061 ] |
+| [ 062 ] | [ 063 ] |
+| [ 064 ] | [ 065 ] |
+| [ 066 ] | [ 067 ] |
+| [ 068 ] | [ 069 ] |
+| [ 070 ] | [ 071 ] |
+| [ 072 ] | [ 073 ] |
+| [ 074 ] | [ 075 ] |
+| [ 076 ] | [ 077 ] |
+| [ 078 ] | [ 079 ] |
+| [ 080 ] | [ 081 ] |
+| [ 082 ] | [ 083 ] |
+| [ 084 ] | [ 085 ] |
+| [ 086 ] | [ 087 ] |
+| [ 088 ] | [ 089 ] |
+| [ 090 ] | [ 091 ] |
+| [ 092 ] | [ 093 ] |
+| [ 094 ] | [ 095 ] |
+| [ 096 ] | [ 097 ] |
+| [ 098 ] | [ 099 ] |
+    --------------------------------
+    { 0 } Offset X
+Some test 0
+Some test 1
+Some test 2
+Some test 3
+Some test 4
+Some test 5
+Some test 6
+Some test 7
+Some test 8
+Some test 9
+Some test 10
+Some test 11
+Some test 12
+Some test 13
+Some test 14
+Some test 15
+Some test 16
+Some test 17
+Some test 18
+Some test 19
+Some test 20
+Some test 21
+Some test 22
+Some test 23
+Some test 24
+Some test 25
+Some test 26
+Some test 27
+Some test 28
+Some test 29
+Some test 30
+Some test 31
+Some test 32
+Some test 33
+Some test 34
+Some test 35
+Some test 36
+Some test 37
+Some test 38
+Some test 39
+Some test 40
+Some test 41
+Some test 42
+Some test 43
+Some test 44
+Some test 45
+Some test 46
+Some test 47
+Some test 48
+Some test 49
+    Hovered: 0
+    Rect of child window is: (448,739) (648,839)
+> Widgets Width
+    [x] Show indented items
+    SetNextItemWidth/PushItemWidth(100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-FLT_MIN) (?)
+    { 0.000 }
+    { 0.000 } float (indented)
+> Basic Horizontal Layout
+    (Use ImGui::SameLine() to keep adding items to the right of the preceding item)
+    Two items: Hello Sailor
+    More spacing: Hello Sailor
+    Normal buttons [ Banana ] [ Apple ] [ Corniflower ]
+    Small buttons [ Like this one ] can fit within a text block.
+    Aligned x=150 x=300
+    Aligned [ x=150 ] [ x=300 ]
+    [ ] My [ ] Tailor [ ] Is [ ] Rich
+    Combo { 1.000 } X { 2.000 } Y { 3.000 } Z
+    Lists:
+    [ A ] [ B ]
+    Manually wrapping:
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+> Groups
+    (?)
+    [ AAA ] [ BBB ]
+    [ CCC ]
+    [ DDD ]
+    [ EEE ]
+    [ ACTION ] [ REACTION ]
+    [ LEVERAGE
+    BUZZWORD ]
+> Text Baseline Alignment
+    Text baseline: (?)
+    KO Blahblah [ Some framed item ] (?)
+    OK Blahblah [ Some framed item ] (?)
+    [ TEST ] TEST [ TEST ]
+    Text aligned to framed item [ Item ] Item [ Item ] [ Item ]
+    Multi-line text:
+    One
+    Two
+    Three Hello
+    World Banana
+    Banana Hello
+    World One
+    Two
+    Three
+    [ HOP ] Banana Hello
+    World Banana
+    [ HOP ] Hello
+    World Banana
+    Misc items:
+    [ 80x80 ] [ 50x50 ] [ Button() ] [ SmallButton() ]
+    [ Button ] > Node
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    > Node [ Button ]
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    [ Button ] Bullet text
+    Node [ Button ]
+> Scrolling
+    (?)
+    [ ] Decoration
+    [x] Track { Item = 50 }
+    [ Scroll Offset ] { +0 px }
+    [ Scroll To Pos ] { X/Y = 200 px }
+    Top Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    850/1512
+    25% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    807/1512
+    Center Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    764/1512
+    75% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    721/1512
+    Bottom Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    679/1512
+    (?)
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Left
+    2780/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    25%
+    2732/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Center
+    2685/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    75%
+    2638/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Right
+    2592/5385
+    (?)
+    { 7 } Lines
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ] [ 37 ] [ 38 ] [ Fizz ] [ Buzz ] [ 41 ] [ Fizz ] [ 43 ] [ 44 ] [ FizzBuzz ] [ 46 ] [ 47 ] [ Fizz ] [ 49 ] [ Buzz ] [ Fizz ] [ 52 ] [ 53 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ]
+    [ << ] Scroll from code [ >> ] 0/2311
+    [ ] Show Horizontal contents size demo window
+> Clipping
+    { 100 } { 100 } size
+    (Click and drag to scroll)
+    (?)
+    (?)
+    (?)
+### Popups & Modal windows ###
+> Popups
+    When a popup is active, it inhibits interacting with windows that are behind the popup. Clicking outside the popup closes it.
+    [ Select.. ] Haddock
+    [ Toggle.. ]
+    [ File Menu.. ]
+> Context menus
+    (?)
+    Label1
+    Label2
+    Label3
+    Label4
+    Label5
+    (?)
+    Value = 3.141 <-- (1) right-click this value
+    (2) Or right-click this text
+    [ (3) Or click this button ]
+    (?)
+    [ Button: Label1 ] (<-- right-click here)
+> Modals
+    Modal windows are like popups but the user cannot close them by clicking outside.
+    [ Delete.. ]
+    [ Stacked modals.. ]
+> Menus inside a regular window
+    Below we are testing adding menu items to a regular window. It's rather unusual but should work!
+    --------------------------------
+    Menu item CTRL+M
+    Menu inside a regular window
+    --------------------------------
+
+### Tables & Columns ###
+### Filtering ###
+### Inputs, Navigation & Focus ###
+(?)
+[ Copy "Hello, world!" to clipboard ]
+### Window options ###
+### Widgets ###
+### Layout & Scrolling ###
+> Child windows
+    (?)
+    [ ] Disable Mouse Wheel
+    [ ] Disable Menu
+0000: scrollable region
+0001: scrollable region
+0002: scrollable region
+0003: scrollable region
+0004: scrollable region
+0005: scrollable region
+0006: scrollable region
+0007: scrollable region
+0008: scrollable region
+0009: scrollable region
+0010: scrollable region
+0011: scrollable region
+0012: scrollable region
+0013: scrollable region
+0014: scrollable region
+0015: scrollable region
+0016: scrollable region
+0017: scrollable region
+0018: scrollable region
+0019: scrollable region
+0020: scrollable region
+0021: scrollable region
+0022: scrollable region
+0023: scrollable region
+0024: scrollable region
+0025: scrollable region
+0026: scrollable region
+0027: scrollable region
+0028: scrollable region
+0029: scrollable region
+0030: scrollable region
+0031: scrollable region
+0032: scrollable region
+0033: scrollable region
+0034: scrollable region
+0035: scrollable region
+0036: scrollable region
+0037: scrollable region
+0038: scrollable region
+0039: scrollable region
+0040: scrollable region
+0041: scrollable region
+0042: scrollable region
+0043: scrollable region
+0044: scrollable region
+0045: scrollable region
+0046: scrollable region
+0047: scrollable region
+0048: scrollable region
+0049: scrollable region
+0050: scrollable region
+0051: scrollable region
+0052: scrollable region
+0053: scrollable region
+0054: scrollable region
+0055: scrollable region
+0056: scrollable region
+0057: scrollable region
+0058: scrollable region
+0059: scrollable region
+0060: scrollable region
+0061: scrollable region
+0062: scrollable region
+0063: scrollable region
+0064: scrollable region
+0065: scrollable region
+0066: scrollable region
+0067: scrollable region
+0068: scrollable region
+0069: scrollable region
+0070: scrollable region
+0071: scrollable region
+0072: scrollable region
+0073: scrollable region
+0074: scrollable region
+0075: scrollable region
+0076: scrollable region
+0077: scrollable region
+0078: scrollable region
+0079: scrollable region
+0080: scrollable region
+0081: scrollable region
+0082: scrollable region
+0083: scrollable region
+0084: scrollable region
+0085: scrollable region
+0086: scrollable region
+0087: scrollable region
+0088: scrollable region
+0089: scrollable region
+0090: scrollable region
+0091: scrollable region
+0092: scrollable region
+0093: scrollable region
+0094: scrollable region
+0095: scrollable region
+0096: scrollable region
+0097: scrollable region
+0098: scrollable region
+0099: scrollable region
+Menu
+| [ 000 ] | [ 001 ] |
+| [ 002 ] | [ 003 ] |
+| [ 004 ] | [ 005 ] |
+| [ 006 ] | [ 007 ] |
+| [ 008 ] | [ 009 ] |
+| [ 010 ] | [ 011 ] |
+| [ 012 ] | [ 013 ] |
+| [ 014 ] | [ 015 ] |
+| [ 016 ] | [ 017 ] |
+| [ 018 ] | [ 019 ] |
+| [ 020 ] | [ 021 ] |
+| [ 022 ] | [ 023 ] |
+| [ 024 ] | [ 025 ] |
+| [ 026 ] | [ 027 ] |
+| [ 028 ] | [ 029 ] |
+| [ 030 ] | [ 031 ] |
+| [ 032 ] | [ 033 ] |
+| [ 034 ] | [ 035 ] |
+| [ 036 ] | [ 037 ] |
+| [ 038 ] | [ 039 ] |
+| [ 040 ] | [ 041 ] |
+| [ 042 ] | [ 043 ] |
+| [ 044 ] | [ 045 ] |
+| [ 046 ] | [ 047 ] |
+| [ 048 ] | [ 049 ] |
+| [ 050 ] | [ 051 ] |
+| [ 052 ] | [ 053 ] |
+| [ 054 ] | [ 055 ] |
+| [ 056 ] | [ 057 ] |
+| [ 058 ] | [ 059 ] |
+| [ 060 ] | [ 061 ] |
+| [ 062 ] | [ 063 ] |
+| [ 064 ] | [ 065 ] |
+| [ 066 ] | [ 067 ] |
+| [ 068 ] | [ 069 ] |
+| [ 070 ] | [ 071 ] |
+| [ 072 ] | [ 073 ] |
+| [ 074 ] | [ 075 ] |
+| [ 076 ] | [ 077 ] |
+| [ 078 ] | [ 079 ] |
+| [ 080 ] | [ 081 ] |
+| [ 082 ] | [ 083 ] |
+| [ 084 ] | [ 085 ] |
+| [ 086 ] | [ 087 ] |
+| [ 088 ] | [ 089 ] |
+| [ 090 ] | [ 091 ] |
+| [ 092 ] | [ 093 ] |
+| [ 094 ] | [ 095 ] |
+| [ 096 ] | [ 097 ] |
+| [ 098 ] | [ 099 ] |
+    --------------------------------
+    { 0 } Offset X
+Some test 0
+Some test 1
+Some test 2
+Some test 3
+Some test 4
+Some test 5
+Some test 6
+Some test 7
+Some test 8
+Some test 9
+Some test 10
+Some test 11
+Some test 12
+Some test 13
+Some test 14
+Some test 15
+Some test 16
+Some test 17
+Some test 18
+Some test 19
+Some test 20
+Some test 21
+Some test 22
+Some test 23
+Some test 24
+Some test 25
+Some test 26
+Some test 27
+Some test 28
+Some test 29
+Some test 30
+Some test 31
+Some test 32
+Some test 33
+Some test 34
+Some test 35
+Some test 36
+Some test 37
+Some test 38
+Some test 39
+Some test 40
+Some test 41
+Some test 42
+Some test 43
+Some test 44
+Some test 45
+Some test 46
+Some test 47
+Some test 48
+Some test 49
+    Hovered: 0
+    Rect of child window is: (448,739) (648,839)
+> Widgets Width
+    [x] Show indented items
+    SetNextItemWidth/PushItemWidth(100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-FLT_MIN) (?)
+    { 0.000 }
+    { 0.000 } float (indented)
+> Basic Horizontal Layout
+    (Use ImGui::SameLine() to keep adding items to the right of the preceding item)
+    Two items: Hello Sailor
+    More spacing: Hello Sailor
+    Normal buttons [ Banana ] [ Apple ] [ Corniflower ]
+    Small buttons [ Like this one ] can fit within a text block.
+    Aligned x=150 x=300
+    Aligned [ x=150 ] [ x=300 ]
+    [ ] My [ ] Tailor [ ] Is [ ] Rich
+    Combo { 1.000 } X { 2.000 } Y { 3.000 } Z
+    Lists:
+    [ A ] [ B ]
+    Manually wrapping:
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+> Groups
+    (?)
+    [ AAA ] [ BBB ]
+    [ CCC ]
+    [ DDD ]
+    [ EEE ]
+    [ ACTION ] [ REACTION ]
+    [ LEVERAGE
+    BUZZWORD ]
+> Text Baseline Alignment
+    Text baseline: (?)
+    KO Blahblah [ Some framed item ] (?)
+    OK Blahblah [ Some framed item ] (?)
+    [ TEST ] TEST [ TEST ]
+    Text aligned to framed item [ Item ] Item [ Item ] [ Item ]
+    Multi-line text:
+    One
+    Two
+    Three Hello
+    World Banana
+    Banana Hello
+    World One
+    Two
+    Three
+    [ HOP ] Banana Hello
+    World Banana
+    [ HOP ] Hello
+    World Banana
+    Misc items:
+    [ 80x80 ] [ 50x50 ] [ Button() ] [ SmallButton() ]
+    [ Button ] > Node
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    > Node [ Button ]
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    [ Button ] Bullet text
+    Node [ Button ]
+> Scrolling
+    (?)
+    [ ] Decoration
+    [x] Track { Item = 50 }
+    [ Scroll Offset ] { +0 px }
+    [ Scroll To Pos ] { X/Y = 200 px }
+    Top Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    850/1512
+    25% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    807/1512
+    Center Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    764/1512
+    75% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    721/1512
+    Bottom Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    679/1512
+    (?)
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Left
+    2780/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    25%
+    2732/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Center
+    2685/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    75%
+    2638/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Right
+    2592/5385
+    (?)
+    { 7 } Lines
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ] [ 37 ] [ 38 ] [ Fizz ] [ Buzz ] [ 41 ] [ Fizz ] [ 43 ] [ 44 ] [ FizzBuzz ] [ 46 ] [ 47 ] [ Fizz ] [ 49 ] [ Buzz ] [ Fizz ] [ 52 ] [ 53 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ]
+    [ << ] Scroll from code [ >> ] 0/2311
+    [ ] Show Horizontal contents size demo window
+> Clipping
+    { 100 } { 100 } size
+    (Click and drag to scroll)
+    (?)
+    (?)
+    (?)
+### Popups & Modal windows ###
+> Popups
+    When a popup is active, it inhibits interacting with windows that are behind the popup. Clicking outside the popup closes it.
+    [ Select.. ] Haddock
+    [ Toggle.. ]
+    [ File Menu.. ]
+> Context menus
+    (?)
+    Label1
+    Label2
+    Label3
+    Label4
+    Label5
+    (?)
+    Value = 3.141 <-- (1) right-click this value
+    (2) Or right-click this text
+    [ (3) Or click this button ]
+    (?)
+    [ Button: Label1 ] (<-- right-click here)
+> Modals
+    Modal windows are like popups but the user cannot close them by clicking outside.
+    [ Delete.. ]
+    [ Stacked modals.. ]
+> Menus inside a regular window
+    Below we are testing adding menu items to a regular window. It's rather unusual but should work!
+    --------------------------------
+    Menu item CTRL+M
+    Menu inside a regular window
+    --------------------------------
+
+### Tables & Columns ###
+### Filtering ###
+### Inputs, Navigation & Focus ###
+(?)
+[ Copy "Hello, world!" to clipboard ]
+### Window options ###
+### Widgets ###
+### Layout & Scrolling ###
+> Child windows
+    (?)
+    [ ] Disable Mouse Wheel
+    [ ] Disable Menu
+0000: scrollable region
+0001: scrollable region
+0002: scrollable region
+0003: scrollable region
+0004: scrollable region
+0005: scrollable region
+0006: scrollable region
+0007: scrollable region
+0008: scrollable region
+0009: scrollable region
+0010: scrollable region
+0011: scrollable region
+0012: scrollable region
+0013: scrollable region
+0014: scrollable region
+0015: scrollable region
+0016: scrollable region
+0017: scrollable region
+0018: scrollable region
+0019: scrollable region
+0020: scrollable region
+0021: scrollable region
+0022: scrollable region
+0023: scrollable region
+0024: scrollable region
+0025: scrollable region
+0026: scrollable region
+0027: scrollable region
+0028: scrollable region
+0029: scrollable region
+0030: scrollable region
+0031: scrollable region
+0032: scrollable region
+0033: scrollable region
+0034: scrollable region
+0035: scrollable region
+0036: scrollable region
+0037: scrollable region
+0038: scrollable region
+0039: scrollable region
+0040: scrollable region
+0041: scrollable region
+0042: scrollable region
+0043: scrollable region
+0044: scrollable region
+0045: scrollable region
+0046: scrollable region
+0047: scrollable region
+0048: scrollable region
+0049: scrollable region
+0050: scrollable region
+0051: scrollable region
+0052: scrollable region
+0053: scrollable region
+0054: scrollable region
+0055: scrollable region
+0056: scrollable region
+0057: scrollable region
+0058: scrollable region
+0059: scrollable region
+0060: scrollable region
+0061: scrollable region
+0062: scrollable region
+0063: scrollable region
+0064: scrollable region
+0065: scrollable region
+0066: scrollable region
+0067: scrollable region
+0068: scrollable region
+0069: scrollable region
+0070: scrollable region
+0071: scrollable region
+0072: scrollable region
+0073: scrollable region
+0074: scrollable region
+0075: scrollable region
+0076: scrollable region
+0077: scrollable region
+0078: scrollable region
+0079: scrollable region
+0080: scrollable region
+0081: scrollable region
+0082: scrollable region
+0083: scrollable region
+0084: scrollable region
+0085: scrollable region
+0086: scrollable region
+0087: scrollable region
+0088: scrollable region
+0089: scrollable region
+0090: scrollable region
+0091: scrollable region
+0092: scrollable region
+0093: scrollable region
+0094: scrollable region
+0095: scrollable region
+0096: scrollable region
+0097: scrollable region
+0098: scrollable region
+0099: scrollable region
+Menu
+| [ 000 ] | [ 001 ] |
+| [ 002 ] | [ 003 ] |
+| [ 004 ] | [ 005 ] |
+| [ 006 ] | [ 007 ] |
+| [ 008 ] | [ 009 ] |
+| [ 010 ] | [ 011 ] |
+| [ 012 ] | [ 013 ] |
+| [ 014 ] | [ 015 ] |
+| [ 016 ] | [ 017 ] |
+| [ 018 ] | [ 019 ] |
+| [ 020 ] | [ 021 ] |
+| [ 022 ] | [ 023 ] |
+| [ 024 ] | [ 025 ] |
+| [ 026 ] | [ 027 ] |
+| [ 028 ] | [ 029 ] |
+| [ 030 ] | [ 031 ] |
+| [ 032 ] | [ 033 ] |
+| [ 034 ] | [ 035 ] |
+| [ 036 ] | [ 037 ] |
+| [ 038 ] | [ 039 ] |
+| [ 040 ] | [ 041 ] |
+| [ 042 ] | [ 043 ] |
+| [ 044 ] | [ 045 ] |
+| [ 046 ] | [ 047 ] |
+| [ 048 ] | [ 049 ] |
+| [ 050 ] | [ 051 ] |
+| [ 052 ] | [ 053 ] |
+| [ 054 ] | [ 055 ] |
+| [ 056 ] | [ 057 ] |
+| [ 058 ] | [ 059 ] |
+| [ 060 ] | [ 061 ] |
+| [ 062 ] | [ 063 ] |
+| [ 064 ] | [ 065 ] |
+| [ 066 ] | [ 067 ] |
+| [ 068 ] | [ 069 ] |
+| [ 070 ] | [ 071 ] |
+| [ 072 ] | [ 073 ] |
+| [ 074 ] | [ 075 ] |
+| [ 076 ] | [ 077 ] |
+| [ 078 ] | [ 079 ] |
+| [ 080 ] | [ 081 ] |
+| [ 082 ] | [ 083 ] |
+| [ 084 ] | [ 085 ] |
+| [ 086 ] | [ 087 ] |
+| [ 088 ] | [ 089 ] |
+| [ 090 ] | [ 091 ] |
+| [ 092 ] | [ 093 ] |
+| [ 094 ] | [ 095 ] |
+| [ 096 ] | [ 097 ] |
+| [ 098 ] | [ 099 ] |
+    --------------------------------
+    { 0 } Offset X
+Some test 0
+Some test 1
+Some test 2
+Some test 3
+Some test 4
+Some test 5
+Some test 6
+Some test 7
+Some test 8
+Some test 9
+Some test 10
+Some test 11
+Some test 12
+Some test 13
+Some test 14
+Some test 15
+Some test 16
+Some test 17
+Some test 18
+Some test 19
+Some test 20
+Some test 21
+Some test 22
+Some test 23
+Some test 24
+Some test 25
+Some test 26
+Some test 27
+Some test 28
+Some test 29
+Some test 30
+Some test 31
+Some test 32
+Some test 33
+Some test 34
+Some test 35
+Some test 36
+Some test 37
+Some test 38
+Some test 39
+Some test 40
+Some test 41
+Some test 42
+Some test 43
+Some test 44
+Some test 45
+Some test 46
+Some test 47
+Some test 48
+Some test 49
+    Hovered: 0
+    Rect of child window is: (448,739) (648,839)
+> Widgets Width
+    [x] Show indented items
+    SetNextItemWidth/PushItemWidth(100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-FLT_MIN) (?)
+    { 0.000 }
+    { 0.000 } float (indented)
+> Basic Horizontal Layout
+    (Use ImGui::SameLine() to keep adding items to the right of the preceding item)
+    Two items: Hello Sailor
+    More spacing: Hello Sailor
+    Normal buttons [ Banana ] [ Apple ] [ Corniflower ]
+    Small buttons [ Like this one ] can fit within a text block.
+    Aligned x=150 x=300
+    Aligned [ x=150 ] [ x=300 ]
+    [ ] My [ ] Tailor [ ] Is [ ] Rich
+    Combo { 1.000 } X { 2.000 } Y { 3.000 } Z
+    Lists:
+    [ A ] [ B ]
+    Manually wrapping:
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+> Groups
+    (?)
+    [ AAA ] [ BBB ]
+    [ CCC ]
+    [ DDD ]
+    [ EEE ]
+    [ ACTION ] [ REACTION ]
+    [ LEVERAGE
+    BUZZWORD ]
+> Text Baseline Alignment
+    Text baseline: (?)
+    KO Blahblah [ Some framed item ] (?)
+    OK Blahblah [ Some framed item ] (?)
+    [ TEST ] TEST [ TEST ]
+    Text aligned to framed item [ Item ] Item [ Item ] [ Item ]
+    Multi-line text:
+    One
+    Two
+    Three Hello
+    World Banana
+    Banana Hello
+    World One
+    Two
+    Three
+    [ HOP ] Banana Hello
+    World Banana
+    [ HOP ] Hello
+    World Banana
+    Misc items:
+    [ 80x80 ] [ 50x50 ] [ Button() ] [ SmallButton() ]
+    [ Button ] > Node
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    > Node [ Button ]
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    [ Button ] Bullet text
+    Node [ Button ]
+> Scrolling
+    (?)
+    [ ] Decoration
+    [x] Track { Item = 50 }
+    [ Scroll Offset ] { +0 px }
+    [ Scroll To Pos ] { X/Y = 200 px }
+    Top Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    850/1512
+    25% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    807/1512
+    Center Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    764/1512
+    75% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    721/1512
+    Bottom Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    679/1512
+    (?)
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Left
+    2780/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    25%
+    2732/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Center
+    2685/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    75%
+    2638/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Right
+    2592/5385
+    (?)
+    { 7 } Lines
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ] [ 37 ] [ 38 ] [ Fizz ] [ Buzz ] [ 41 ] [ Fizz ] [ 43 ] [ 44 ] [ FizzBuzz ] [ 46 ] [ 47 ] [ Fizz ] [ 49 ] [ Buzz ] [ Fizz ] [ 52 ] [ 53 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ]
+    [ << ] Scroll from code [ >> ] 0/2311
+    [ ] Show Horizontal contents size demo window
+> Clipping
+    { 100 } { 100 } size
+    (Click and drag to scroll)
+    (?)
+    (?)
+    (?)
+### Popups & Modal windows ###
+> Popups
+    When a popup is active, it inhibits interacting with windows that are behind the popup. Clicking outside the popup closes it.
+    [ Select.. ] Haddock
+    [ Toggle.. ]
+    [ File Menu.. ]
+> Context menus
+    (?)
+    Label1
+    Label2
+    Label3
+    Label4
+    Label5
+    (?)
+    Value = 3.141 <-- (1) right-click this value
+    (2) Or right-click this text
+    [ (3) Or click this button ]
+    (?)
+    [ Button: Label1 ] (<-- right-click here)
+> Modals
+    Modal windows are like popups but the user cannot close them by clicking outside.
+    [ Delete.. ]
+    [ Stacked modals.. ]
+> Menus inside a regular window
+    Below we are testing adding menu items to a regular window. It's rather unusual but should work!
+    --------------------------------
+    Menu item CTRL+M
+    Menu inside a regular window
+    --------------------------------
+
+### Tables & Columns ###
+### Filtering ###
+### Inputs, Navigation & Focus ###
+(?)
+[ Copy "Hello, world!" to clipboard ]
+### Window options ###
+### Widgets ###
+### Layout & Scrolling ###
+> Child windows
+    (?)
+    [ ] Disable Mouse Wheel
+    [ ] Disable Menu
+0000: scrollable region
+0001: scrollable region
+0002: scrollable region
+0003: scrollable region
+0004: scrollable region
+0005: scrollable region
+0006: scrollable region
+0007: scrollable region
+0008: scrollable region
+0009: scrollable region
+0010: scrollable region
+0011: scrollable region
+0012: scrollable region
+0013: scrollable region
+0014: scrollable region
+0015: scrollable region
+0016: scrollable region
+0017: scrollable region
+0018: scrollable region
+0019: scrollable region
+0020: scrollable region
+0021: scrollable region
+0022: scrollable region
+0023: scrollable region
+0024: scrollable region
+0025: scrollable region
+0026: scrollable region
+0027: scrollable region
+0028: scrollable region
+0029: scrollable region
+0030: scrollable region
+0031: scrollable region
+0032: scrollable region
+0033: scrollable region
+0034: scrollable region
+0035: scrollable region
+0036: scrollable region
+0037: scrollable region
+0038: scrollable region
+0039: scrollable region
+0040: scrollable region
+0041: scrollable region
+0042: scrollable region
+0043: scrollable region
+0044: scrollable region
+0045: scrollable region
+0046: scrollable region
+0047: scrollable region
+0048: scrollable region
+0049: scrollable region
+0050: scrollable region
+0051: scrollable region
+0052: scrollable region
+0053: scrollable region
+0054: scrollable region
+0055: scrollable region
+0056: scrollable region
+0057: scrollable region
+0058: scrollable region
+0059: scrollable region
+0060: scrollable region
+0061: scrollable region
+0062: scrollable region
+0063: scrollable region
+0064: scrollable region
+0065: scrollable region
+0066: scrollable region
+0067: scrollable region
+0068: scrollable region
+0069: scrollable region
+0070: scrollable region
+0071: scrollable region
+0072: scrollable region
+0073: scrollable region
+0074: scrollable region
+0075: scrollable region
+0076: scrollable region
+0077: scrollable region
+0078: scrollable region
+0079: scrollable region
+0080: scrollable region
+0081: scrollable region
+0082: scrollable region
+0083: scrollable region
+0084: scrollable region
+0085: scrollable region
+0086: scrollable region
+0087: scrollable region
+0088: scrollable region
+0089: scrollable region
+0090: scrollable region
+0091: scrollable region
+0092: scrollable region
+0093: scrollable region
+0094: scrollable region
+0095: scrollable region
+0096: scrollable region
+0097: scrollable region
+0098: scrollable region
+0099: scrollable region
+Menu
+| [ 000 ] | [ 001 ] |
+| [ 002 ] | [ 003 ] |
+| [ 004 ] | [ 005 ] |
+| [ 006 ] | [ 007 ] |
+| [ 008 ] | [ 009 ] |
+| [ 010 ] | [ 011 ] |
+| [ 012 ] | [ 013 ] |
+| [ 014 ] | [ 015 ] |
+| [ 016 ] | [ 017 ] |
+| [ 018 ] | [ 019 ] |
+| [ 020 ] | [ 021 ] |
+| [ 022 ] | [ 023 ] |
+| [ 024 ] | [ 025 ] |
+| [ 026 ] | [ 027 ] |
+| [ 028 ] | [ 029 ] |
+| [ 030 ] | [ 031 ] |
+| [ 032 ] | [ 033 ] |
+| [ 034 ] | [ 035 ] |
+| [ 036 ] | [ 037 ] |
+| [ 038 ] | [ 039 ] |
+| [ 040 ] | [ 041 ] |
+| [ 042 ] | [ 043 ] |
+| [ 044 ] | [ 045 ] |
+| [ 046 ] | [ 047 ] |
+| [ 048 ] | [ 049 ] |
+| [ 050 ] | [ 051 ] |
+| [ 052 ] | [ 053 ] |
+| [ 054 ] | [ 055 ] |
+| [ 056 ] | [ 057 ] |
+| [ 058 ] | [ 059 ] |
+| [ 060 ] | [ 061 ] |
+| [ 062 ] | [ 063 ] |
+| [ 064 ] | [ 065 ] |
+| [ 066 ] | [ 067 ] |
+| [ 068 ] | [ 069 ] |
+| [ 070 ] | [ 071 ] |
+| [ 072 ] | [ 073 ] |
+| [ 074 ] | [ 075 ] |
+| [ 076 ] | [ 077 ] |
+| [ 078 ] | [ 079 ] |
+| [ 080 ] | [ 081 ] |
+| [ 082 ] | [ 083 ] |
+| [ 084 ] | [ 085 ] |
+| [ 086 ] | [ 087 ] |
+| [ 088 ] | [ 089 ] |
+| [ 090 ] | [ 091 ] |
+| [ 092 ] | [ 093 ] |
+| [ 094 ] | [ 095 ] |
+| [ 096 ] | [ 097 ] |
+| [ 098 ] | [ 099 ] |
+    --------------------------------
+    { 0 } Offset X
+Some test 0
+Some test 1
+Some test 2
+Some test 3
+Some test 4
+Some test 5
+Some test 6
+Some test 7
+Some test 8
+Some test 9
+Some test 10
+Some test 11
+Some test 12
+Some test 13
+Some test 14
+Some test 15
+Some test 16
+Some test 17
+Some test 18
+Some test 19
+Some test 20
+Some test 21
+Some test 22
+Some test 23
+Some test 24
+Some test 25
+Some test 26
+Some test 27
+Some test 28
+Some test 29
+Some test 30
+Some test 31
+Some test 32
+Some test 33
+Some test 34
+Some test 35
+Some test 36
+Some test 37
+Some test 38
+Some test 39
+Some test 40
+Some test 41
+Some test 42
+Some test 43
+Some test 44
+Some test 45
+Some test 46
+Some test 47
+Some test 48
+Some test 49
+    Hovered: 0
+    Rect of child window is: (448,739) (648,839)
+> Widgets Width
+    [x] Show indented items
+    SetNextItemWidth/PushItemWidth(100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-FLT_MIN) (?)
+    { 0.000 }
+    { 0.000 } float (indented)
+> Basic Horizontal Layout
+    (Use ImGui::SameLine() to keep adding items to the right of the preceding item)
+    Two items: Hello Sailor
+    More spacing: Hello Sailor
+    Normal buttons [ Banana ] [ Apple ] [ Corniflower ]
+    Small buttons [ Like this one ] can fit within a text block.
+    Aligned x=150 x=300
+    Aligned [ x=150 ] [ x=300 ]
+    [ ] My [ ] Tailor [ ] Is [ ] Rich
+    Combo { 1.000 } X { 2.000 } Y { 3.000 } Z
+    Lists:
+    [ A ] [ B ]
+    Manually wrapping:
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+> Groups
+    (?)
+    [ AAA ] [ BBB ]
+    [ CCC ]
+    [ DDD ]
+    [ EEE ]
+    [ ACTION ] [ REACTION ]
+    [ LEVERAGE
+    BUZZWORD ]
+> Text Baseline Alignment
+    Text baseline: (?)
+    KO Blahblah [ Some framed item ] (?)
+    OK Blahblah [ Some framed item ] (?)
+    [ TEST ] TEST [ TEST ]
+    Text aligned to framed item [ Item ] Item [ Item ] [ Item ]
+    Multi-line text:
+    One
+    Two
+    Three Hello
+    World Banana
+    Banana Hello
+    World One
+    Two
+    Three
+    [ HOP ] Banana Hello
+    World Banana
+    [ HOP ] Hello
+    World Banana
+    Misc items:
+    [ 80x80 ] [ 50x50 ] [ Button() ] [ SmallButton() ]
+    [ Button ] > Node
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    > Node [ Button ]
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    [ Button ] Bullet text
+    Node [ Button ]
+> Scrolling
+    (?)
+    [ ] Decoration
+    [x] Track { Item = 50 }
+    [ Scroll Offset ] { +0 px }
+    [ Scroll To Pos ] { X/Y = 200 px }
+    Top Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    850/1512
+    25% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    807/1512
+    Center Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    764/1512
+    75% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    721/1512
+    Bottom Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    679/1512
+    (?)
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Left
+    2780/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    25%
+    2732/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Center
+    2685/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    75%
+    2638/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Right
+    2592/5385
+    (?)
+    { 7 } Lines
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ] [ 37 ] [ 38 ] [ Fizz ] [ Buzz ] [ 41 ] [ Fizz ] [ 43 ] [ 44 ] [ FizzBuzz ] [ 46 ] [ 47 ] [ Fizz ] [ 49 ] [ Buzz ] [ Fizz ] [ 52 ] [ 53 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ]
+    [ << ] Scroll from code [ >> ] 0/2311
+    [ ] Show Horizontal contents size demo window
+> Clipping
+    { 100 } { 100 } size
+    (Click and drag to scroll)
+    (?)
+    (?)
+    (?)
+### Popups & Modal windows ###
+> Popups
+    When a popup is active, it inhibits interacting with windows that are behind the popup. Clicking outside the popup closes it.
+    [ Select.. ] Haddock
+    [ Toggle.. ]
+    [ File Menu.. ]
+> Context menus
+    (?)
+    Label1
+    Label2
+    Label3
+    Label4
+    Label5
+    (?)
+    Value = 3.141 <-- (1) right-click this value
+    (2) Or right-click this text
+    [ (3) Or click this button ]
+    (?)
+    [ Button: Label1 ] (<-- right-click here)
+> Modals
+    Modal windows are like popups but the user cannot close them by clicking outside.
+    [ Delete.. ]
+    [ Stacked modals.. ]
+> Menus inside a regular window
+    Below we are testing adding menu items to a regular window. It's rather unusual but should work!
+    --------------------------------
+    Menu item CTRL+M
+    Menu inside a regular window
+    --------------------------------
+
+### Tables & Columns ###
+### Filtering ###
+### Inputs, Navigation & Focus ###
+(?)
+[ Copy "Hello, world!" to clipboard ]
+### Window options ###
+### Widgets ###
+### Layout & Scrolling ###
+> Child windows
+    (?)
+    [ ] Disable Mouse Wheel
+    [ ] Disable Menu
+0000: scrollable region
+0001: scrollable region
+0002: scrollable region
+0003: scrollable region
+0004: scrollable region
+0005: scrollable region
+0006: scrollable region
+0007: scrollable region
+0008: scrollable region
+0009: scrollable region
+0010: scrollable region
+0011: scrollable region
+0012: scrollable region
+0013: scrollable region
+0014: scrollable region
+0015: scrollable region
+0016: scrollable region
+0017: scrollable region
+0018: scrollable region
+0019: scrollable region
+0020: scrollable region
+0021: scrollable region
+0022: scrollable region
+0023: scrollable region
+0024: scrollable region
+0025: scrollable region
+0026: scrollable region
+0027: scrollable region
+0028: scrollable region
+0029: scrollable region
+0030: scrollable region
+0031: scrollable region
+0032: scrollable region
+0033: scrollable region
+0034: scrollable region
+0035: scrollable region
+0036: scrollable region
+0037: scrollable region
+0038: scrollable region
+0039: scrollable region
+0040: scrollable region
+0041: scrollable region
+0042: scrollable region
+0043: scrollable region
+0044: scrollable region
+0045: scrollable region
+0046: scrollable region
+0047: scrollable region
+0048: scrollable region
+0049: scrollable region
+0050: scrollable region
+0051: scrollable region
+0052: scrollable region
+0053: scrollable region
+0054: scrollable region
+0055: scrollable region
+0056: scrollable region
+0057: scrollable region
+0058: scrollable region
+0059: scrollable region
+0060: scrollable region
+0061: scrollable region
+0062: scrollable region
+0063: scrollable region
+0064: scrollable region
+0065: scrollable region
+0066: scrollable region
+0067: scrollable region
+0068: scrollable region
+0069: scrollable region
+0070: scrollable region
+0071: scrollable region
+0072: scrollable region
+0073: scrollable region
+0074: scrollable region
+0075: scrollable region
+0076: scrollable region
+0077: scrollable region
+0078: scrollable region
+0079: scrollable region
+0080: scrollable region
+0081: scrollable region
+0082: scrollable region
+0083: scrollable region
+0084: scrollable region
+0085: scrollable region
+0086: scrollable region
+0087: scrollable region
+0088: scrollable region
+0089: scrollable region
+0090: scrollable region
+0091: scrollable region
+0092: scrollable region
+0093: scrollable region
+0094: scrollable region
+0095: scrollable region
+0096: scrollable region
+0097: scrollable region
+0098: scrollable region
+0099: scrollable region
+Menu
+| [ 000 ] | [ 001 ] |
+| [ 002 ] | [ 003 ] |
+| [ 004 ] | [ 005 ] |
+| [ 006 ] | [ 007 ] |
+| [ 008 ] | [ 009 ] |
+| [ 010 ] | [ 011 ] |
+| [ 012 ] | [ 013 ] |
+| [ 014 ] | [ 015 ] |
+| [ 016 ] | [ 017 ] |
+| [ 018 ] | [ 019 ] |
+| [ 020 ] | [ 021 ] |
+| [ 022 ] | [ 023 ] |
+| [ 024 ] | [ 025 ] |
+| [ 026 ] | [ 027 ] |
+| [ 028 ] | [ 029 ] |
+| [ 030 ] | [ 031 ] |
+| [ 032 ] | [ 033 ] |
+| [ 034 ] | [ 035 ] |
+| [ 036 ] | [ 037 ] |
+| [ 038 ] | [ 039 ] |
+| [ 040 ] | [ 041 ] |
+| [ 042 ] | [ 043 ] |
+| [ 044 ] | [ 045 ] |
+| [ 046 ] | [ 047 ] |
+| [ 048 ] | [ 049 ] |
+| [ 050 ] | [ 051 ] |
+| [ 052 ] | [ 053 ] |
+| [ 054 ] | [ 055 ] |
+| [ 056 ] | [ 057 ] |
+| [ 058 ] | [ 059 ] |
+| [ 060 ] | [ 061 ] |
+| [ 062 ] | [ 063 ] |
+| [ 064 ] | [ 065 ] |
+| [ 066 ] | [ 067 ] |
+| [ 068 ] | [ 069 ] |
+| [ 070 ] | [ 071 ] |
+| [ 072 ] | [ 073 ] |
+| [ 074 ] | [ 075 ] |
+| [ 076 ] | [ 077 ] |
+| [ 078 ] | [ 079 ] |
+| [ 080 ] | [ 081 ] |
+| [ 082 ] | [ 083 ] |
+| [ 084 ] | [ 085 ] |
+| [ 086 ] | [ 087 ] |
+| [ 088 ] | [ 089 ] |
+| [ 090 ] | [ 091 ] |
+| [ 092 ] | [ 093 ] |
+| [ 094 ] | [ 095 ] |
+| [ 096 ] | [ 097 ] |
+| [ 098 ] | [ 099 ] |
+    --------------------------------
+    { 0 } Offset X
+Some test 0
+Some test 1
+Some test 2
+Some test 3
+Some test 4
+Some test 5
+Some test 6
+Some test 7
+Some test 8
+Some test 9
+Some test 10
+Some test 11
+Some test 12
+Some test 13
+Some test 14
+Some test 15
+Some test 16
+Some test 17
+Some test 18
+Some test 19
+Some test 20
+Some test 21
+Some test 22
+Some test 23
+Some test 24
+Some test 25
+Some test 26
+Some test 27
+Some test 28
+Some test 29
+Some test 30
+Some test 31
+Some test 32
+Some test 33
+Some test 34
+Some test 35
+Some test 36
+Some test 37
+Some test 38
+Some test 39
+Some test 40
+Some test 41
+Some test 42
+Some test 43
+Some test 44
+Some test 45
+Some test 46
+Some test 47
+Some test 48
+Some test 49
+    Hovered: 0
+    Rect of child window is: (448,739) (648,839)
+> Widgets Width
+    [x] Show indented items
+    SetNextItemWidth/PushItemWidth(100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-100) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-GetContentRegionAvail().x * 0.5f) (?)
+    { 0.000 } float
+    { 0.000 } float (indented)
+    SetNextItemWidth/PushItemWidth(-FLT_MIN) (?)
+    { 0.000 }
+    { 0.000 } float (indented)
+> Basic Horizontal Layout
+    (Use ImGui::SameLine() to keep adding items to the right of the preceding item)
+    Two items: Hello Sailor
+    More spacing: Hello Sailor
+    Normal buttons [ Banana ] [ Apple ] [ Corniflower ]
+    Small buttons [ Like this one ] can fit within a text block.
+    Aligned x=150 x=300
+    Aligned [ x=150 ] [ x=300 ]
+    [ ] My [ ] Tailor [ ] Is [ ] Rich
+    Combo { 1.000 } X { 2.000 } Y { 3.000 } Z
+    Lists:
+    [ A ] [ B ]
+    Manually wrapping:
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+    [ Box ] [ Box ] [ Box ] [ Box ] [ Box ] [ Box ]
+> Groups
+    (?)
+    [ AAA ] [ BBB ]
+    [ CCC ]
+    [ DDD ]
+    [ EEE ]
+    [ ACTION ] [ REACTION ]
+    [ LEVERAGE
+    BUZZWORD ]
+> Text Baseline Alignment
+    Text baseline: (?)
+    KO Blahblah [ Some framed item ] (?)
+    OK Blahblah [ Some framed item ] (?)
+    [ TEST ] TEST [ TEST ]
+    Text aligned to framed item [ Item ] Item [ Item ] [ Item ]
+    Multi-line text:
+    One
+    Two
+    Three Hello
+    World Banana
+    Banana Hello
+    World One
+    Two
+    Three
+    [ HOP ] Banana Hello
+    World Banana
+    [ HOP ] Hello
+    World Banana
+    Misc items:
+    [ 80x80 ] [ 50x50 ] [ Button() ] [ SmallButton() ]
+    [ Button ] > Node
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    > Node [ Button ]
+        Item 0..
+        Item 1..
+        Item 2..
+        Item 3..
+        Item 4..
+        Item 5..
+    [ Button ] Bullet text
+    Node [ Button ]
+> Scrolling
+    (?)
+    [ ] Decoration
+    [x] Track { Item = 50 }
+    [ Scroll Offset ] { +0 px }
+    [ Scroll To Pos ] { X/Y = 200 px }
+    Top Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    850/1512
+    25% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    807/1512
+    Center Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    764/1512
+    75% Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    721/1512
+    Bottom Item 0
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5
+Item 6
+Item 7
+Item 8
+Item 9
+Item 10
+Item 11
+Item 12
+Item 13
+Item 14
+Item 15
+Item 16
+Item 17
+Item 18
+Item 19
+Item 20
+Item 21
+Item 22
+Item 23
+Item 24
+Item 25
+Item 26
+Item 27
+Item 28
+Item 29
+Item 30
+Item 31
+Item 32
+Item 33
+Item 34
+Item 35
+Item 36
+Item 37
+Item 38
+Item 39
+Item 40
+Item 41
+Item 42
+Item 43
+Item 44
+Item 45
+Item 46
+Item 47
+Item 48
+Item 49
+Item 50
+Item 51
+Item 52
+Item 53
+Item 54
+Item 55
+Item 56
+Item 57
+Item 58
+Item 59
+Item 60
+Item 61
+Item 62
+Item 63
+Item 64
+Item 65
+Item 66
+Item 67
+Item 68
+Item 69
+Item 70
+Item 71
+Item 72
+Item 73
+Item 74
+Item 75
+Item 76
+Item 77
+Item 78
+Item 79
+Item 80
+Item 81
+Item 82
+Item 83
+Item 84
+Item 85
+Item 86
+Item 87
+Item 88
+Item 89
+Item 90
+Item 91
+Item 92
+Item 93
+Item 94
+Item 95
+Item 96
+Item 97
+Item 98
+Item 99
+    679/1512
+    (?)
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Left
+    2780/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    25%
+    2732/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Center
+    2685/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    75%
+    2638/5385
+Item 0 Item 1 Item 2 Item 3 Item 4 Item 5 Item 6 Item 7 Item 8 Item 9 Item 10 Item 11 Item 12 Item 13 Item 14 Item 15 Item 16 Item 17 Item 18 Item 19 Item 20 Item 21 Item 22 Item 23 Item 24 Item 25 Item 26 Item 27 Item 28 Item 29 Item 30 Item 31 Item 32 Item 33 Item 34 Item 35 Item 36 Item 37 Item 38 Item 39 Item 40 Item 41 Item 42 Item 43 Item 44 Item 45 Item 46 Item 47 Item 48 Item 49 Item 50 Item 51 Item 52 Item 53 Item 54 Item 55 Item 56 Item 57 Item 58 Item 59 Item 60 Item 61 Item 62 Item 63 Item 64 Item 65 Item 66 Item 67 Item 68 Item 69 Item 70 Item 71 Item 72 Item 73 Item 74 Item 75 Item 76 Item 77 Item 78 Item 79 Item 80 Item 81 Item 82 Item 83 Item 84 Item 85 Item 86 Item 87 Item 88 Item 89 Item 90 Item 91 Item 92 Item 93 Item 94 Item 95 Item 96 Item 97 Item 98 Item 99
+    Right
+    2592/5385
+    (?)
+    { 7 } Lines
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ] [ 28 ] [ 29 ] [ FizzBuzz ] [ 31 ] [ 32 ] [ Fizz ] [ 34 ] [ Buzz ] [ Fizz ] [ 37 ] [ 38 ] [ Fizz ] [ Buzz ] [ 41 ] [ Fizz ] [ 43 ] [ 44 ] [ FizzBuzz ] [ 46 ] [ 47 ] [ Fizz ] [ 49 ] [ Buzz ] [ Fizz ] [ 52 ] [ 53 ] [ Fizz ]
+[ FizzBuzz ] [ 1 ] [ 2 ] [ Fizz ] [ 4 ] [ Buzz ] [ Fizz ] [ 7 ] [ 8 ] [ Fizz ] [ Buzz ] [ 11 ] [ Fizz ] [ 13 ] [ 14 ] [ FizzBuzz ] [ 16 ] [ 17 ] [ Fizz ] [ 19 ] [ Buzz ] [ Fizz ] [ 22 ] [ 23 ] [ Fizz ] [ Buzz ] [ 26 ] [ Fizz ]
+    [ << ] Scroll from code [ >> ] 0/2311
+    [ ] Show Horizontal contents size demo window
+> Clipping
+    { 100 } { 100 } size
+    (Click and drag to scroll)
+    (?)
+    (?)
+    (?)
+### Popups & Modal windows ###
+> Popups
+    When a popup is active, it inhibits interacting with windows that are behind the popup. Clicking outside the popup closes it.
+    [ Select.. ] Haddock
+    [ Toggle.. ]
+    [ File Menu.. ]
+> Context menus
+    (?)
+    Label1
+    Label2
+    Label3
+    Label4
+    Label5
+    (?)
+    Value = 3.141 <-- (1) right-click this value
+    (2) Or right-click this text
+    [ (3) Or click this button ]
+    (?)
+    [ Button: Label1 ] (<-- right-click here)
+> Modals
+    Modal windows are like popups but the user cannot close them by clicking outside.
+    [ Delete.. ]
+    [ Stacked modals.. ]
+> Menus inside a regular window
+    Below we are testing adding menu items to a regular window. It's rather unusual but should work!
+    --------------------------------
+    Menu item CTRL+M
+    Menu inside a regular window
+    --------------------------------
+
+### Tables & Columns ###
+### Filtering ###
+### Inputs, Navigation & Focus ###

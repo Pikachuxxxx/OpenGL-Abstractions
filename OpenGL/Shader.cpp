@@ -56,7 +56,7 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
     if (!success)
     {
         glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED [" << vertexCode <<"]\n" << infoLog << std::endl;
     }
     // Fragment Shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
@@ -67,7 +67,7 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
     if (!success)
     {
         glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED [" << fragmentPath <<"]\n" << infoLog << std::endl;
     }
     // Geometry Shader
     geometry = glCreateShader(GL_GEOMETRY_SHADER);
@@ -101,7 +101,7 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
     if (!success)
     {
         glGetProgramInfoLog(this->Program, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << "vertes shader " << vertexPath << ", fragment shader " << fragmentPath << infoLog << std::endl;
     }
     // Delete the shaders as they're linked into our program now and no longer necessery
     glDeleteShader(vertex);

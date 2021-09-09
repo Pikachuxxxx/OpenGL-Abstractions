@@ -10,6 +10,9 @@
 #include <utils/random.h>
 #include <utils/sphere.h>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb_image_write.h>
+
 class Sandbox
 {
 public:

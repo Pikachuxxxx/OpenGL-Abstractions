@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/ShadowMapping.h"
+#include "AdvancedGL/Vignette.h"
 
 int main()
 {
-    ShadowMapping scene;
+    Scene scene;
     scene.Run();
 
     return EXIT_SUCCESS;

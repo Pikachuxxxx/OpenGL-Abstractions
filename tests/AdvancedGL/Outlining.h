@@ -58,7 +58,7 @@ public:
         renderer.draw_raw_arrays_with_texture(cubePosition, meshShader, marble, cube.vao, 36);
 
         glStencilMask(0x00); // Disable writing to the stencil buffer
-        renderer.draw_raw_arrays_with_texture(cubePosition2, meshShader, marble, cube.vao, 36);
+        renderer.draw_raw_arrays_with_texture(cubePosition2, meshShader, metal, cube.vao, 36);
 
         glStencilMask(0x00); // Disable writing to the stencil buffer
         glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
@@ -95,11 +95,17 @@ public:
         ATTACH_GUIZMO(cubePosition, ImGuizmo::OPERATION::TRANSLATE);
         // ATTACH_GUIZMO(cubePosition2, ImGuizmo::OPERATION::TRANSLATE);
         // ATTACH_GUIZMO(cubePosition3, ImGuizmo::OPERATION::TRANSLATE);
+        // ImGui::ShowDemoWindow();
+        ImGui::ShowDemoWindow();
         ImGui::Begin("Scene");
         {
             ImGui::Text("FPS : %f", (float) (1.0f / window.deltaTime));
             ImGui::Checkbox("Depth test visualisation", &enableDepthColors);
+
+            // Add popup with infor and a button
+
         }
         ImGui::End();
+
     }
 };
