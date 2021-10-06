@@ -68,6 +68,8 @@ void main()
     // Calculate the final lighting color
     vec3 result = (ambient + diffuse + specular);
     color = vec4(result, 1.0f);
+
+    // Visualise the normal map only
     // color = vec4(vec3(texture(material.normalMap, vs_in.texCoords)), 1.0f);
 
     // Gamma correction

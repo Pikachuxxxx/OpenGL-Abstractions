@@ -1,2 +1,5 @@
 .DS_Store
 build/
+
+# Ignore the sponza model textures
+tests/models/Sponza/textures/

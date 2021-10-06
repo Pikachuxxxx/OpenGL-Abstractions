@@ -22,7 +22,7 @@ struct PointLight
     float quadratic = 0.032f;
 };
 
-class NormalMapping : public Sandbox
+class Scene : public Sandbox
 {
 private:
     Cube sourceCube;
@@ -39,11 +39,11 @@ private:
     PointLight pointLight;
     glm::vec3 lightColor;
 public:
-    NormalMapping() : meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), pointLightNormalShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLightNormal.frag"),
+    Scene() : meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), pointLightNormalShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLightNormal.frag"),
      brick("./tests/textures/brickwall.jpg", 0), brickNormal("./tests/textures/brickwall_normal.jpg", 2),
      planeTransform(glm::vec3(0.0f), glm::vec3(90.0f, 0.0f, 0.0f))
     {}
-    ~NormalMapping() {}
+    ~Scene() {}
 
     void OnStart() override
     {
@@ -88,6 +88,8 @@ public:
     void OnImGuiRender() override
     {
         ATTACH_GUIZMO(lightSource, ImGuizmo::OPERATION::TRANSLATE);
+        ATTACH_GUIZMO(planeTransform, ImGuizmo::OPERATION::ROTATE);
+
         ImGui::Begin("Scene");
         {
             // FPS

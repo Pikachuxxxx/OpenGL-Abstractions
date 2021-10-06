@@ -19,6 +19,4 @@ void main()
     float vig = uv.x * uv.y * intensity; // Intensity
     vig = pow(vig, extent); // extent;
     color = vec4(vec3(vig), 1.0f) * texture(renderTex, vs_in.texCoords);
-
-
 }

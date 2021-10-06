@@ -26,7 +26,7 @@ struct PointLight
     float quadratic = 0.032f;
 };
 
-class ShadowMapping : public Sandbox
+class Scene : public Sandbox
 {
 private:
     Plane plane;
@@ -52,12 +52,12 @@ private:
     FrameBuffer debugFBO;
     std::vector<Transform> cubeTransforms;
 public:
-    ShadowMapping() : Sandbox("Shadow Mapping"), wood("./tests/textures/wood.png", 0), marble("./tests/textures/marble.jpg", 0),
+    Scene() : Sandbox("Shadow Mapping"), wood("./tests/textures/wood.png", 0), marble("./tests/textures/marble.jpg", 0),
     depthMapShader("./tests/shaders/Lighting/depthMap.vert", "./tests/shaders/empty.frag"),
     meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), pointLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLight.frag"),
     debugFBO(window.getWidth(), window.getHeight()), debugShader("./tests/shaders/quad.vert", "./tests/shaders/depthMapVis.frag"), shadowShader("./tests/shaders/Lighting/shadow.vert", "./tests/shaders/Lighting/shadow.frag")
      {}
-    ~ShadowMapping() {}
+    ~Scene() {}
 
     void OnStart() override
     {

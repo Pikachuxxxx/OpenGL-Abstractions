@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedGL/Vignette.h"
+#include "AdvancedGL/ToneMapping.h"
 
 int main()
 {
