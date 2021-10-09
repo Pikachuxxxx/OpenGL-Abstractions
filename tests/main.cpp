@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedGL/ToneMapping.h"
+#include "AdvancedGL/Deffered.h"
 
 int main()
 {

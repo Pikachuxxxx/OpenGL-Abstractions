@@ -150,6 +150,7 @@ GLint TextureFromFile(const char* path, std::string directory)
      //Generate texture ID and load texture data
     std::string filename = std::string(path);
     filename = directory + '/' + filename;
+    std::cout << "Loading model texture : " << filename << std::endl;
     GLuint textureID;
     glGenTextures(1, &textureID);
     int width,height, bpp;

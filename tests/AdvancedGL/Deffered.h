@@ -31,7 +31,7 @@ class Scene : public Sandbox
 private:
     Plane plane;
     Cube cube;
-    Quad depthVisualizationQuad;
+    Quad simpleQuad;
     Cube sourceCube;
     Shader meshShader;
     Shader pointLightShader;
@@ -49,25 +49,31 @@ private:
     Material woodMaterial;
     PointLight pointLight;
     Model stormTrooper;
-    glm::vec3 lightColor;
     GLuint depthMapFBO;
     GLuint depthMap;
     glm::mat4 lightProjection;
     FrameBuffer debugFBO;
     FrameBuffer vignetteFBO;
     std::vector<Transform> cubeTransforms;
-    FrameBuffer saveFBO;
     glm::mat4 lightSpaceMatrix;
     float intensity = 15;
     float extent = 0.25;
     bool enableVignette = true;
+    Shader gBufferShader;
+    Texture2D stormTrooperSpecularMap;
+    // G-Buffer Maps
+    unsigned int gBufferFBO;
+    unsigned int gPosition, gNormal, gSpecular;
+    unsigned int gBufferRBODepth;
+    Shader gBufferPointLightShader;
 public:
-    Scene() : Sandbox("Tone Mapping"),
+    Scene() : Sandbox("Deffered Shading"),
     // Models
     stormTrooper("./tests/models/Stormtrooper/Stormtrooper.obj"),
     // Textures
     wood("./tests/textures/wood.png", 0),
     marble("./tests/textures/marble.jpg", 0),
+    stormTrooperSpecularMap("./tests/models/Stormtrooper/Stormtrooper_S.tga", 1),
     // Shaders
     meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"),
     pointLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLight.frag"),
@@ -76,9 +82,10 @@ public:
     debugShader("./tests/shaders/quad.vert", "./tests/shaders/depthMapVis.frag"),
     vignetteShader("./tests/shaders/quad.vert", "./tests/shaders/FX/vignette.frag"),
     toneMapShader("./tests/shaders/quad.vert", "./tests/shaders/FX/tonemapper.frag"),
+    gBufferShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/gBuffer.frag"),
+    gBufferPointLightShader("./tests/shaders/quad.vert", "./tests/shaders/Lighting/gBufferPointLight.frag"),
     // FBOs
     debugFBO(window.getWidth(), window.getHeight()),
-    saveFBO(window.getWidth(), window.getHeight()),
     vignetteFBO(window.getWidth(), window.getHeight())
     {}
 
@@ -120,6 +127,9 @@ public:
             Transform transform(glm::vec3((float)GetRandomFloatInc(-5, 5), (float)GetRandomFloatInc(0, 10), (float)GetRandomFloatInc(-3, 3)), glm::vec3((float)GetRandomIntInc(-60, 60)));
             cubeTransforms.push_back(transform);
         }
+
+        // Generate the GBuffer
+        GenerateGBuffer();
     }
 
     void OnUpdate() override
@@ -128,33 +138,7 @@ public:
         pointLight.position = lightSource.position;
     }
 
-    void ShadowScene()
-    {
-        glViewport(0, 0, window.getWidth(), window.getHeight());
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // Point light shader
-        // Phong lighting model
-        shadowShader.setUniform3f("viewPos", camera.Position);
-        shadowShader.setUniform3f("lightPos", pointLight.position);
-        shadowShader.setUniformMat4f("u_LightSpaceMatrix", lightSpaceMatrix);
-        shadowShader.setUniform1i("diffuseTexture", 0);
-        shadowShader.setUniform1i("shadowMap", 1);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, depthMap);
-        renderer.draw_raw_arrays_with_texture(woodTransform, shadowShader, wood, plane.vao, 6);
-        for(uint32_t i = 0; i < 10; i++)
-            renderer.draw_raw_arrays_with_texture(cubeTransforms[i], shadowShader, marble, cube.vao, 36);
-
-        // Draw the stormtrooper model
-        renderer.draw_model(trooperTransform, shadowShader, stormTrooper);
-        // stormTrooper.Draw(meshShader);
-
-        // Light source cube
-        meshShader.setUniform3f("lightColor", lightColor);
-        renderer.draw_raw_arrays(lightSource, meshShader, sourceCube.vao, 36, RenderingOptions(RenderingOptions::TRIANGLES, true, false));
-    }
-
-    void OnRender() override
+    void LightingPOVPass()
     {
         // glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
@@ -178,34 +162,162 @@ public:
             renderer.draw_raw_arrays_with_texture(cubeTransforms[i], depthMapShader, marble, cube.vao, 36);
 
         renderer.draw_model(trooperTransform, depthMapShader, stormTrooper);
+    }
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    void GeometryPass(Shader shader)
+    {
+        glViewport(0, 0, window.getWidth(), window.getHeight());
+        glClearColor(0.0, 0.0, 0.0, 1.0); // black so it won’t leak in g-buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        /*
+        // Plane
+        renderer.draw_raw_arrays_with_texture(woodTransform, shader, wood, plane.vao, 6);
 
-        ////////////////////////////////////////////////////////////////////////
-        // Get the render texure of the 8-bit shadow map in a grayscale form
+        // Cubes
+        for(uint32_t i = 0; i < 10; i++)
+            renderer.draw_raw_arrays_with_texture(cubeTransforms[i], shader, marble, cube.vao, 36);
+        */
+
+        // Draw the stormtrooper model
+        shader.Use();
+        shader.setUniform1i("texture_specular1", 1);
+        stormTrooperSpecularMap.Bind();
+        // renderer.draw_model(trooperTransform, shader, stormTrooper);
+
+        for(uint32_t i = 0; i < 10; i++)
+            renderer.draw_model(cubeTransforms[i], shader, stormTrooper);
+
+    }
+
+    void LightPassDepthMapToRenderTexture()
+    {
         debugFBO.Bind();
         glViewport(0, 0, window.getWidth(), window.getHeight());
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         debugShader.setUniform1i("depthTexture", 0);
-        renderer.draw_raw_arrays(origin, debugShader, depthVisualizationQuad.vao, 6);
+        renderer.draw_raw_arrays(origin, debugShader, simpleQuad.vao, 6);
         debugFBO.Unbind();
+    }
+
+    void GenerateGBuffer()
+    {
+        gBufferShader.Use();
+        glGenFramebuffers(1, &gBufferFBO);
+        glBindFramebuffer(GL_FRAMEBUFFER, gBufferFBO);
+
+        // 1. Position Color Buffer
+        glGenTextures(1, &gPosition);
+        glBindTexture(GL_TEXTURE_2D, gPosition);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window.getWidth(), window.getHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPosition, 0);
+
+        // 2. Normal Color Buffer
+        glGenTextures(1, &gNormal);
+        glBindTexture(GL_TEXTURE_2D, gNormal);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window.getWidth(), window.getHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gNormal, 0);
+
+        // 3. Specular Color Buffer
+        glGenTextures(1, &gSpecular);
+        glBindTexture(GL_TEXTURE_2D, gSpecular);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, window.getWidth(), window.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gSpecular, 0);
+
+        unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
+        glDrawBuffers(3, attachments);
+
+        // create and attach depth buffer (renderbuffer)
+        glGenRenderbuffers(1, &gBufferRBODepth);
+        glBindRenderbuffer(GL_RENDERBUFFER, gBufferRBODepth);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window.getWidth(), window.getHeight());
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, gBufferRBODepth);
+        // finally check if framebuffer is complete
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+            std::cout << "Framebuffer not complete!" << std::endl;
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void GBufferPass()
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, gBufferFBO);
+        GeometryPass(gBufferShader);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void OnRender() override
+    {
+
+        ////////////////////////////////////////////////////////////////////////
+        // Lighting POV Pass : The Entire scene is rendered from the point of
+        //                   view  of the light to get the depthMap for shadows
+        LightingPOVPass();
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // Get the render texure of the 8-bit shadow map in a grayscale form for debug purposes
+        LightPassDepthMapToRenderTexture();
+        ////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////
         // Render the scene as ususal to a texture to apply ppfx to it
-        saveFBO.Bind();
-        ShadowScene();
-        saveFBO.Unbind();
+        GBufferPass();
+        ////////////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////////////////////////////////////
+        // Diffuse Pass
+        // GeometryPass(meshShader);
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // Deffered Lighting pass
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        gBufferPointLightShader.Use();
+        // G-Buffer textures
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, gPosition);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, gNormal);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, gSpecular);
+
+        gBufferPointLightShader.setUniform3f("viewPos", camera.Position);
+        // Set the light properties
+        gBufferPointLightShader.setUniform3f("light.position", pointLight.position);
+        gBufferPointLightShader.setUniform3f("light.ambient",  pointLight.ambient);
+        gBufferPointLightShader.setUniform3f("light.diffuse",  pointLight.diffuse);
+        gBufferPointLightShader.setUniform3f("light.specular", pointLight.specular);
+        gBufferPointLightShader.setUniform1f("light.constant", pointLight.constant);
+        gBufferPointLightShader.setUniform1f("light.linear",   pointLight.linear);
+        gBufferPointLightShader.setUniform1f("light.quadratic",pointLight.quadratic);
+        // G-Buffer textures
+        gBufferPointLightShader.setUniform1i("gPosition",0);
+        gBufferPointLightShader.setUniform1i("gNormal",1);
+        gBufferPointLightShader.setUniform1i("gAlbedoSpec",2);
+
+        // Draw the screen space quad
+        renderer.draw_raw_arrays(origin, gBufferPointLightShader, simpleQuad.vao, 6);
+        ////////////////////////////////////////////////////////////////////////
+
+
+/*
         ////////////////////////////////////////////////////////////////////////
         // Now bind the ppfx shaders and render the scene
         vignetteFBO.Bind();
         glViewport(0, 0, window.getWidth(), window.getHeight());
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, saveFBO.getRenderTexture());
+        glBindTexture(GL_TEXTURE_2D, gBufferFBO.getRenderTexture());
         vignetteShader.setUniform1i("renderTex", 0);
         vignetteShader.setUniform2f("resolution", glm::vec2(window.getWidth(), window.getHeight()));
         if(enableVignette) {
@@ -216,8 +328,9 @@ public:
             vignetteShader.setUniform1f("intensity", 1.0f);
             vignetteShader.setUniform1f("extent", 0.0f);
         }
-        renderer.draw_raw_arrays(origin, vignetteShader, depthVisualizationQuad.vao, 6);
+        renderer.draw_raw_arrays(origin, vignetteShader, simpleQuad.vao, 6);
         vignetteFBO.Unbind();
+        ////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////
         // Now bind the vignette output to apply tone maping to it
@@ -227,9 +340,9 @@ public:
         glBindTexture(GL_TEXTURE_2D, vignetteFBO.getRenderTexture());
         toneMapShader.setUniform1i("renderTex", 0);
         toneMapShader.setUniform2f("resolution", glm::vec2(window.getWidth(), window.getHeight()));
-
-        renderer.draw_raw_arrays(origin, toneMapShader, depthVisualizationQuad.vao, 6);
-
+        renderer.draw_raw_arrays(origin, toneMapShader, simpleQuad.vao, 6);
+        ////////////////////////////////////////////////////////////////////////
+*/
     }
 
     void OnImGuiRender() override
@@ -244,6 +357,11 @@ public:
             static float BGColor[3] = { 0.1f, 0.1f, 0.1f };
             ImGui::ColorEdit3("BG Color", BGColor);
             window.backgroundColor = glm::vec4(BGColor[0], BGColor[1], BGColor[2], window.backgroundColor.w);
+
+            // // Deffered pipeline
+            // if(ImGui::CollapsingHeader("Deffered Shadding Textures"))
+            // {
+            // }
         }
         ImGui::End();
 
@@ -260,13 +378,10 @@ public:
 
         ImGui::Begin("Lighting Settings");
         {
-            static float Color[3] = { 1.0f, 1.0f, 1.0f };
-            ImGui::ColorEdit3("Light Color", Color);
-            lightColor = glm::vec3(Color[0], Color[1], Color[2]);
-
             if(ImGui::CollapsingHeader("Poing Light"))
             {
-                ImGui::Text("Light position : [%f, %f, %f]", pointLight.position.x, pointLight.position.y, pointLight.position.z);
+                ImGui::Text("Light position");
+                ImGui::Text( "[%f, %f, %f]", pointLight.position.x, pointLight.position.y, pointLight.position.z);
                 // Ambient
                 static float ambient[3] = {0.2f, 0.2f, 0.2f};
                 ImGui::DragFloat3("Ambient", ambient, 0.1f);
@@ -293,8 +408,20 @@ public:
                 ImGui::Text("Depth Map (Averaged)");
                 ImGui::Image((void*) debugFBO.getRenderTexture(), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
 
-                ImGui::Text("Save FBO");
-                ImGui::Image((void*) saveFBO.getRenderTexture(), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+                // ImGui::Text("Geometry Pass");
+                // ImGui::Image((void*) gBufferFBO.getRenderTexture(), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+            }
+
+            if(ImGui::CollapsingHeader("GBuffer"))
+            {
+                ImGui::Text("Position");
+                ImGui::Image((void*) gPosition, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+
+                ImGui::Text("Normal");
+                ImGui::Image((void*) gNormal, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+
+                ImGui::Text("Color + Spec");
+                ImGui::Image((void*) gSpecular, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
             }
         }
         ImGui::End();
