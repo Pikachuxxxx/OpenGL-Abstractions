@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedGL/Deffered.h"
+#include "AdvancedLighting/Deffered.h"
 
 int main()
 {
