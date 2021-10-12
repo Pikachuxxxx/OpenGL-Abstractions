@@ -11,7 +11,7 @@ out VS_OUT {
 } vs_out;
 
 
-uniform mat4 u_Model = mat4(1.0f);
+uniform mat4 u_Model;
 layout (std140) uniform VPMatrices
 {
     mat4 u_View;

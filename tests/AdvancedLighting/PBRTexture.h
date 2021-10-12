@@ -75,21 +75,6 @@ public:
     void OnRender() override
     {
         pbrShader.Use();
-        // // Albedo
-        // glActiveTexture(GL_TEXTURE0);
-        // glBindTexture(GL_TEXTURE_2D, albedo);
-        // // Normal map
-        // glActiveTexture(GL_TEXTURE1);
-        // glBindTexture(GL_TEXTURE_2D, normal);
-        // // Metallic
-        // glActiveTexture(GL_TEXTURE2);
-        // glBindTexture(GL_TEXTURE_2D, metallic);
-        // // Roughtness
-        // glActiveTexture(GL_TEXTURE3);
-        // glBindTexture(GL_TEXTURE_2D, roughness);
-        // // AO
-        // glActiveTexture(GL_TEXTURE4);
-        // glBindTexture(GL_TEXTURE_2D, ao);
         albedo.Bind();
         normal.Bind();
         metallic.Bind();
