@@ -3,8 +3,8 @@
 Window::Window(const char *title, int width, int height) : backgroundColor(glm::vec4(0, 0, 0, 1))
 {
     m_Title = title;
-    m_Width = width;
-    m_Height = height;
+    m_Width = (float)width;
+    m_Height = (float)height;
     if(!init())
         glfwTerminate();
 
@@ -179,10 +179,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void window_resize_callback(GLFWwindow* window, int width, int height)
 {
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, (float)width, (float)height);
     Window* wind = (Window *) glfwGetWindowUserPointer(window);
-    wind->m_Width = width;
-    wind->m_Height = height;
+    wind->m_Width = (float)width;
+    wind->m_Height = (float)height;
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)

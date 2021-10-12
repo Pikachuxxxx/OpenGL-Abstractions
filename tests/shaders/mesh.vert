@@ -21,6 +21,7 @@ layout (std140) uniform VPMatrices
 
 void main()
 {
+    gl_PointSize = 15.0;
     gl_Position = u_Projection * u_View * u_Model * vec4(position, 1.0f);
     // mat3 normalMatrix = mat3(transpose(inverse(u_View * u_Model)));
     // vs_out.normal = normalize(vec3(u_Projection * vec4(normalMatrix * normal, 1.0)));

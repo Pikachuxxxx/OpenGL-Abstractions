@@ -35,6 +35,8 @@
 #include "CubeMap.h"
 #include "FrameBuffer.h"
 
+#include "utils/sphere.h"
+
 //==============================================================================
 //Experimental Includes
 //#include "Light.h"
@@ -128,9 +130,8 @@ private:
     glm::mat4   m_View;
     glm::mat4   m_Projection;
     GLuint      m_UniformBuffer;
-    Shader outlineShader;
 public:
-    Renderer() : outlineShader("./src/shaders/mesh.vert", "./src/shaders/outline.frag")
+    Renderer()
     {
         m_ModelMatrix = glm::mat4(1.0f);
 
@@ -386,6 +387,22 @@ public:
         }
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+    }
+
+    // Utis
+    void DrawSphere(Transform transform, Shader& shader, RenderingOptions options = RenderingOptions())
+    {
+        shader.Use();
+
+        CALCULATE_MODEL_MATRIX();
+
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+
+        if(options.enableWireframeMode) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+        renderSphere();
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
     inline void SetViewMatrix(const glm::mat4& view) { m_View = view; }

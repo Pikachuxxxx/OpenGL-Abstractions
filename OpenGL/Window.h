@@ -38,9 +38,9 @@ public:
     bool closed() const;
 
     /// Gets the current width of the window.
-    inline int getWidth() const { return m_Width; }
+    inline float getWidth() const { return m_Width; }
     /// Gets the current height of the window.
-    inline int getHeight() const { return m_Height; }
+    inline float getHeight() const { return m_Height; }
     /// Gets the current window's pointer to it's native object.
     inline GLFWwindow* getGLFWwindow() const { return m_Window; }
 
@@ -60,7 +60,7 @@ public:
     void getMousePosition(double& x, double& y) const;
 private:
     const char*		m_Title;
-    int m_Width,	m_Height;
+    float m_Width,	m_Height;
     GLFWwindow*		m_Window;
     bool			m_Closed;
 

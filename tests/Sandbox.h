@@ -20,8 +20,10 @@ public:
     {
         window.backgroundColor = glm::vec4(0.1f, 0.1f, 0.1f, 1.0f);
 
+        float aspectRatio = 1280.0f / 720.0f;
+
         // Init the renderer
-        glm::mat4 projection = glm::perspective(45.0f, float(width / height), 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(45.0f, float(aspectRatio), 0.1f, 100.0f);
         renderer.SetProjectionMatrix(projection);
 
         // Initialising the random time for random number generation
@@ -51,7 +53,7 @@ public:
             camera.Update(window);
             renderer.SetViewMatrix(camera.GetViewMatrix());
             renderer.SetProjectionMatrix(glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f));
-            glEnable(GL_MULTISAMPLE);  
+            glEnable(GL_MULTISAMPLE);
             //==============================================================================
             OnUpdate();
             //==============================================================================

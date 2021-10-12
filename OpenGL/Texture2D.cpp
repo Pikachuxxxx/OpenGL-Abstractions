@@ -25,6 +25,9 @@ GLuint Texture2D::loadTexture()
 
     GLint imageFormat;
     switch (m_BPP) {
+        case 1:
+            imageFormat = GL_RED;
+            break;
         case 3:
             imageFormat = GL_RGB;
             break;

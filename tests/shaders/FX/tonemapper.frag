@@ -18,7 +18,7 @@ vec3 aces(vec3 x) {
   return clamp((x * (a * x + b)) / (x * (c * x + d) + e), 0.0, 1.0);
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 // Filmic Tonemapping Operators http://filmicworlds.com/blog/filmic-tonemapping-operators/
 vec3 tonemapFilmic(vec3 x) {
   vec3 X = max(vec3(0.0), x - 0.004);
@@ -26,7 +26,7 @@ vec3 tonemapFilmic(vec3 x) {
   return pow(result, vec3(2.2));
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 // Lottes 2016, "Advanced Techniques and Optimization of HDR Color Pipelines"
 vec3 lottes(vec3 x) {
   const vec3 a = vec3(1.6);
@@ -45,13 +45,13 @@ vec3 lottes(vec3 x) {
   return pow(x, a) / (pow(x, a * d) * b + c);
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 // Reinhard
 vec3 reinhard(vec3 x) {
   return x / (1.0 + x);
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 // Reinhard II (variant)
 vec3 reinhard2(vec3 x) {
   const float L_white = 4.0;
@@ -59,7 +59,7 @@ vec3 reinhard2(vec3 x) {
   return (x * (1.0 + x / (L_white * L_white))) / (1.0 + x);
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 // Uchimura 2017, "HDR theory and practice"
 // Math: https://www.desmos.com/calculator/gslcdxvipg
 // Source: https://www.slideshare.net/nikuque/hdr-theory-and-practicce-jp
@@ -125,7 +125,7 @@ float uchimura(float x) {
   return uchimura(x, P, a, m, l, c, b);
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 // Uncharted 2
 vec3 uncharted2Tonemap(vec3 x) {
   float A = 0.15;
@@ -165,7 +165,7 @@ float uncharted2(float color) {
   return curr * whiteScale;
 }
 
-////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
 // Unreal
 // Unreal 3, Documentation: "Color Grading"
 // Adapted to be close to Tonemap_ACES, with similar range

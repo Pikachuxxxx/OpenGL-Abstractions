@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/Deffered.h"
+#include "AdvancedLighting/PBRTexture.h"
 
 int main()
 {
