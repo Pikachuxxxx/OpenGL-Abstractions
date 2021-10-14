@@ -15,44 +15,24 @@ in VS_OUT {
 // -----------------------------------------------------------------------------
 // Uniforms
 // material parameters
-uniform sampler2D albedoMap;
-uniform sampler2D normalMap;
-uniform sampler2D metallicMap;
-uniform sampler2D roughnessMap;
-uniform sampler2D aoMap;
+uniform vec3 albedo;
+uniform float metallic;
+uniform float roughness;
+uniform float ao;
+
+// Irradiance Map
+uniform samplerCube irradianceMap;
 
 // lights
 uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
 
+// Camera
 uniform vec3 camPos;
 // -----------------------------------------------------------------------------
 // Final Output color of the Fragment
 out vec4 FragColor;
 
-////////////////////////////////////////////////////////////////////////////////
-// Misc/Processing functions
-// ----------------------------------------------------------------------------
-// Easy trick to get tangent-normals to world-space to keep PBR code simplified.
-// Don't worry if you don't get what's going on; you generally want to do normal
-// mapping the usual way for performance anways; I do plan make a note of this
-// technique somewhere later in the normal mapping tutorial.
-vec3 getNormalFromMap()
-{
-    vec3 tangentNormal = texture(normalMap, vs_in.TexCoords).xyz * 2.0 - 1.0;
-
-    vec3 Q1  = dFdx(vs_in.FragPos);
-    vec3 Q2  = dFdy(vs_in.FragPos);
-    vec2 st1 = dFdx(vs_in.TexCoords);
-    vec2 st2 = dFdy(vs_in.TexCoords);
-
-    vec3 N   = normalize(vs_in.Normal);
-    vec3 T  = normalize(Q1*st2.t - Q2*st1.t);
-    vec3 B  = -normalize(cross(N, T));
-    mat3 TBN = mat3(T, B, N);
-
-    return normalize(TBN * tangentNormal);
-}
 ////////////////////////////////////////////////////////////////////////////////
 // BRDF Functions
 // -----------------------------------------------------------------------------
@@ -100,6 +80,11 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0)
     return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
+vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
+{
+    return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Tonemapping
 // Lottes 2016, "Advanced Techniques and Optimization of HDR Color Pipelines"
@@ -124,13 +109,7 @@ vec3 lottes(vec3 x) {
 // Main Function
 void main()
 {
-
-    vec3 albedo     = pow(texture(albedoMap, vs_in.TexCoords).rgb, vec3(2.2));
-    float metallic  = texture(metallicMap, vs_in.TexCoords).r;
-    float roughness = texture(roughnessMap, vs_in.TexCoords).r;
-    float ao        = texture(aoMap, vs_in.TexCoords).r;
-
-    vec3 N = getNormalFromMap();
+    vec3 N = normalize(vs_in.Normal);
     vec3 V = normalize(camPos - vs_in.FragPos);
 
     // calculate reflectance at normal incidence; if dia-electric (like plastic)
@@ -178,10 +157,14 @@ void main()
         Lo += (kD * albedo / PI + specular) * radiance * NdotL;  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
     }
 
-    // ambient lighting (note that the next IBL tutorial will replace
-    // this ambient lighting with environment lighting).
-    vec3 ambient = vec3(0.03) * albedo * ao;
-    vec3 color = ambient + Lo;
+    // ambient lighting (we now use IBL as the ambient term)
+    vec3 kS = fresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
+    vec3 kD = 1.0 - kS;
+    kD *= 1.0 - metallic;
+    vec3 irradiance = texture(irradianceMap, N).rgb;
+    vec3 diffuse    = irradiance * albedo;
+    vec3 ambient    = (kD * diffuse) * ao;
+    vec3 color      = ambient + Lo;
 
     // Tonemapping
     color = lottes(color);

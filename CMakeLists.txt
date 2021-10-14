@@ -24,11 +24,20 @@ include_directories(
     "${CMAKE_SOURCE_DIR}/tests"
 )
 
-link_directories(
-    "${CMAKE_SOURCE_DIR}/vendor/GLFW/build/src"
-    "${CMAKE_SOURCE_DIR}/vendor/ASSIMP/build/bin"
-    "${CMAKE_SOURCE_DIR}/vendor/ASSIMP/build/lib"
-)
+if (APPLE)
+    link_directories(
+        "${CMAKE_SOURCE_DIR}/vendor/GLFW/build/src"
+        "${CMAKE_SOURCE_DIR}/vendor/ASSIMP/build/bin"
+    )
+endif (APPLE)
+
+if (WIN32)
+    link_directories(
+        "${CMAKE_SOURCE_DIR}/vendor/GLFW/build/src"
+        "${CMAKE_SOURCE_DIR}/vendor/ASSIMP/build/bin"
+        "${CMAKE_SOURCE_DIR}/vendor/ASSIMP/build/lib"
+    )
+endif (WIN32)
 
 # Add source files
 file(GLOB_RECURSE OpenGL_SOURCE_FILES
@@ -58,7 +67,7 @@ file(GLOB VENDOR_SRC_FILES
 )
 
 file(GLOB SOURCE_FILES
-    ${CMAKE_SOURCE_DIR}/tests/main.cpp
+    ${CMAKE_SOURCE_DIR}/tests/MainSandbox.cpp
 )
 
 file(GLOB_RECURSE SHADER_FILES

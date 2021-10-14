@@ -75,10 +75,7 @@ public:
     void OnRender() override
     {
         pbrShader.Use();
-<<<<<<< HEAD:tests/AdvancedLighting/PBR/PBRTexture.h
 
-=======
->>>>>>> 3c110a50c182df0c1b737966c8dc4bbe34b50ff7:tests/AdvancedLighting/PBRTexture.h
         albedo.Bind();
         normal.Bind();
         metallic.Bind();

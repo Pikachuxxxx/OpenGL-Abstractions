@@ -21,10 +21,14 @@ uniform sampler2D metallicMap;
 uniform sampler2D roughnessMap;
 uniform sampler2D aoMap;
 
+// Irradiance Map
+uniform samplerCube irradianceMap;
+
 // lights
 uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
 
+// Camera
 uniform vec3 camPos;
 // -----------------------------------------------------------------------------
 // Final Output color of the Fragment
@@ -100,6 +104,11 @@ vec3 fresnelSchlick(float cosTheta, vec3 F0)
     return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
+vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
+{
+    return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Tonemapping
 // Lottes 2016, "Advanced Techniques and Optimization of HDR Color Pipelines"
@@ -124,7 +133,6 @@ vec3 lottes(vec3 x) {
 // Main Function
 void main()
 {
-
     vec3 albedo     = pow(texture(albedoMap, vs_in.TexCoords).rgb, vec3(2.2));
     float metallic  = texture(metallicMap, vs_in.TexCoords).r;
     float roughness = texture(roughnessMap, vs_in.TexCoords).r;
@@ -178,10 +186,14 @@ void main()
         Lo += (kD * albedo / PI + specular) * radiance * NdotL;  // note that we already multiplied the BRDF by the Fresnel (kS) so we won't multiply by kS again
     }
 
-    // ambient lighting (note that the next IBL tutorial will replace
-    // this ambient lighting with environment lighting).
-    vec3 ambient = vec3(0.03) * albedo * ao;
-    vec3 color = ambient + Lo;
+    // ambient lighting (we now use IBL as the ambient term)
+    vec3 kS = fresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
+    vec3 kD = 1.0 - kS;
+    kD *= 1.0 - metallic;
+    vec3 irradiance = texture(irradianceMap, N).rgb;
+    vec3 diffuse    = irradiance * albedo;
+    vec3 ambient    = (kD * diffuse) * ao;
+    vec3 color      = ambient + Lo;
 
     // Tonemapping
     color = lottes(color);
