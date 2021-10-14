@@ -1,0 +1,47 @@
+[Header]
+ICOfile = "Arches_E_PineTree_thumb.jpg"
+PREVIEWfile = "Arches_E_PineTree_Preview.jpg"
+Name = "Arches PineTree"
+Author = "Blochi"
+Location = "Utah"
+Comment = "Standing directly under the arch, bright daylight, nature, strong red bounce light from the rocks."
+GEOlat = 38.787241462671915
+GEOlong = -109.59853649139404
+Link = "http://www.hdrlabs.com/sibl/archive.html"
+Date = "2008:11:30"
+Time = "13:46:00"
+Height = 1.4
+North = 0.3
+
+[Background]
+; Heavily tonemapped to show more detail
+BGfile = "Arches_E_PineTree_8k.jpg"
+BGmap = 1
+BGu = 0.000000
+BGv = 0.000000
+BGheight = 4000
+
+[Enviroment]
+EVfile = "Arches_E_PineTree_Env.hdr"
+EVmap = 1
+EVu = 0.000000
+EVv = 0.000000
+EVheight = 180
+EVmulti = 1.000000
+EVgamma = 1.500000
+
+[Reflection]
+REFfile = "Arches_E_PineTree_3k.hdr"
+REFmap = 1
+REFu = 0.000000
+REFv = 0.000000
+REFheight = 1600
+REFmulti = 1.000000
+REFgamma = 1.500000
+
+[Sun]
+SUNcolor = 254,241,224
+SUNmulti = 1.200000
+SUNu = 0.583750
+SUNv = 0.365000
+

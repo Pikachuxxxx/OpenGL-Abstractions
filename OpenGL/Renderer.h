@@ -34,6 +34,7 @@
 #include "VertexBuffer.h"
 #include "CubeMap.h"
 #include "FrameBuffer.h"
+#include "HDREnvironmentMap.h"
 
 #include "utils/sphere.h"
 
@@ -162,6 +163,18 @@ public:
         CALCULATE_MODEL_MATRIX();
 
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+
+        va.Bind();
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
+    }
+
+    void draw_raw_arrays_proj_view(Transform& transform, Shader& shader, VertexArray& va, int verticesCount, glm::mat4& proj, glm::mat4& view, const RenderingOptions& options = RenderingOptions())
+    {
+        shader.Use();
+
+        CALCULATE_MODEL_MATRIX();
+
+        set_uniforms(m_ModelMatrix, view, proj, shader);
 
         va.Bind();
         SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
