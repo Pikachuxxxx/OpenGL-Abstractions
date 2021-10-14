@@ -69,44 +69,21 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
         glGetShaderInfoLog(fragment, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED [" << fragmentPath <<"]\n" << infoLog << std::endl;
     }
-    // Geometry Shader
-    geometry = glCreateShader(GL_GEOMETRY_SHADER);
-    glShaderSource(geometry, 1, &gShaderCode, NULL);
-    glCompileShader(geometry);
-    // Print compile errors if any
-    glGetShaderiv(geometry, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(geometry, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n" << infoLog << std::endl;
-        // Shader Program
-    }
-    else if(geometryCode != "")
-    {
-        // Shader Program
-        this->Program = glCreateProgram();
-        glAttachShader(this->Program, vertex);
-        glAttachShader(this->Program, fragment);
-        glAttachShader(this->Program, geometry);
-    }
-    else
-    {
-        this->Program = glCreateProgram();
-        glAttachShader(this->Program, vertex);
-        glAttachShader(this->Program, fragment);
-    }
+   
+    this->Program = glCreateProgram();
+    glAttachShader(this->Program, vertex);
+    glAttachShader(this->Program, fragment);
     glLinkProgram(this->Program);
     // Print linking errors if any
     glGetProgramiv(this->Program, GL_LINK_STATUS, &success);
     if (!success)
     {
         glGetProgramInfoLog(this->Program, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << "vertes shader " << vertexPath << ", fragment shader " << fragmentPath << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << "vertex shader " << vertexPath << ", fragment shader " << fragmentPath << infoLog << std::endl;
     }
-    // Delete the shaders as they're linked into our program now and no longer necessery
+    // Delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
-    glDeleteShader(geometry);
 
     // Bind the shader to uniform buffer block index = 0
     unsigned int viewProjectionBindingIndex = glGetUniformBlockIndex(this->Program, "VPMatrices");

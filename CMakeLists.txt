@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.18)
 
 # set the project name and version
 project(OpenGLSandBox)
@@ -27,6 +27,7 @@ include_directories(
 link_directories(
     "${CMAKE_SOURCE_DIR}/vendor/GLFW/build/src"
     "${CMAKE_SOURCE_DIR}/vendor/ASSIMP/build/bin"
+    "${CMAKE_SOURCE_DIR}/vendor/ASSIMP/build/lib"
 )
 
 # Add source files
@@ -60,12 +61,20 @@ file(GLOB SOURCE_FILES
     ${CMAKE_SOURCE_DIR}/tests/main.cpp
 )
 
+file(GLOB_RECURSE SHADER_FILES
+    ${CMAKE_SOURCE_DIR}/tests/shaders/**
+)
+
 # Compile the source files for the executable
-add_executable(OpenGLSandBox ${SOURCE_FILES} ${OpenGL_HEADER_FILES} ${OpenGL_SOURCE_FILES} ${VENDOR_SRC_FILES})
+add_executable(OpenGLSandBox ${SOURCE_FILES} ${OpenGL_HEADER_FILES} ${OpenGL_SOURCE_FILES} ${VENDOR_SRC_FILES} ${SHADER_FILES})
 
 if (APPLE)
     target_link_libraries(OpenGLSandBox glfw3 assimp "-framework CoreFoundation -framework CoreAudio -framework OpenAL -framework OpenGL -framework Cocoa -framework IOKit -framework CoreGraphics")
 endif (APPLE)
+
+if (WIN32)
+    target_link_libraries(OpenGLSandBox opengl32 glfw3 debug assimp-vc142-mtd optimized assimp-vc142-mtd )
+endif (WIN32)
 
 # Run the binary built using 'make run' command
 add_custom_target(run
