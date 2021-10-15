@@ -7,6 +7,7 @@ class Scene : public Sandbox
 private:
     // Primitives
     Cube                    cube;
+    Quad                    quad;
 
     // FBO
     unsigned int            captureFBO;
@@ -15,6 +16,9 @@ private:
     unsigned int            convolutedRBO;
     unsigned int            preFilterFBO;
     unsigned int            preFilterRBO;
+    unsigned int            brdfLUTFBO;
+    unsigned int            brdfLUTRBO;
+    FrameBuffer             lutVisFBO;
 
     // HDR EnvMap
     HDREnvironmentMap       pineTreeHDR;
@@ -29,6 +33,8 @@ private:
     Shader                  diffuseIBLpbrShader;
     Shader                  diffuseIBLpbrTexturedShader;
     Shader                  preFilterEnvMapShader;
+    Shader                  brdfShader;
+    Shader                  lutVisShader;
 
     // PBR Textures
     Texture2D               albedo;
@@ -39,6 +45,7 @@ private:
     unsigned int            envCubemap;
     unsigned int            irradianceMap;
     unsigned int            preFilteredEnvMap;
+    unsigned int            brdfLUTTexture;
 
     // Transforms
     Transform Origin;
@@ -70,23 +77,26 @@ public:
     diffuseIBLpbrShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRDiffuseIBL.frag"),
     diffuseIBLpbrTexturedShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRDiffuseIBLTextured.frag"),
     preFilterEnvMapShader("./tests/shaders/PBR/EnvMaps/EnvToCubeMap.vert", "./tests/shaders/PBR/EnvMaps/PreFilterEnvMap.frag"),
+    brdfShader("./tests/shaders/quad.vert", "./tests/shaders/PBR/brdf.frag"),
+    lutVisShader("./tests/shaders/quad.vert", "./tests/shaders/mesh.frag"),
 
     // Textures
     albedo("./tests/textures/PBR/rusted_iron/albedo.png",0),
     normal("./tests/textures/PBR/rusted_iron/normal.png",1),
     metallic("./tests/textures/PBR/rusted_iron/metallic.png",2),
     roughness("./tests/textures/PBR/rusted_iron/roughness.png",3),
-    ao("./tests/textures/PBR/rusted_iron/ao.png",4)
+    ao("./tests/textures/PBR/rusted_iron/ao.png",4),
 
     // FBOs
+    lutVisFBO(window.getWidth(), window.getHeight())
     {
         pbrShader.Use();
         // Hardcode the Albedo and AO
-        pbrShader.setUniform3f("albedo", glm::vec3(0.5f, 0.0f, 0.0f));
+        pbrShader.setUniform3f("albedo", glm::vec3(0.0f, 0.3f, 0.75f));
         pbrShader.setUniform1f("ao", 1.0f);
 
         // Hardcode the Albedo and AO
-        diffuseIBLpbrShader.setUniform3f("albedo", glm::vec3(0.5f, 0.0f, 0.0f));
+        diffuseIBLpbrShader.setUniform3f("albedo", glm::vec3(0.0f, 0.3f, 0.75f));
         diffuseIBLpbrShader.setUniform1f("ao", 1.0f);
 
         pbrTexturedShader.Use();
@@ -168,6 +178,8 @@ public:
             shader.setUniform3f(lightPosStr.c_str(), newPos);
             std::string lightColorStr = "lightColors[" + std::to_string(i) + "]";
             shader.setUniform3f(lightColorStr.c_str(), lightColors[i]);
+
+            renderer.DrawSphere(Transform(newPos, glm::vec3(0.0f), glm::vec3(0.5f)), shader);
         }
     }
 
@@ -338,6 +350,7 @@ public:
             // Bind the cube Map to convert into irradiance map
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+            // glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             //----------------------------------------------------------------------
 
             float roughness = (float)mip / (float)(maxMipLevels - 1);
@@ -345,12 +358,39 @@ public:
             for (unsigned int i = 0; i < 6; ++i)
             {
                 glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, preFilteredEnvMap, mip);
-
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 renderer.draw_raw_arrays_proj_view(Origin, preFilterEnvMapShader, cube.vao, 36, captureProjection, captureViews[i]);
 
             }
         }
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
+    void generate_brdf_lut()
+    {
+        brdfShader.Use();
+
+        glGenFramebuffers(1, &brdfLUTFBO);
+        glGenRenderbuffers(1, &brdfLUTRBO);
+        glGenTextures(1, &brdfLUTTexture);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, brdfLUTFBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, brdfLUTRBO);
+        glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
+
+        // pre-allocate enough memory for the LUT texture.
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, 512, 512, 0, GL_RG, GL_FLOAT, 0);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glViewport(0, 0, 512, 512);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        renderer.draw_raw_arrays(Origin, brdfShader, quad.vao, 6);
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 //------------------------------------------------------------------------------
@@ -371,6 +411,11 @@ public:
         // Pre-Filter Cubemap
         pre_filter_envmap();
         ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // Generate BRDF Look Up Texture (LUT)
+        generate_brdf_lut();
+        ////////////////////////////////////////////////////////////////////////
     }
 
     void OnUpdate() override
@@ -381,6 +426,7 @@ public:
     void OnRender() override
     {
         glDepthFunc(GL_LESS);
+        glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
         glViewport(0, 0, window.getWidth(), window.getHeight());
         ////////////////////////////////////////////////////////////////////////
         // PBR Textured Spheres (Iron rusted) with point Lights
@@ -431,6 +477,19 @@ public:
         }
         ////////////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////////////////////////////////////
+        // LUT Visualisation
+        lutVisFBO.Bind();
+        glViewport(0, 0, window.getWidth(), window.getHeight());
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        lutVisShader.Use();
+        lutVisShader.setUniform1i("texture_diffuse1", 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+        renderer.draw_raw_arrays(Origin, lutVisShader, quad.vao, 6);
+        lutVisFBO.Unbind();
+        ////////////////////////////////////////////////////////////////////////
+
     }
 
     void OnImGuiRender() override
@@ -462,6 +521,10 @@ public:
             ImGui::Indent( 16.0f );
             ImGui::DragFloat("LOD", &LOD, 0.1f);
             ImGui::Unindent( 16.0f );
+
+            ImGui::Text("BRDF LUT Texture");
+            ImGui::Image((void*) lutVisFBO.getRenderTexture(), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+
         }
         ImGui::End();
     }
