@@ -22,6 +22,8 @@ uniform float ao;
 
 // Irradiance Map
 uniform samplerCube irradianceMap;
+uniform samplerCube prefilterMap;
+uniform sampler2D brdfLUT;
 
 // lights
 uniform vec3 lightPositions[4];
@@ -110,7 +112,9 @@ vec3 lottes(vec3 x) {
 void main()
 {
     vec3 N = normalize(vs_in.Normal);
+    // vec3 N = vs_in.Normal;
     vec3 V = normalize(camPos - vs_in.FragPos);
+    vec3 R = reflect(-V, N);
 
     // calculate reflectance at normal incidence; if dia-electric (like plastic)
     // use F0 of 0.04 and if it's a metal, use the albedo color as F0 (metallic workflow)
@@ -158,21 +162,30 @@ void main()
     }
 
     // ambient lighting (we now use IBL as the ambient term)
-    vec3 kS = fresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
+    vec3 F = fresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
+    vec3 kS = F;
     vec3 kD = 1.0 - kS;
     kD *= 1.0 - metallic;
+
     vec3 irradiance = texture(irradianceMap, N).rgb;
     vec3 diffuse    = irradiance * albedo;
-    vec3 ambient    = (kD * diffuse) * ao;
-    vec3 color      = ambient + Lo;
+
+    // sample both the pre-filter map and the BRDF lut and combine them together as per the Split-Sum approximation to get the IBL specular part.
+    const float MAX_REFLECTION_LOD = 4.0;
+    vec3 prefilteredColor   = textureLod(prefilterMap, R,  roughness * MAX_REFLECTION_LOD).rgb;
+    vec2 brdf               = texture(brdfLUT, vec2(max(dot(N, V), 0.0), roughness)).rg;
+    vec3 specular           = prefilteredColor * (F * brdf.x + brdf.y);
+
+    vec3 ambient = (kD * diffuse + specular) * ao;
 
     // Tonemapping
-    color = lottes(color);
+    vec3 color = lottes(ambient);
 
     // Gamma correction
     color = pow(color, vec3(1.0/2.2));
 
     FragColor = vec4(color, 1.0);
-    // FragColor = vec4(vs_in.Normal, 1.0f); // Testing Normal cooridinates
+
+    // FragColor = vec4(texture(brdfLUT, vs_in.TexCoords).rgb, 1.0);
 }
 ////////////////////////////////////////////////////////////////////////////////

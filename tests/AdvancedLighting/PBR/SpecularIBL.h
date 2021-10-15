@@ -37,6 +37,7 @@ private:
     Shader                  preFilterEnvMapShader;
     Shader                  brdfShader;
     Shader                  lutVisShader;
+    Shader                  speculaIBLShader;
 
     // PBR Textures
     Texture2D               albedo;
@@ -60,8 +61,8 @@ private:
     float spacing = 2.5;
 
     // ImGui stuff
-    bool enableCubeMapVis = true, enableUnitCubemap = true, enableIBLSphere = true, enableirradianceMapVis = true, textured = false;
-    int cubeMapVisMode = 2;
+    bool enableCubeMapVis = true, enableUnitCubemap = false, enableIBLSphere = false, enableirradianceMapVis = true, textured = false, enableSepcIBL = true;
+    int cubeMapVisMode = 3;
     float LOD = 1.2f;
 public:
     Scene() : Sandbox("Specular Irradiance using IBL"),
@@ -81,6 +82,7 @@ public:
     preFilterEnvMapShader("./tests/shaders/PBR/EnvMaps/EnvToCubeMap.vert", "./tests/shaders/PBR/EnvMaps/PreFilterEnvMap.frag"),
     brdfShader("./tests/shaders/quad.vert", "./tests/shaders/PBR/brdf.frag"),
     lutVisShader("./tests/shaders/quad.vert", "./tests/shaders/mesh.frag"),
+    speculaIBLShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRSpecularIBL.frag"),
 
     // Textures
     albedo("./tests/textures/PBR/rusted_iron/albedo.png",0),
@@ -101,6 +103,14 @@ public:
         diffuseIBLpbrShader.setUniform3f("albedo", glm::vec3(0.0f, 0.3f, 0.75f));
         diffuseIBLpbrShader.setUniform1f("ao", 1.0f);
 
+        // Hardcode the Albedo and AO
+        speculaIBLShader.Use();
+        speculaIBLShader.setUniform3f("albedo", glm::vec3(1.0f, 0.3f, 0.75f));
+        speculaIBLShader.setUniform1f("ao", 1.0f);
+        speculaIBLShader.setUniform1i("irradianceMap", 0);
+        speculaIBLShader.setUniform1i("prefilterMap", 1);
+        speculaIBLShader.setUniform1i("brdfLUT", 2);
+
         pbrTexturedShader.Use();
         // TODO: Use variables and control using ImGui
 
@@ -111,10 +121,10 @@ public:
         lightPositions.push_back(glm::vec3( 10.0f, -10.0f, 10.0f));
 
         // Light Colors
-        lightColors.push_back(glm::vec3(300.0f, 300.0f, 300.0f));
-        lightColors.push_back(glm::vec3(300.0f, 300.0f, 300.0f));
-        lightColors.push_back(glm::vec3(300.0f, 300.0f, 300.0f));
-        lightColors.push_back(glm::vec3(300.0f, 300.0f, 300.0f));
+        lightColors.push_back(glm::vec3(600.0f, 600.0f, 600.0f));
+        lightColors.push_back(glm::vec3(600.0f, 600.0f, 600.0f));
+        lightColors.push_back(glm::vec3(600.0f, 600.0f, 600.0f));
+        lightColors.push_back(glm::vec3(600.0f, 600.0f, 600.0f));
 
         pbrTexturedShader.setUniform1i("albedoMap", 0);
         pbrTexturedShader.setUniform1i("normalMap", 1);
@@ -151,11 +161,11 @@ public:
     {
         shader.Use();
 
-        albedo.Bind();
-        normal.Bind();
-        metallic.Bind();
-        roughness.Bind();
-        ao.Bind();
+        // albedo.Bind();
+        // normal.Bind();
+        // metallic.Bind();
+        // roughness.Bind();
+        // ao.Bind();
 
         // set the camera position
         shader.setUniform3f("camPos", camera.Position);
@@ -212,7 +222,7 @@ public:
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
@@ -237,6 +247,10 @@ public:
             renderer.draw_raw_arrays_proj_view(Origin, envToCubeMapShader, cube.vao, 36, captureProjection, captureViews[i]);
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // then let OpenGL generate mipmaps from first mip face (combatting visible dots artifact)
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+        glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
     }
 
     void cubemap_visualisation(unsigned int cubeMap, Shader shader)
@@ -285,8 +299,6 @@ public:
         };
 
         convolutionShader.Use();
-        pineTreeHDR.Bind();
-
         //----------------------------------------------------------------------
         // Bind the cube Map to convert into irradiance map
         glActiveTexture(GL_TEXTURE0);
@@ -337,6 +349,13 @@ public:
             glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3( 0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f))
         };
 
+        //----------------------------------------------------------------------
+        // Bind the cube Map to convert into irradiance map
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+        // glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        //----------------------------------------------------------------------
+
         glBindFramebuffer(GL_FRAMEBUFFER, preFilterFBO);
         unsigned int maxMipLevels = 5;
         for (unsigned int mip = 0; mip < maxMipLevels; ++mip)
@@ -347,13 +366,6 @@ public:
             glBindRenderbuffer(GL_RENDERBUFFER, preFilterRBO);
             glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, mipWidth, mipHeight);
             glViewport(0, 0, mipWidth, mipHeight);
-
-            //----------------------------------------------------------------------
-            // Bind the cube Map to convert into irradiance map
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
-            // glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            //----------------------------------------------------------------------
 
             float roughness = (float)mip / (float)(maxMipLevels - 1);
             preFilterEnvMapShader.setUniform1f("roughness", roughness);
@@ -371,18 +383,17 @@ public:
     void generate_brdf_lut()
     {
         brdfShader.Use();
+        glGenFramebuffers(1, &brdfLUTFBO);
+        glGenRenderbuffers(1, &brdfLUTRBO);
         glGenTextures(1, &brdfLUTTexture);
         glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
 
         // pre-allocate enough memory for the LUT texture.
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 512, 512, 0, GL_RGBA, GL_FLOAT, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, 512, 512, 0, GL_RGBA, GL_FLOAT, 0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        glGenFramebuffers(1, &brdfLUTFBO);
-        glGenRenderbuffers(1, &brdfLUTRBO);
 
         glBindFramebuffer(GL_FRAMEBUFFER, brdfLUTFBO);
         glBindRenderbuffer(GL_RENDERBUFFER, brdfLUTRBO);
@@ -434,8 +445,8 @@ public:
         glViewport(0, 0, window.getWidth(), window.getHeight());
         ////////////////////////////////////////////////////////////////////////
         // PBR Textured Spheres (Iron rusted) with point Lights
-        if(!enableIBLSphere)
-            prb_textured_spheres((textured ? pbrTexturedShader : pbrShader));
+        // if(!enableIBLSphere)
+            // prb_textured_spheres((textured ? pbrTexturedShader : pbrShader));
         ////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////
@@ -483,17 +494,32 @@ public:
 
         ////////////////////////////////////////////////////////////////////////
         // LUT Visualisation
-        lutVisFBO.Bind();
-        glViewport(0, 0, window.getWidth(), window.getHeight());
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        lutVisShader.Use();
-        lutVisShader.setUniform1i("texture_diffuse1", 0);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-        // renderer.draw_raw_arrays(Origin, lutVisShader, quad.vao, 6);
-        renderQuad();
-        lutVisFBO.Unbind();
+        // lutVisFBO.Bind();
+        // glViewport(0, 0, window.getWidth(), window.getHeight());
+        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // lutVisShader.Use();
+        // lutVisShader.setUniform1i("texture_diffuse1", 0);
+        // glActiveTexture(GL_TEXTURE0);
+        // glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+        // // renderer.draw_raw_arrays(Origin, lutVisShader, quad.vao, 6);
+        // renderQuad();
+        // lutVisFBO.Unbind();
         ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // Specular IBL
+        if(enableSepcIBL) {
+            speculaIBLShader.Use();
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, preFilteredEnvMap);
+            glActiveTexture(GL_TEXTURE2);
+            glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+            prb_textured_spheres(speculaIBLShader);
+        }
+        ////////////////////////////////////////////////////////////////////////
+
     }
 
     void OnImGuiRender() override
@@ -516,6 +542,9 @@ public:
 
             ImGui::Text("enable Diffuse IBL"); ImGui::SameLine();
             ImGui::Checkbox("##pbrSphere", &enableIBLSphere);
+
+            ImGui::Text("enable Specular IBL"); ImGui::SameLine();
+            ImGui::Checkbox("##specularIBL", &enableSepcIBL);
 
             ImGui::Text("Cube Map Mode");
             ImGui::RadioButton("unit cubeMap", &cubeMapVisMode, 0);
