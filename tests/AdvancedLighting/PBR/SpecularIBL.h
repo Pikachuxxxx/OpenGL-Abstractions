@@ -8,6 +8,8 @@ private:
     // Primitives
     Cube                    cube;
     Quad                    quad;
+    unsigned int            quadVAO = 0;
+    unsigned int            quadVBO;
 
     // FBO
     unsigned int            captureFBO;
@@ -369,27 +371,29 @@ public:
     void generate_brdf_lut()
     {
         brdfShader.Use();
-
-        glGenFramebuffers(1, &brdfLUTFBO);
-        glGenRenderbuffers(1, &brdfLUTRBO);
         glGenTextures(1, &brdfLUTTexture);
-
-        glBindFramebuffer(GL_FRAMEBUFFER, brdfLUTFBO);
-        glBindRenderbuffer(GL_RENDERBUFFER, brdfLUTRBO);
         glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
 
         // pre-allocate enough memory for the LUT texture.
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, 512, 512, 0, GL_RG, GL_FLOAT, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 512, 512, 0, GL_RGBA, GL_FLOAT, 0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+        glGenFramebuffers(1, &brdfLUTFBO);
+        glGenRenderbuffers(1, &brdfLUTRBO);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, brdfLUTFBO);
+        glBindRenderbuffer(GL_RENDERBUFFER, brdfLUTRBO);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
+
         glViewport(0, 0, 512, 512);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        renderer.draw_raw_arrays(Origin, brdfShader, quad.vao, 6);
+        // renderer.draw_raw_arrays(Origin, brdfShader, quad.vao, 6);
+        // draw_raw_indices
+        renderQuad();
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
@@ -486,10 +490,10 @@ public:
         lutVisShader.setUniform1i("texture_diffuse1", 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-        renderer.draw_raw_arrays(Origin, lutVisShader, quad.vao, 6);
+        // renderer.draw_raw_arrays(Origin, lutVisShader, quad.vao, 6);
+        renderQuad();
         lutVisFBO.Unbind();
         ////////////////////////////////////////////////////////////////////////
-
     }
 
     void OnImGuiRender() override
@@ -524,8 +528,36 @@ public:
 
             ImGui::Text("BRDF LUT Texture");
             ImGui::Image((void*) lutVisFBO.getRenderTexture(), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
-
         }
         ImGui::End();
+    }
+
+    // renderQuad() renders a 1x1 XY quad in NDC
+    // -----------------------------------------
+    void renderQuad()
+    {
+        if (quadVAO == 0)
+        {
+            float quadVertices[] = {
+                // positions        // texture Coords
+                -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+                -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+                 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+                 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+            };
+            // setup plane VAO
+            glGenVertexArrays(1, &quadVAO);
+            glGenBuffers(1, &quadVBO);
+            glBindVertexArray(quadVAO);
+            glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+            glEnableVertexAttribArray(1);
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        }
+        glBindVertexArray(quadVAO);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glBindVertexArray(0);
     }
 };

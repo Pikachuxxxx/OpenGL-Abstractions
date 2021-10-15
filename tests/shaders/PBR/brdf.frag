@@ -16,7 +16,7 @@ in VS_OUT {
 
 // -----------------------------------------------------------------------------
 // Final Output color of the Fragment
-out vec2 FragColor;
+out vec4 FragColor;
 
 ////////////////////////////////////////////////////////////////////////////////
 // BRDF Functions
@@ -148,7 +148,6 @@ vec3 lottes(vec3 x) {
 void main()
 {
     vec2 integratedBRDF = IntegrateBRDF(vs_in.texCoords.x, vs_in.texCoords.y);
-
-    FragColor = integratedBRDF;
+    FragColor = vec4(integratedBRDF, 0.0f, 1.0f);
 }
 ////////////////////////////////////////////////////////////////////////////////
