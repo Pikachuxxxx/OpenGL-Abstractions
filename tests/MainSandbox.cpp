@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/PBR/DiffuseIBL.h"
+#include "AdvancedLighting/PBR/SpecularIBL.h"
 
 int main()
 {
