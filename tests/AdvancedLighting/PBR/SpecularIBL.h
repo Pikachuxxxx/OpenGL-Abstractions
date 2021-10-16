@@ -153,6 +153,7 @@ public:
 
         preFilterEnvMapShader.Use();
         preFilterEnvMapShader.setUniform1i("envMap", 0);
+
     }
 
     ~Scene() {}

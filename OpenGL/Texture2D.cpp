@@ -13,6 +13,7 @@ Texture2D::~Texture2D() {}
 
 GLuint Texture2D::loadTexture()
 {
+    // stbi_set_flip_vertically_on_load(true);
     unsigned char* image = stbi_load(m_FilePath, &m_Width, &m_Height, &m_BPP, 0);
     if (!image)
         std::cout << "Failed to load texture : " << m_FilePath << std::endl;

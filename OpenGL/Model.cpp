@@ -20,9 +20,7 @@ void Model::loadModel(std::string path)
     const aiScene* scene = importer.ReadFile( path,
             aiProcess_CalcTangentSpace       |
             aiProcess_Triangulate            |
-            aiProcess_JoinIdenticalVertices  |
-            aiProcess_SortByPType            |
-            aiProcess_FlipUVs);
+            aiProcess_SortByPType);
 
     if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {

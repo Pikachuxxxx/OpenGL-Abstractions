@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/PBR/SpecularIBL.h"
+#include "AdvancedLighting/PBR/PBRCerberusDemo.h"
 
 int main()
 {
