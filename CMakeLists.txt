@@ -51,6 +51,11 @@ file(GLOB_RECURSE OpenGL_HEADER_FILES
     ${CMAKE_SOURCE_DIR}/OpenGL/*.hpp
 )
 
+file(GLOB_RECURSE OpenGL_TEST_FILES
+	${CMAKE_SOURCE_DIR}/tests/*.h
+    ${CMAKE_SOURCE_DIR}/tests/*.hpp
+)
+
 file(GLOB VENDOR_SRC_FILES
     ${CMAKE_SOURCE_DIR}/vendor/ImGui/backends/imgui_impl_glfw.cpp
     ${CMAKE_SOURCE_DIR}/vendor/ImGui/backends/imgui_impl_opengl3.cpp
@@ -75,7 +80,16 @@ file(GLOB_RECURSE SHADER_FILES
 )
 
 # Compile the source files for the executable
-add_executable(OpenGLSandBox ${SOURCE_FILES} ${OpenGL_HEADER_FILES} ${OpenGL_SOURCE_FILES} ${VENDOR_SRC_FILES} ${SHADER_FILES})
+add_executable(OpenGLSandBox ${SOURCE_FILES} ${OpenGL_HEADER_FILES} ${OpenGL_TEST_FILES} ${OpenGL_SOURCE_FILES} ${VENDOR_SRC_FILES} ${SHADER_FILES})
+
+source_group("Tests"            FILES ${OpenGL_TEST_FILES})
+source_group("Main"             FILES ${SOURCE_FILES})
+source_group("OpenGL Source"    FILES ${OpenGL_SOURCE_FILES})
+source_group("OpenGL Header"    FILES ${OpenGL_HEADER_FILES})
+source_group("Vendor"           FILES ${VENDOR_SRC_FILES})
+source_group("Shaders"          FILES ${SHADER_FILES})
+
+set_property(TARGET OpenGLSandBox PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
 
 if (APPLE)
     target_link_libraries(OpenGLSandBox glfw3 assimp "-framework CoreFoundation -framework CoreAudio -framework OpenAL -framework OpenGL -framework Cocoa -framework IOKit -framework CoreGraphics")
