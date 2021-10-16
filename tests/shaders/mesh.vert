@@ -7,7 +7,6 @@ layout (location = 2) in vec2 texCoords;
 out VS_OUT {
     vec3 normal;
     vec2 texCoords;
-    vec4 FragPos;
 } vs_out;
 
 uniform vec3 lightPos;
@@ -27,5 +26,5 @@ void main()
     // vs_out.normal = normalize(vec3(u_Projection * vec4(normalMatrix * normal, 1.0)));
     vs_out.normal = mat3(transpose(inverse(u_Model))) * normal;
     vs_out.texCoords = texCoords;
-    vs_out.FragPos = u_Model * vec4(position, 1.0f);
+    //vs_out.FragPos = u_Model * vec4(position, 1.0f);
 }
