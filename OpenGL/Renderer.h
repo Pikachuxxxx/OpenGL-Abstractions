@@ -37,6 +37,7 @@
 #include "HDREnvironmentMap.h"
 
 #include "utils/sphere.h"
+#include "utils/quad.h"
 
 //==============================================================================
 //Experimental Includes
@@ -131,8 +132,12 @@ private:
     glm::mat4   m_View;
     glm::mat4   m_Projection;
     GLuint      m_UniformBuffer;
+
+    Shader quad_shader;
+    Quad quad;
 public:
     Renderer()
+        : quad_shader("./tests/shaders/quad.vert", "./tests/shaders/quad.frag")
     {
         m_ModelMatrix = glm::mat4(1.0f);
 
@@ -207,6 +212,25 @@ public:
         SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
     }
 
+    void draw_screen_quad_with_texture(Texture2D& texture)
+    {
+        quad_shader.Use();
+
+        texture.Bind();
+        quad.vao.Bind();
+        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), quad.vao, 6, RenderingOptions());
+    }
+
+    void draw_screen_quad_with_texture(GLuint textureID)
+    {
+        quad_shader.Use();
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        quad.vao.Bind();
+        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), quad.vao, 6, RenderingOptions());
+    }
+
     void draw_raw_indices(Transform& transform, Shader& shader, VertexArray& va, IndexBuffer& ib, const RenderingOptions& options = RenderingOptions())
     {
         shader.Use();
@@ -234,7 +258,7 @@ public:
         SELECT_MODE_AND_DRAW_INDICES(options, ib);
     }
 
-    void draw_model(Transform& transform, Shader& shader, Model& model)
+    void draw_model(Transform& transform, Shader& shader, Model model)
     {
         shader.Use();
 

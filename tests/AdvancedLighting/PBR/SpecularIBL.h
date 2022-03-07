@@ -39,6 +39,8 @@ private:
     Shader                  lutVisShader;
     Shader                  speculaIBLShader;
 
+    Shader                  gridShader;    /* Infinite Grid Shader */
+
     // PBR Textures
     Texture2D               albedo;
     Texture2D               normal;
@@ -68,7 +70,7 @@ public:
     Scene() : Sandbox("Specular Irradiance using IBL"),
 
     // HDR envmap
-    pineTreeHDR("./tests/textures/PBR/EnvMaps/newport_loft.hdr", 0),
+    pineTreeHDR("./tests/textures/PBR/EnvMaps/sky.hdr", 0),
 
     // Shaders
     cubeMapVisShader("./tests/shaders/PBR/EnvMaps/visCubeMap.vert", "./tests/shaders/PBR/EnvMaps/visCubeMap.frag"),
@@ -83,6 +85,7 @@ public:
     brdfShader("./tests/shaders/quad.vert", "./tests/shaders/PBR/brdf.frag"),
     lutVisShader("./tests/shaders/quad.vert", "./tests/shaders/mesh.frag"),
     speculaIBLShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRSpecularIBL.frag"),
+    gridShader("./tests/shaders/grid.vert", "./tests/shaders/grid.frag"),
 
     // Textures
     albedo("./tests/textures/PBR/rusted_iron/albedo.png",0),
@@ -409,6 +412,16 @@ public:
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
+
+    void draw_grid()
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        renderer.set_VP_uniform_buffers(renderer.GetViewMatrix(), renderer.GetProjectionMatrix());
+        gridShader.Use();
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
 //------------------------------------------------------------------------------
 
     void OnStart() override
@@ -450,6 +463,11 @@ public:
             // prb_textured_spheres((textured ? pbrTexturedShader : pbrShader));
         ////////////////////////////////////////////////////////////////////////
 
+
+        ////////////////////////////////////////////////////////////////////////
+        // Render the Grid
+        draw_grid();
+        ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         // Render the Cubemap on a Unit Cube
         if(cubeMapVisMode == 0)

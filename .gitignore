@@ -3,3 +3,4 @@ build/
 
 # Ignore the sponza model textures
 tests/models/Sponza/textures/
+tests/models/

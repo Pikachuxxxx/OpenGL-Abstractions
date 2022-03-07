@@ -78,6 +78,19 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         }
         else
             vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+
+        // Tangent
+        vector.x = mesh->mTangents[i].x;
+        vector.y = mesh->mTangents[i].y;
+        vector.z = mesh->mTangents[i].z;
+        vertex.tangent = vector;
+
+        // Bitangent
+        vector.x = mesh->mBitangents[i].x;
+        vector.y = mesh->mBitangents[i].y;
+        vector.z = mesh->mBitangents[i].z;
+        vertex.bitangent = vector;
+
         vertices.push_back(vertex);
     }
     // Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -92,19 +105,28 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     if(mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        // We assume a convention for sampler names in the shaders. Each diffuse texture should be named
-        // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
+        // Assume a convention for sampler names in the shaders. Each diffuse texture should be named
+        // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
         // Same applies to other texture as the following list summarizes:
         // Diffuse: texture_diffuseN
         // Specular: texture_specularN
         // Normal: texture_normalN
 
-        // 1. Diffuse maps
+        // Diffuse maps
         std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        // 2. Specular maps
+
+        // Specular maps
         std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+
+        // Normal maps
+        std::vector<Texture> normalMaps = this->loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+
+        // Height maps
+        std::vector<Texture> heightMaps = this->loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
     }
 
     this->vertexCount = vertices.size();
@@ -152,10 +174,10 @@ GLint TextureFromFile(const char* path, std::string directory)
     GLuint textureID;
     glGenTextures(1, &textureID);
     int width,height, bpp;
-    unsigned char* image = stbi_load(filename.c_str(), &width, &height, &bpp, 0);
+    unsigned char* image = stbi_load(filename.c_str(), &width, &height, &bpp, 4);
     // Assign texture to ID
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // Parameters

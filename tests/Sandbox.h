@@ -23,10 +23,10 @@ public:
         float aspectRatio = 1280.0f / 720.0f;
 
         // Init the renderer
-        glm::mat4 projection = glm::perspective(45.0f, float(aspectRatio), 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(45.0f, float(aspectRatio), 0.01f, 5000.0f);
         renderer.SetProjectionMatrix(projection);
 
-        // Initialising the random time for random number generation
+        // Initializing the random time for random number generation
         srand((unsigned) time(0));
     }
 
@@ -80,9 +80,9 @@ public:
 
     }
 protected:
-    Window window;
-    Camera3D camera;
-    Renderer renderer;
+    Window      window;
+    Camera3D    camera;
+    Renderer    renderer;
 protected:
     virtual void OnStart() = 0;
     virtual void OnUpdate() = 0;
