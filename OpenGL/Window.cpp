@@ -35,10 +35,10 @@ bool Window::init()
     if(!glfwInit())
         return false;
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     glfwWindowHint(GLFW_SAMPLES, 16);
 
     m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
@@ -58,8 +58,14 @@ bool Window::init()
     glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
     glfwSetCursorPosCallback(m_Window, mouse_position_callback);
 
-    // initialise GLAD using glfw
+    // initialize GLAD using glfw
     int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+    // Print out some info about the graphics drivers
+    std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+    std::cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+    std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
+    std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
 
     glEnable(GL_BLEND);
     glEnable(GL_MULTISAMPLE);

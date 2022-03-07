@@ -15,30 +15,38 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vecto
 
 void Mesh::Draw(Shader shader)
 {
-    // Just some trick to get the uniform string dynamically
-    GLuint diffuseNr = 1;
-    GLuint specularNr = 1;
-    // for(GLuint i = 0; i < this->textures.size(); i++)
-    // {
-    //     glActiveTexture(GL_TEXTURE0 + i); // Active proper texture unit before binding
-    //     // Retrieve texture number (the N in diffuse_textureN)
-    //     std::stringstream ss;
-    //     std::string number;
-    //     std::string name = this->textures[i].type;
-    //     if(name == "texture_diffuse")
-    //         ss << diffuseNr++; // Transfer GLuint to stream
-    //     else if(name == "texture_specular")
-    //         ss << specularNr++; // Transfer GLuint to stream
-    //     number = ss.str();
-    //
-    //     // Now set the sampler to the correct texture unit
-    //     glUniform1i(glGetUniformLocation(shader.Program, (name + number).c_str()), i);
-    //     // And finally bind the texture
-    //     glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
-    // }
+    // Bind appropriate textures
+    GLuint diffuseNumber = 1;
+    GLuint specularNumber = 1;
+    GLuint normalNumber = 1;
+    GLuint heightNumber = 1;
 
-     // Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
-    glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
+    for (GLuint i = 0; i < this->textures.size(); i++) {
+        // Activate proper texture unit and retreive texture number
+        glActiveTexture(GL_TEXTURE0 + i);
+        std::stringstream stream;
+        std::string number;
+        std::string name = this->textures[i].type;
+
+        // Transfer texture data to stream
+        if (name == "texture_diffuse") {
+            stream << diffuseNumber++;
+        }
+        else if (name == "texture_specular") {
+            stream << specularNumber++;
+        }
+        else if (name == "texture_normal") {
+            stream << normalNumber++;
+        }
+        else if (name == "texture_height") {
+            stream << heightNumber++;
+        }
+        number = stream.str();
+
+        // Set sampler to the correct texture unit and bind the texture
+        glUniform1i(glGetUniformLocation(shader.Program, (name + number).c_str()), i);
+        glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
+    }
 
      // Draw mesh
     m_VAO->Bind();
@@ -48,11 +56,11 @@ void Mesh::Draw(Shader shader)
     m_IBO->Unbind();
 
     // Unbind all the textures
-    // for (GLuint i = 0; i < this->textures.size(); i++)
-    // {
-    //     glActiveTexture(GL_TEXTURE0 + i);
-    //     glBindTexture(GL_TEXTURE_2D, 0);
-    // }
+     for (GLuint i = 0; i < this->textures.size(); i++)
+     {
+         glActiveTexture(GL_TEXTURE0 + i);
+         glBindTexture(GL_TEXTURE_2D, 0);
+     }
 }
 
 void Mesh::setupMesh()
@@ -64,6 +72,8 @@ void Mesh::setupMesh()
     layout.Push<float>(3); // Vertex Position
     layout.Push<float>(3); // Vertex Normals
     layout.Push<float>(2); // Vertex Texture Coords
+    layout.Push<float>(3); // Tangent
+    layout.Push<float>(3); // Bi-Tangent
     m_VAO->AddBuffer(*m_VBO, layout);
     m_VAO->Unbind();
 }

@@ -2,12 +2,12 @@
 
 float QuadVertices[] = {
        // positions            // normals         // texcoords
-        1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-       -1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  0.0f,
-       -1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  -1.0f,
-        1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-       -1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  -1.0f,
-        1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  -1.0f
+        1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  1.0f,
+       -1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f,
+       -1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  0.0f,
+        1.0f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  1.0f,
+       -1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  0.0f,  0.0f,
+        1.0f,  -1.0f,  0.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f
 };
 
 // TODO: Add subdivisions while generating Plane vertices, or add logic to subdivide mesh

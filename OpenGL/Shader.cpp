@@ -90,6 +90,65 @@ Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLcha
    glUniformBlockBinding(this->Program, viewProjectionBindingIndex, 0);
 }
 
+Shader::Shader(const GLchar* computePath)
+{
+    // 1. Retrieve the vertex/fragment source code from filePath
+    std::string   computeCode;
+    std::ifstream compShaderFile;
+
+    // ensures ifstream objects can throw exceptions:
+    compShaderFile.exceptions(std::ifstream::badbit);
+    try {
+        // Open files
+        compShaderFile.open(computePath);
+        std::stringstream compShaderStream ;
+        // Read file's buffer contents into streams
+        compShaderStream << compShaderFile.rdbuf();
+        // close file handlers
+        compShaderFile.close();
+        // Convert stream into string
+        computeCode = compShaderStream.str();
+    }
+    catch (std::ifstream::failure e) {
+        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+    }
+
+    const GLchar* compShaderCode = computeCode.c_str();
+
+    // 2. Compile shaders
+    GLuint compute;
+    GLint success;
+    GLchar infoLog[512];
+    // Vertex Shader
+    compute = glCreateShader(GL_COMPUTE_SHADER);
+    glShaderSource(compute, 1, &compShaderCode, NULL);
+    glCompileShader(compute);
+    // Print compile errors if any
+    glGetShaderiv(compute, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderInfoLog(compute, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED [" << computeCode << "]\n" << infoLog << std::endl;
+    }
+
+    this->Program = glCreateProgram();
+    glAttachShader(this->Program, compute);
+    glLinkProgram(this->Program);
+    // Print linking errors if any
+    glGetProgramiv(this->Program, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(this->Program, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << "compute shader " << computePath << ", " << infoLog << std::endl;
+    }
+    // Delete the shaders as they're linked into our program now and no longer necessary
+    glDeleteShader(compute);
+
+    // Bind the shader to uniform buffer block index = 0
+    unsigned int viewProjectionBindingIndex = glGetUniformBlockIndex(this->Program, "VPMatrices");
+    glUniformBlockBinding(this->Program, viewProjectionBindingIndex, 0);
+
+    // Bind the shader to SSBO or Image2D bindings
+}
+
 GLint Shader::getUniformLocation(const std::string& name)
 {
     Use();

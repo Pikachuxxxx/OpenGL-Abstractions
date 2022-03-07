@@ -12,6 +12,7 @@ out VS_OUT {
 uniform vec3 lightPos;
 
 uniform mat4 u_Model = mat4(1.0f);
+
 layout (std140) uniform VPMatrices
 {
     mat4 u_View;

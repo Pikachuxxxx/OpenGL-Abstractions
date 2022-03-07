@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/PBR/PBRCerberusDemo.h"
+#include "AdvancedGL/compute/ForwardPlusRenderer.h"
 
 int main()
 {
