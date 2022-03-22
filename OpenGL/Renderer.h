@@ -230,7 +230,7 @@ public:
 
         texture.Bind();
         quad.vao.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), quad.vao, 6, RenderingOptions());
+        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), 6, RenderingOptions());
     }
 
     void draw_screen_quad_with_texture(GLuint textureID)
@@ -240,7 +240,7 @@ public:
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureID);
         quad.vao.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), quad.vao, 6, RenderingOptions());
+        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), 6, RenderingOptions());
     }
 
     void draw_raw_indices(Transform& transform, Shader& shader, VertexArray& va, IndexBuffer& ib, const RenderingOptions& options = RenderingOptions())

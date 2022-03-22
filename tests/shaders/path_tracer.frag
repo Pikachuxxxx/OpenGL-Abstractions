@@ -497,7 +497,7 @@ void main()
 
     // average the frames together
     vec3 lastFrameColor = texture(uPreviousFrameRT, gl_FragCoord.xy/uResolution.xy).rgb;
-    color = mix(lastFrameColor, color, 1.0f / float(1000));
+    color = mix(lastFrameColor, color, 1.0f / float(uFrameIndex + 1));
 
     // show the result
     outFragColor = vec4(color, 1.0f);
