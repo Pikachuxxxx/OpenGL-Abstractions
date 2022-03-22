@@ -1,7 +1,7 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedLighting/PBR/PBRCerberusDemo.h"
+#include "RayTracing/rtiaw.h"
 
 int main()
 {
