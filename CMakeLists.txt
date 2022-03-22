@@ -82,12 +82,13 @@ file(GLOB_RECURSE SHADER_FILES
 # Compile the source files for the executable
 add_executable(OpenGLSandBox ${SOURCE_FILES} ${OpenGL_HEADER_FILES} ${OpenGL_TEST_FILES} ${OpenGL_SOURCE_FILES} ${VENDOR_SRC_FILES} ${SHADER_FILES})
 
-source_group("Tests"            FILES ${OpenGL_TEST_FILES})
+#source_group("Tests"            FILES ${OpenGL_TEST_FILES})
 source_group("Main"             FILES ${SOURCE_FILES})
 source_group("OpenGL Source"    FILES ${OpenGL_SOURCE_FILES})
 source_group("OpenGL Header"    FILES ${OpenGL_HEADER_FILES})
 source_group("Vendor"           FILES ${VENDOR_SRC_FILES})
 source_group("Shaders"          FILES ${SHADER_FILES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${OpenGL_TEST_FILES})
 
 set_property(TARGET OpenGLSandBox PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
 

@@ -42,7 +42,7 @@ private:
     Shader                  lutVisShader;
     Shader                  speculaIBLShader;
     Shader                  speculaIBLTexturedShader;
-    Shader meshShader;
+    Shader                  meshShader;
 
     // PBR Textures
     Texture2D               albedo;
@@ -71,6 +71,7 @@ private:
     bool enableCubeMapVis = true, enableUnitCubemap = false, enableIBLSphere = false, enableirradianceMapVis = true, textured = false, enableSepcIBL = true;
     int cubeMapVisMode = 3;
     float LOD = 1.2f;
+    bool enableUVVis = false;
 public:
     Scene() : Sandbox("PBR Demo (Cerberus by Andrew Maximov )"),
 
@@ -462,46 +463,57 @@ public:
         ////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////
-        // Gun Model
-        speculaIBLTexturedShader.Use();
+        if (!enableUVVis) {
+            // Gun Model
+            speculaIBLTexturedShader.Use();
 
-        // // Bind the Textures for the model
-        // meshShader.Use();
-        albedo.Bind();
-        normal.Bind();
-        metallic.Bind();
-        roughness.Bind();
-        ao.Bind();
+            // Bind the Textures for the model
+            // meshShader.Use();
+            albedo.Bind();
+            normal.Bind();
+            metallic.Bind();
+            roughness.Bind();
+            ao.Bind();
 
-        // Bind the cubmaps
-        glActiveTexture(GL_TEXTURE5);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-        glActiveTexture(GL_TEXTURE6);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, preFilteredEnvMap);
-        glActiveTexture(GL_TEXTURE7);
-        glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+            // Bind the cube maps
+            glActiveTexture(GL_TEXTURE5);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
+            glActiveTexture(GL_TEXTURE6);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, preFilteredEnvMap);
+            glActiveTexture(GL_TEXTURE7);
+            glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
 
-        // Draw the model
-        // glActiveTexture(GL_TEXTURE0);
-        // glBindTexture(GL_TEXTURE_2D, cerberusUV.getTexture());
-        // renderer.draw_model(cerberusTransform, meshShader, CerberusPBRModel);
+            // Draw the model
+            // glActiveTexture(GL_TEXTURE0);
+            // glBindTexture(GL_TEXTURE_2D, cerberusUV.getTexture());
+            // renderer.draw_model(cerberusTransform, meshShader, CerberusPBRModel);
 
-        renderer.draw_model(cerberusTransform, speculaIBLTexturedShader, CerberusPBRModel);
+            renderer.draw_model(cerberusTransform, speculaIBLTexturedShader, CerberusPBRModel);
 
-        // set the camera position
-        speculaIBLTexturedShader.setUniform3f("camPos", camera.Position);
+            // set the camera position
+            speculaIBLTexturedShader.setUniform3f("camPos", camera.Position);
 
-        // Render the Light sources as spheres
-        for (unsigned int i = 0; i < lightPositions.size(); ++i)
-        {
-            glm::vec3 newPos = lightPositions[i] + glm::vec3(sin(glfwGetTime() * 5.0) * 5.0, 0.0, 0.0);
-            newPos = lightPositions[i];
-            std::string lightPosStr = "lightPositions[" + std::to_string(i) + "]";
-            speculaIBLTexturedShader.setUniform3f(lightPosStr.c_str(), newPos);
-            std::string lightColorStr = "lightColors[" + std::to_string(i) + "]";
-            speculaIBLTexturedShader.setUniform3f(lightColorStr.c_str(), lightColors[i]);
+            // Render the Light sources as spheres
+            for (unsigned int i = 0; i < lightPositions.size(); ++i) {
+                glm::vec3 newPos = lightPositions[i] + glm::vec3(sin(glfwGetTime() * 5.0) * 5.0, 0.0, 0.0);
+                newPos = lightPositions[i];
+                std::string lightPosStr = "lightPositions[" + std::to_string(i) + "]";
+                speculaIBLTexturedShader.setUniform3f(lightPosStr.c_str(), newPos);
+                std::string lightColorStr = "lightColors[" + std::to_string(i) + "]";
+                speculaIBLTexturedShader.setUniform3f(lightColorStr.c_str(), lightColors[i]);
 
-            renderer.DrawSphere(Transform(newPos, glm::vec3(0.0f), glm::vec3(0.5f)), speculaIBLTexturedShader);
+                renderer.DrawSphere(Transform(newPos, glm::vec3(0.0f), glm::vec3(0.5f)), speculaIBLTexturedShader);
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // Draw the models UV Map
+        if (enableUVVis) {
+            meshShader.Use();
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, cerberusUV.getTexture());
+            renderer.draw_model(cerberusTransform, meshShader, CerberusPBRModel);
         }
         ////////////////////////////////////////////////////////////////////////
 
@@ -549,11 +561,16 @@ public:
             if(ImGui::CollapsingHeader("Cerberus")) {
                 DrawVec3Control("Position", cerberusTransform.position);
                 DrawVec3Control("Scale", cerberusTransform.scale);
+                ImGui::Checkbox("Enable UVs", &enableUVVis);
             }
 
             if(ImGui::CollapsingHeader("Cerberus Textures")) {
                 ImGui::Image((void*) albedo.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
-                ImGui::Image((void*) normal.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+                ImGui::Image((void*) normal.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
+                ImGui::Image((void*) roughness.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); 
+                ImGui::Image((void*) metallic.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
+                ImGui::Image((void*) ao.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
+                ImGui::Image((void*) cerberusUV.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
             }
 
         }
@@ -589,7 +606,7 @@ public:
         glBindVertexArray(0);
     }
 
-    void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
+    void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 80.0f)
     {
     	ImGuiIO& io = ImGui::GetIO();
     	auto boldFont = io.Fonts->Fonts[0];

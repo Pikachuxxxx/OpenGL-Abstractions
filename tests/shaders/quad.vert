@@ -1,4 +1,4 @@
-#version 330 core
+#version 450 core
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
@@ -13,8 +13,7 @@ out VS_OUT {
 void main()
 {
     gl_Position = vec4(position, 1.0f);
-    // mat3 normalMatrix = mat3(transpose(inverse(u_View * u_Model)));
-    // vs_out.normal = normalize(vec3(u_Projection * vec4(normalMatrix * normal, 1.0)));
+    //mat3 normalMatrix = mat3(transpose(inverse(u_View * u_Model)));
     vs_out.normal = normal;
     vs_out.texCoords = texCoords;
 }
