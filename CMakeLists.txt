@@ -22,6 +22,8 @@ include_directories(
     "${CMAKE_SOURCE_DIR}/vendor/ImGui"
     "${CMAKE_SOURCE_DIR}/vendor/ImGuizmo"
     "${CMAKE_SOURCE_DIR}/tests"
+    "${CMAKE_SOURCE_DIR}/tests/Surfels"
+    "C:/Dev/Vulkan Projects/Vulf/vendor/tinyobj"
 )
 
 if (APPLE)
@@ -54,6 +56,8 @@ file(GLOB_RECURSE OpenGL_HEADER_FILES
 file(GLOB_RECURSE OpenGL_TEST_FILES
 	${CMAKE_SOURCE_DIR}/tests/*.h
     ${CMAKE_SOURCE_DIR}/tests/*.hpp
+    ${CMAKE_SOURCE_DIR}/tests/*.c
+    ${CMAKE_SOURCE_DIR}/tests/*.cpp
 )
 
 file(GLOB VENDOR_SRC_FILES

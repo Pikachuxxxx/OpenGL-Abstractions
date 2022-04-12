@@ -1,11 +1,11 @@
 // Std. Includes
 #include <iostream>
 
-#include "AdvancedGL/compute/ForwardPlusRenderer.h"
+#include "Surfels/surfels_main.h"
 
 int main()
 {
-    Scene scene;
+    Main scene;
     scene.Run();
 
     return EXIT_SUCCESS;
