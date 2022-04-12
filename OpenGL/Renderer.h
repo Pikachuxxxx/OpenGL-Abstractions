@@ -1,4 +1,4 @@
-#pragma once
+        #pragma once
 
 #include <iostream>
 #include <cmath>
@@ -113,7 +113,8 @@ struct RenderingOptions
     enum PrimitivesDrawMode{
         TRIANGLES,
         POINTS,
-        LINES
+        LINES,
+        LINE_STRIP
     }drawMode = TRIANGLES;
     bool enableWireframeMode = false;
     bool isSelected = false;
@@ -170,7 +171,18 @@ public:
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
 
         va.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, verticesCount, options);
+    }
+
+    void draw_no_buffer(Transform& transform, Shader& shader, int verticesCount, const RenderingOptions& options = RenderingOptions())
+    {
+        shader.Use();
+
+        CALCULATE_MODEL_MATRIX();
+
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
+
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, verticesCount, options);
     }
 
     void draw_raw_arrays_proj_view(Transform& transform, Shader& shader, VertexArray& va, int verticesCount, glm::mat4& proj, glm::mat4& view, const RenderingOptions& options = RenderingOptions())
@@ -182,7 +194,7 @@ public:
         set_uniforms(m_ModelMatrix, view, proj, shader);
 
         va.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, verticesCount, options);
     }
 
     void draw_raw_arrays_with_texture(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, int verticesCount, const RenderingOptions& options = RenderingOptions())
@@ -195,7 +207,7 @@ public:
 
         texture.Bind();
         va.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, verticesCount, options);
     }
 
     void draw_raw_arrays_with_textures(Transform& transform, Shader& shader, std::vector<Texture2D>& textures, VertexArray& va, int verticesCount, const RenderingOptions& options = RenderingOptions())
@@ -209,7 +221,7 @@ public:
         for (size_t i = 0; i < textures.size(); i++)
             textures[i].Bind();
         va.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(transform, va, verticesCount, options);
+        SELECT_MODE_AND_DRAW_ARRAYS(transform, verticesCount, options);
     }
 
     void draw_screen_quad_with_texture(Texture2D& texture)
@@ -218,7 +230,7 @@ public:
 
         texture.Bind();
         quad.vao.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), quad.vao, 6, RenderingOptions());
+        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), 6, RenderingOptions());
     }
 
     void draw_screen_quad_with_texture(GLuint textureID)
@@ -228,7 +240,7 @@ public:
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureID);
         quad.vao.Bind();
-        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), quad.vao, 6, RenderingOptions());
+        SELECT_MODE_AND_DRAW_ARRAYS(Transform(), 6, RenderingOptions());
     }
 
     void draw_raw_indices(Transform& transform, Shader& shader, VertexArray& va, IndexBuffer& ib, const RenderingOptions& options = RenderingOptions())
@@ -311,12 +323,12 @@ public:
     void set_uniforms(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Shader& shader)
     {
         shader.Use();
-   
+
 
         GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Model"), 1, GL_FALSE, glm::value_ptr(model)));
         GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_Projection"), 1, GL_FALSE, glm::value_ptr(projection)));
         GL_CALL(glUniformMatrix4fv(glGetUniformLocation(shader.Program, "u_View"), 1, GL_FALSE, glm::value_ptr(view)));
-        
+
 
         GL_CALL(glBindBuffer(GL_UNIFORM_BUFFER, m_UniformBuffer));
         GL_CALL(glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(view)));
@@ -357,7 +369,7 @@ public:
             glUniform1i(glGetUniformLocation(shader.Program, "u_PP_EnableGrayScale"), 0);
     }
 
-    void SELECT_MODE_AND_DRAW_ARRAYS(Transform transform, const VertexArray& va, const int& verticesCount, const RenderingOptions& options)
+    void SELECT_MODE_AND_DRAW_ARRAYS(Transform transform, const int& verticesCount, const RenderingOptions& options)
     {
         // if(options.isSelected)
         // {
@@ -386,6 +398,9 @@ public:
                 break;
             case RenderingOptions::LINES:
                 GL_CALL(glDrawArrays(GL_LINES, 0, verticesCount));
+                break;
+            case RenderingOptions::LINE_STRIP:
+                GL_CALL(glDrawArrays(GL_LINE_STRIP, 0, verticesCount));
                 break;
         }
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -422,6 +437,9 @@ public:
                 break;
             case RenderingOptions::LINES:
                 GL_CALL(glDrawElements(GL_LINES, ib.GetCount(), GL_UNSIGNED_INT, 0));
+                break;
+            case RenderingOptions::LINE_STRIP:
+                GL_CALL(glDrawElements(GL_LINE_STRIP, ib.GetCount(), GL_UNSIGNED_INT, 0));
                 break;
         }
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

@@ -280,7 +280,8 @@ public:
                 int data_size = 3840 * 2160 * 4;
                 GLubyte* pixels = new GLubyte[data_size];
                 glReadPixels(0, 0, 3840, 2160, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-                stbi_write_png( "Render.png", 3840, 2160, 4, pixels, 2160 * 4);
+                stbi_flip_vertically_on_write(true);
+                stbi_write_png( "Render.png", 3840, 2160, 4, pixels, 3840 * 4);
                 std::cout << "Done saving!" << std::endl;
                 saveFBO.Unbind();
             }
