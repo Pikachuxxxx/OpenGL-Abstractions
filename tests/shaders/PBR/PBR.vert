@@ -3,6 +3,8 @@
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 texCoords;
+layout (location = 2) in vec3 tangent;
+layout (location = 2) in vec3 biTangent;
 
 out VS_OUT {
     vec2 TexCoords;
@@ -21,7 +23,7 @@ layout (std140) uniform VPMatrices
 void main()
 {
     vs_out.TexCoords    = texCoords;
-    vs_out.Normal       = mat3(transpose(inverse(u_Model))) * normal;
+    vs_out.Normal       = normal;//mat3(transpose(inverse(u_Model))) * normal;
     vs_out.FragPos      = vec3(u_Model * vec4(position, 1.0f));
 
     gl_Position = u_Projection * u_View * u_Model * vec4(position, 1.0f);

@@ -29,24 +29,25 @@ void Mesh::Draw(Shader shader)
         std::string name = this->textures[i].type;
 
         // Transfer texture data to stream
-        if (name == "texture_diffuse") {
+        if (name == "albedoMap") {
             stream << diffuseNumber++;
         }
-        else if (name == "texture_specular") {
+        else if (name == "normalMap") {
             stream << specularNumber++;
         }
-        else if (name == "texture_normal") {
+        else if (name == "metallicRoughnessMap") {
             stream << normalNumber++;
         }
-        else if (name == "texture_height") {
-            stream << heightNumber++;
-        }
+        // else if (name == "texture_height") {
+        //     stream << heightNumber++;
+        // }
         number = stream.str();
 
         // Set sampler to the correct texture unit and bind the texture
         glUniform1i(glGetUniformLocation(shader.Program, (name + number).c_str()), i);
         glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
     }
+
 
      // Draw mesh
     m_VAO->Bind();

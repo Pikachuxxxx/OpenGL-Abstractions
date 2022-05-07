@@ -106,27 +106,27 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
         // Assume a convention for sampler names in the shaders. Each diffuse texture should be named
-        // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
+        // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
         // Same applies to other texture as the following list summarizes:
         // Diffuse: texture_diffuseN
         // Specular: texture_specularN
         // Normal: texture_normalN
 
         // Diffuse maps
-        std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "albedoMap");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 
         // Specular maps
-        std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_NORMALS, "normalMap");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
         // Normal maps
-        std::vector<Texture> normalMaps = this->loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+        std::vector<Texture> metalRoughnes = this->loadMaterialTextures(material, aiTextureType_UNKNOWN, "metallicRoughnessMap");
+        textures.insert(textures.end(), metalRoughnes.begin(), metalRoughnes.end());
 
         // Height maps
-        std::vector<Texture> heightMaps = this->loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+        // std::vector<Texture> heightMaps = this->loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        // textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
     }
 
     this->vertexCount = vertices.size();

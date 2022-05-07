@@ -103,7 +103,7 @@ public:
     metallic("./tests/models/Cerberus_by_Andrew_Maximov/Textures/Cerberus_M.tga",2),
     roughness("./tests/models/Cerberus_by_Andrew_Maximov/Textures/Cerberus_R.tga",3),
     ao("./tests/models/Cerberus_by_Andrew_Maximov/Textures/Cerberus_AO.tga",4),
-    cerberusUV("./tests/models/Cerberus_by_Andrew_Maximov/Textures/Raw/Cerberus_UV.tga",5),
+    cerberusUV("./tests/textures/ibl_brdf_lut.png",7),
 
     // FBOs
     lutVisFBO(window.getWidth(), window.getHeight())
@@ -481,7 +481,8 @@ public:
             glActiveTexture(GL_TEXTURE6);
             glBindTexture(GL_TEXTURE_CUBE_MAP, preFilteredEnvMap);
             glActiveTexture(GL_TEXTURE7);
-            glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+            // glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+            cerberusUV.Bind();
 
             // Draw the model
             // glActiveTexture(GL_TEXTURE0);
@@ -567,7 +568,7 @@ public:
             if(ImGui::CollapsingHeader("Cerberus Textures")) {
                 ImGui::Image((void*) albedo.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
                 ImGui::Image((void*) normal.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
-                ImGui::Image((void*) roughness.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); 
+                ImGui::Image((void*) roughness.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
                 ImGui::Image((void*) metallic.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
                 ImGui::Image((void*) ao.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
                 ImGui::Image((void*) cerberusUV.getTexture(), ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
