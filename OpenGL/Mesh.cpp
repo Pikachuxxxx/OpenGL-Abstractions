@@ -13,55 +13,51 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vecto
     this->setupMesh();
 }
 
-void Mesh::Draw(Shader shader)
+void Mesh::BindResources(Shader shader)
 {
+    shader.Use();
+
     // Bind appropriate textures
-    GLuint diffuseNumber = 1;
-    GLuint specularNumber = 1;
+    GLuint diffuseNumber = 0;
     GLuint normalNumber = 1;
-    GLuint heightNumber = 1;
+    GLuint metalRoughnessNumber = 2;
 
     for (GLuint i = 0; i < this->textures.size(); i++) {
-        // Activate proper texture unit and retreive texture number
+        // Activate proper texture unit and retrieve texture number
+        //std::cout << "Binding at slot : " << i << std::endl;
         glActiveTexture(GL_TEXTURE0 + i);
-        std::stringstream stream;
-        std::string number;
-        std::string name = this->textures[i].type;
+        //std::stringstream stream;
+        //std::string number;
+        //std::string name = this->textures[i].type;
 
         // Transfer texture data to stream
-        if (name == "albedoMap") {
-            stream << diffuseNumber++;
-        }
-        else if (name == "normalMap") {
-            stream << specularNumber++;
-        }
-        else if (name == "metallicRoughnessMap") {
-            stream << normalNumber++;
-        }
+        //if (name == "albedoMap") {
+        //stream << diffuseNumber++;
+        //} else if (name == "normalMap") {
+        //stream << normalNumber++;
+        //} else if (name == "metallicRoughnessMap") {
+        //stream << metalRoughnessNumber++;
+        //}
         // else if (name == "texture_height") {
         //     stream << heightNumber++;
         // }
-        number = stream.str();
+        //number = stream.str();
 
         // Set sampler to the correct texture unit and bind the texture
-        glUniform1i(glGetUniformLocation(shader.Program, (name + number).c_str()), i);
+        //glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
         glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
     }
+}
 
-
+void Mesh::Draw(Shader shader)
+{
+    shader.Use();
      // Draw mesh
     m_VAO->Bind();
     m_IBO->Bind();
     glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
     m_VAO->Unbind();
     m_IBO->Unbind();
-
-    // Unbind all the textures
-     for (GLuint i = 0; i < this->textures.size(); i++)
-     {
-         glActiveTexture(GL_TEXTURE0 + i);
-         glBindTexture(GL_TEXTURE_2D, 0);
-     }
 }
 
 void Mesh::setupMesh()

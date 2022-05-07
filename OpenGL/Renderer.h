@@ -128,7 +128,6 @@ class Renderer
 public:
     glm::vec4   backgroundColor;
     glm::vec3   viewPos;
-private:
     glm::mat4   m_ModelMatrix;
     glm::mat4   m_View;
     glm::mat4   m_Projection;
@@ -195,6 +194,15 @@ public:
 
         va.Bind();
         SELECT_MODE_AND_DRAW_ARRAYS(transform, verticesCount, options);
+    }
+
+    void set_mvp(Transform& transform, Shader& shader)
+    {
+        shader.Use();
+        
+        CALCULATE_MODEL_MATRIX();
+        
+        set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
     }
 
     void draw_raw_arrays_with_texture(Transform& transform, Shader& shader, Texture2D& texture, VertexArray& va, int verticesCount, const RenderingOptions& options = RenderingOptions())

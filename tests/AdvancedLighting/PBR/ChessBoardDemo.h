@@ -19,8 +19,6 @@ private:
     unsigned int            preFilterRBO;
     unsigned int            brdfLUTFBO;
     unsigned int            brdfLUTRBO;
-    FrameBuffer             lutVisFBO;
-    FrameBuffer             postPassFBO; //idk why this isn't working
 
     // HDR EnvMap
     HDREnvironmentMap       pineTreeHDR;
@@ -33,17 +31,8 @@ private:
     Shader                  cubeMapVisLodShader;
     Shader                  envToCubeMapShader;
     Shader                  convolutionShader;
-    Shader                  pbrShader;
-    Shader                  pbrTexturedShader;
-    Shader                  diffuseIBLpbrShader;
-    Shader                  diffuseIBLpbrTexturedShader;
     Shader                  preFilterEnvMapShader;
-    Shader                  brdfShader;
-    Shader                  lutVisShader;
-    Shader                  speculaIBLShader;
     Shader                  speculaIBLTexturedShader;
-    Shader                  meshShader;
-    Shader                  vignetteShader;
 
     Texture2D               premadeBRDFLUT;
 
@@ -75,56 +64,25 @@ private:
     float extent = 0.25;
 public:
     Scene() : Sandbox("Screen Space Reflections [SSR])"),
-    postPassFBO(window.getWidth(), window.getHeight()),
 
     // HDR envmap
     pineTreeHDR("./tests/textures/PBR/EnvMaps/newport_loft.hdr", 0),
 
     //Models
-    chessPBRModel("/Users/phanisrikar/Downloads/Chess/scene.gltf"),
+    chessPBRModel("C:/Users/phani/Downloads/Chess/Chess/scene.gltf"),
 
     // Shaders
-    meshShader( "./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"),
     cubeMapVisShader("./tests/shaders/PBR/EnvMaps/visCubeMap.vert", "./tests/shaders/PBR/EnvMaps/visCubeMap.frag"),
     cubeMapVisLodShader("./tests/shaders/PBR/EnvMaps/visCubeMap.vert", "./tests/shaders/PBR/EnvMaps/cubeMapVisLod.frag"),
     envToCubeMapShader("./tests/shaders/PBR/EnvMaps/EnvToCubeMap.vert", "./tests/shaders/PBR/EnvMaps/EnvToCubeMap.frag"),
     convolutionShader("./tests/shaders/PBR/EnvMaps/EnvToCubeMap.vert", "./tests/shaders/PBR/EnvMaps/ConvolutedCubeMap.frag"),
-    pbrShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBR.frag"),
-    pbrTexturedShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRTexture.frag"),
-    diffuseIBLpbrShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRDiffuseIBL.frag"),
-    diffuseIBLpbrTexturedShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRDiffuseIBLTextured.frag"),
     preFilterEnvMapShader("./tests/shaders/PBR/EnvMaps/EnvToCubeMap.vert", "./tests/shaders/PBR/EnvMaps/PreFilterEnvMap.frag"),
-    brdfShader("./tests/shaders/quad.vert", "./tests/shaders/PBR/brdf.frag"),
-    lutVisShader("./tests/shaders/quad.vert", "./tests/shaders/mesh.frag"),
-    speculaIBLShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRSpecularIBL.frag"),
     speculaIBLTexturedShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRSpecularIBLTextured.frag"),
-    vignetteShader("./tests/shaders/quad.vert", "./tests/shaders/FX/vignette.frag"),
 
-    premadeBRDFLUT("./tests/textures/ibl_brdf_lut.png", 5),
+    premadeBRDFLUT("./tests/textures/ibl_brdf_lut.png", 5)
 
-    // FBOs
-    lutVisFBO(window.getWidth(), window.getHeight())
     {
-        pbrShader.Use();
-        // Hardcode the Albedo and AO
-        pbrShader.setUniform3f("albedo", glm::vec3(0.0f, 0.3f, 0.75f));
-        pbrShader.setUniform1f("ao", 1.0f);
-
-        // Hardcode the Albedo and AO
-        diffuseIBLpbrShader.setUniform3f("albedo", glm::vec3(0.0f, 0.3f, 0.75f));
-        diffuseIBLpbrShader.setUniform1f("ao", 1.0f);
-
-        // Hardcode the Albedo and AO
-        speculaIBLShader.Use();
-        speculaIBLShader.setUniform3f("albedo", glm::vec3(1.0f, 0.3f, 0.75f));
-        speculaIBLShader.setUniform1f("ao", 1.0f);
-        speculaIBLShader.setUniform1i("irradianceMap", 0);
-        speculaIBLShader.setUniform1i("prefilterMap", 1);
-        speculaIBLShader.setUniform1i("brdfLUT", 2);
-
-        pbrTexturedShader.Use();
-        // TODO: Use variables and control using ImGui
-
+      
         // Light positions
         lightPositions.push_back(glm::vec3(-5.0f,  5.0f, 0.0f));
         lightPositions.push_back(glm::vec3( 5.0f,  5.0f, 0.0f));
@@ -137,21 +95,7 @@ public:
         lightColors.push_back(glm::vec3(000.0f, 000.0f, 900.0f));
         lightColors.push_back(glm::vec3(000.0f, 000.0f, 900.0f));
 
-        pbrTexturedShader.setUniform1i("albedoMap", 0);
-        pbrTexturedShader.setUniform1i("normalMap", 1);
-        pbrTexturedShader.setUniform1i("metallicMap", 2);
-        pbrTexturedShader.setUniform1i("roughnessMap", 3);
-        pbrTexturedShader.setUniform1i("aoMap", 4);
-
-        diffuseIBLpbrTexturedShader.Use();
-        diffuseIBLpbrTexturedShader.setUniform1i("albedoMap", 0);
-        diffuseIBLpbrTexturedShader.setUniform1i("normalMap", 1);
-        diffuseIBLpbrTexturedShader.setUniform1i("metallicMap", 2);
-        diffuseIBLpbrTexturedShader.setUniform1i("roughnessMap", 3);
-        diffuseIBLpbrTexturedShader.setUniform1i("aoMap", 4);
-
-        diffuseIBLpbrTexturedShader.setUniform1i("irradianceMap", 5);
-
+      
         envToCubeMapShader.Use();
         envToCubeMapShader.setUniform1i("equirectangularMap", 0);
 
@@ -166,14 +110,9 @@ public:
         preFilterEnvMapShader.setUniform1i("envMap", 0);
 
         // Textured Specular IBL Lighting
-        speculaIBLTexturedShader.Use();
-        // maps
-        // cubemaps + LUT
-        speculaIBLTexturedShader.setUniform1i("irradianceMap", 3);
-        speculaIBLTexturedShader.setUniform1i("prefilterMap", 4);
-        speculaIBLTexturedShader.setUniform1i("brdfLUT", 5);
 
-        cerberusTransform = Transform(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.0f));
+
+        cerberusTransform = Transform(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(5.0f));
     }
 
     ~Scene() {}
@@ -362,35 +301,6 @@ public:
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
-
-    void generate_brdf_lut()
-    {
-        brdfShader.Use();
-        glGenFramebuffers(1, &brdfLUTFBO);
-        glGenRenderbuffers(1, &brdfLUTRBO);
-        glGenTextures(1, &brdfLUTTexture);
-        glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-
-        // pre-allocate enough memory for the LUT texture.
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, 512, 512, 0, GL_RGBA, GL_FLOAT, 0);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        glBindFramebuffer(GL_FRAMEBUFFER, brdfLUTFBO);
-        glBindRenderbuffer(GL_RENDERBUFFER, brdfLUTRBO);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, 512, 512);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
-
-        glViewport(0, 0, 512, 512);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // renderer.draw_raw_arrays(Origin, brdfShader, quad.vao, 6);
-        // draw_raw_indices
-        renderQuad();
-
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    }
 //------------------------------------------------------------------------------
 
     void OnStart() override
@@ -410,11 +320,6 @@ public:
         pre_filter_envmap();
         ////////////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////////////////////
-        // Generate BRDF Look Up Texture (LUT)
-        generate_brdf_lut();
-        ////////////////////////////////////////////////////////////////////////
-
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
@@ -423,30 +328,38 @@ public:
 
         // Gun Model
         speculaIBLTexturedShader.Use();
+        speculaIBLTexturedShader.setUniform1i("albedoMap", 0);
+        speculaIBLTexturedShader.setUniform1i("normalMap", 1);
+        speculaIBLTexturedShader.setUniform1i("metallicRoughnessMap", 2);
+        speculaIBLTexturedShader.setUniform1i("irradianceMap", 3);
+        speculaIBLTexturedShader.setUniform1i("prefilterMap", 4);
+        speculaIBLTexturedShader.setUniform1i("brdfLUT", 5);
 
-        // Bind the Textures for the model
-        // meshShader.Use();
-        // albedo.Bind();
-        // normal.Bind();
-        // metallic.Bind();
-        // roughness.Bind();
-        // ao.Bind();
-
-        // Bind the cube maps
-        glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-        glActiveTexture(GL_TEXTURE4);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, preFilteredEnvMap);
-        glActiveTexture(GL_TEXTURE5);
-        // glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
-        premadeBRDFLUT.Bind();
 
         // Draw the model
         // glActiveTexture(GL_TEXTURE0);
         // glBindTexture(GL_TEXTURE_2D, cerberusUV.getTexture());
         // renderer.draw_model(cerberusTransform, meshShader, CerberusPBRModel);
 
-        renderer.draw_model(cerberusTransform, speculaIBLTexturedShader, chessPBRModel);
+        renderer.set_mvp(cerberusTransform, speculaIBLTexturedShader);
+
+        //renderer.draw_model(cerberusTransform, speculaIBLTexturedShader, chessPBRModel);
+
+        for (int i = 0; i < chessPBRModel.meshes.size(); i++) {
+            chessPBRModel.meshes[i].BindResources(speculaIBLTexturedShader);
+
+            // Bind the cube maps
+            glActiveTexture(GL_TEXTURE4);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, preFilteredEnvMap);
+
+            glActiveTexture(GL_TEXTURE3);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
+    
+            glActiveTexture(GL_TEXTURE5);
+            premadeBRDFLUT.Bind();
+
+            chessPBRModel.meshes[i].Draw(speculaIBLTexturedShader);
+        }
 
         // set the camera position
         speculaIBLTexturedShader.setUniform3f("camPos", camera.Position);
@@ -460,7 +373,7 @@ public:
             std::string lightColorStr = "lightColors[" + std::to_string(i) + "]";
             speculaIBLTexturedShader.setUniform3f(lightColorStr.c_str(), lightColors[i]);
 
-            renderer.DrawSphere(Transform(newPos, glm::vec3(0.0f), glm::vec3(0.5f)), speculaIBLTexturedShader);
+            //renderer.DrawSphere(Transform(newPos, glm::vec3(0.0f), glm::vec3(0.5f)), speculaIBLTexturedShader);
         }
     }
 

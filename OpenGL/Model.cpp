@@ -3,6 +3,8 @@
 // #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+#include "glassert.h"
+
 Model::Model(std::string path)
 {
     this->loadModel(path);
@@ -142,6 +144,11 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
     {
         aiString str;
         mat->GetTexture(type, i, &str);
+
+        // HOTFIX: for some reason the albedo maps get loaded twice
+        if (typeName == "albedoMap")
+          i++;
+
         GLboolean skip = false;
         for(GLuint j = 0; j < textures_loaded.size(); j++)
         {
@@ -171,21 +178,35 @@ GLint TextureFromFile(const char* path, std::string directory)
     std::string filename = std::string(path);
     filename = directory + '/' + filename;
     std::cout << "Loading model texture : " << filename << std::endl;
-    GLuint textureID;
-    glGenTextures(1, &textureID);
-    int width,height, bpp;
-    unsigned char* image = stbi_load(filename.c_str(), &width, &height, &bpp, 4);
-    // Assign texture to ID
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
 
-    // Parameters
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    int width,height, bpp;
+    unsigned char* image = stbi_load(filename.c_str(), &width, &height, &bpp, 0);
+
+    GLenum imageFormat = GL_RGBA;
+    switch (bpp) {
+    case 1:
+      imageFormat = GL_RED;
+      break;
+    case 3:
+      imageFormat = GL_RGB;
+      break;
+    case 4:
+      imageFormat = GL_RGBA;
+      break;
+    }
+
+    GLuint texture;
+    glEnable(GL_TEXTURE_2D);
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, width, height, 0, imageFormat, GL_UNSIGNED_BYTE, image));
+    glGenerateMipmap(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, 0);
+    
     stbi_image_free(image);
-    return textureID;
+    return texture;
 }

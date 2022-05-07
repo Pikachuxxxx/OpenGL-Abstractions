@@ -1,5 +1,6 @@
-#version 410 core
+#version 450 core
 
+ #extension GL_ARB_shading_language_420pack : enable
 ////////////////////////////////////////////////////////////////////////////////
 // Constants, Input, Output and Uniforms
 
@@ -15,16 +16,12 @@ in VS_OUT {
 // -----------------------------------------------------------------------------
 // Uniforms
 // material parameters
-uniform sampler2D albedoMap;
-uniform sampler2D normalMap;
-uniform sampler2D metallicRoughnessMap;
-// uniform sampler2D roughnessMap;
-// uniform sampler2D aoMap;
-
-// Irradiance Map
-uniform samplerCube irradianceMap;
-uniform samplerCube prefilterMap;
-uniform sampler2D brdfLUT;
+layout(binding = 0) uniform sampler2D albedoMap;
+layout(binding = 1) uniform sampler2D normalMap;
+layout(binding = 2) uniform sampler2D metallicRoughnessMap;
+layout(binding = 4) uniform samplerCube prefilterMap;
+layout(binding = 5) uniform sampler2D brdfLUT;
+layout(binding = 3) uniform samplerCube irradianceMap;
 
 // lights
 uniform vec3 lightPositions[4];
@@ -111,6 +108,26 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
     return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(1.0 - cosTheta, 5.0);
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+// Narkowicz 2015, "ACES Filmic Tone Mapping Curve"
+vec3 aces(vec3 x) {
+  const float a = 2.51;
+  const float b = 0.03;
+  const float c = 2.43;
+  const float d = 0.59;
+  const float e = 0.14;
+  return clamp((x * (a * x + b)) / (x * (c * x + d) + e), 0.0, 1.0);
+}
+
+// -----------------------------------------------------------------------------
+// Filmic Tonemapping Operators http://filmicworlds.com/blog/filmic-tonemapping-operators/
+vec3 tonemapFilmic(vec3 x) {
+  vec3 X = max(vec3(0.0), x - 0.004);
+  vec3 result = (X * (6.2 * X + 0.5)) / (X * (6.2 * X + 1.7) + 0.06);
+  return pow(result, vec3(2.2));
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Tonemapping
 // Lottes 2016, "Advanced Techniques and Optimization of HDR Color Pipelines"
@@ -131,11 +148,23 @@ vec3 lottes(vec3 x) {
   return pow(x, a) / (pow(x, a * d) * b + c);
 }
 ////////////////////////////////////////////////////////////////////////////////
+// -----------------------------------------------------------------------------
+// Unreal
+// Unreal 3, Documentation: "Color Grading"
+// Adapted to be close to Tonemap_ACES, with similar range
+// Gamma 2.2 correction is baked in, don't use with sRGB conversion!
+vec3 unreal(vec3 x) {
+  return x / (x + 0.155) * 1.019;
+}
+
+float unreal(float x) {
+  return x / (x + 0.155) * 1.019;
+}
 
 // Main Function
 void main()
 {
-    vec3 albedo     = pow(texture(albedoMap, vs_in.TexCoords).rgb, vec3(2.2));
+    vec3 albedo     = texture(albedoMap, vs_in.TexCoords).rgb;//, vec3(2.2));pow(
     float metallic  = texture(metallicRoughnessMap, vs_in.TexCoords).b;
     float roughness = texture(metallicRoughnessMap, vs_in.TexCoords).g;
     float ao        = texture(metallicRoughnessMap, vs_in.TexCoords).r;//1.0f;//texture(aoMap, vs_in.TexCoords).r;
@@ -208,7 +237,7 @@ void main()
     vec3 ambient = ((kD * diffuse) + specular) * ao;
 
     // Tonemapping
-    vec3 color = lottes(specular);
+    vec3 color = aces(ambient);
 
     // Gamma correction
     color = pow(color, vec3(1.0/2.2));
@@ -216,6 +245,6 @@ void main()
     FragColor = vec4(color, 1.0);
 
     // FragColor = vec4(vs_in.TexCoords, 0.0f, 1.0);
-    FragColor = vec4(ao, roughness, metallic, 1.0f);
+    //FragColor = vec4(texture(metallicRoughnessMap, vs_in.TexCoords));//vec4(ao, roughness, metallic, 1.0f);
 }
 ////////////////////////////////////////////////////////////////////////////////

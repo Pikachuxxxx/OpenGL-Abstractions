@@ -15,15 +15,16 @@ GLint TextureFromFile(const char* path, std::string directory);
 
 class Model
 {
-private:
+public:
     std::vector<Mesh> meshes;
     std::string directory;
     std::vector<Texture> textures_loaded;
-public:
+
     Model(std::string path);
     void Draw(Shader shader);
+    
     GLint vertexCount, trisCount;
-private:
+
     void loadModel(std::string path);
     void processNode(aiNode* node, const aiScene* scene);
     Mesh processMesh(aiMesh* mesh, const aiScene* scene);

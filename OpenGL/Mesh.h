@@ -46,6 +46,7 @@ private:
 public:
     Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
 
+    void BindResources(Shader shader);
     void Draw(Shader shader);
 private:
     void setupMesh();
