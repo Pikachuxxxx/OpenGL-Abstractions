@@ -181,6 +181,11 @@ void Shader::setUniform1i(const GLchar* name, int value)
     glUniform1i(getUniformLocation(name), value);
 }
 
+void Shader::setUniform1ui(const GLchar* name, unsigned int value)
+{
+    glUniform1ui(getUniformLocation(name), value);
+}
+
 void Shader::setUniform1iv(const GLchar* name, int* value, GLsizei count)
 {
     glUniform1iv(getUniformLocation(name), count, value);

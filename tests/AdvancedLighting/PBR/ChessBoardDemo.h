@@ -33,6 +33,8 @@ private:
     Shader                  convolutionShader;
     Shader                  preFilterEnvMapShader;
     Shader                  speculaIBLTexturedShader;
+    Shader                  pickingStageShader;
+    Shader                  outlineShader;
 
     Texture2D               premadeBRDFLUT;
 
@@ -42,6 +44,10 @@ private:
     unsigned int            preFilteredEnvMap;
     unsigned int            brdfLUTTexture;
 
+    // Framebuffer
+    FrameBuffer             m_SaveFBO;
+    PickingTexture          pickingTexture;
+    PickingTexture::PixelInfo pixelInfo;
     // Transforms
     Transform Origin;
     Transform cerberusTransform;
@@ -62,6 +68,9 @@ private:
     // Post FX
     float intensity = 15;
     float extent = 0.25;
+
+    unsigned int click_object_id = 0;
+
 public:
     Scene() : Sandbox("Screen Space Reflections [SSR])"),
 
@@ -78,11 +87,16 @@ public:
     convolutionShader("./tests/shaders/PBR/EnvMaps/EnvToCubeMap.vert", "./tests/shaders/PBR/EnvMaps/ConvolutedCubeMap.frag"),
     preFilterEnvMapShader("./tests/shaders/PBR/EnvMaps/EnvToCubeMap.vert", "./tests/shaders/PBR/EnvMaps/PreFilterEnvMap.frag"),
     speculaIBLTexturedShader("./tests/shaders/PBR/PBR.vert", "./tests/shaders/PBR/PBRSpecularIBLTextured.frag"),
+    pickingStageShader("./tests/shaders/picking.vert", "./tests/shaders/picking.frag"),
+    outlineShader("./tests/shaders/selection.vert", "./tests/shaders/selection.frag"),
 
-    premadeBRDFLUT("./tests/textures/ibl_brdf_lut.png", 5)
+    // Textures
+    premadeBRDFLUT("./tests/textures/ibl_brdf_lut.png", 5),
+
+    // Framebuffers
+    m_SaveFBO(1280, 720), pickingTexture(1280, 720)
 
     {
-      
         // Light positions
         lightPositions.push_back(glm::vec3(-5.0f,  5.0f, 0.0f));
         lightPositions.push_back(glm::vec3( 5.0f,  5.0f, 0.0f));
@@ -99,7 +113,7 @@ public:
         envToCubeMapShader.Use();
         envToCubeMapShader.setUniform1i("equirectangularMap", 0);
 
-        // Visualisation shader
+        // Visualization shader
         cubeMapVisShader.Use();
         cubeMapVisShader.setUniform1i("envMap", 0);
         cubeMapVisLodShader.Use();
@@ -303,26 +317,6 @@ public:
     }
 //------------------------------------------------------------------------------
 
-    void OnStart() override
-    {
-        ////////////////////////////////////////////////////////////////////////
-        // Convert the Spherical envmap into Cubemap
-        hdr_to_cubemap_fbo_pass();
-        ////////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////
-        // Convolute the cubemap
-        convolute_cubemap();
-        ////////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////
-        // Pre-Filter Cubemap
-        pre_filter_envmap();
-        ////////////////////////////////////////////////////////////////////////
-
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    }
-
     void PBRRender()
     {
 
@@ -341,12 +335,19 @@ public:
         // glBindTexture(GL_TEXTURE_2D, cerberusUV.getTexture());
         // renderer.draw_model(cerberusTransform, meshShader, CerberusPBRModel);
 
-        renderer.set_mvp(cerberusTransform, speculaIBLTexturedShader);
 
         //renderer.draw_model(cerberusTransform, speculaIBLTexturedShader, chessPBRModel);
 
         for (int i = 0; i < chessPBRModel.meshes.size(); i++) {
             chessPBRModel.meshes[i].BindResources(speculaIBLTexturedShader);
+
+            chessPBRModel.meshes[i].worldTransform.setScale(glm::vec3(1.0));
+
+            if (!Mesh::noBugs)
+                renderer.set_mvp(chessPBRModel.meshes[i].worldTransform, speculaIBLTexturedShader);
+            else
+                renderer.set_mvp(Origin, speculaIBLTexturedShader);
+
 
             // Bind the cube maps
             glActiveTexture(GL_TEXTURE4);
@@ -354,8 +355,9 @@ public:
 
             glActiveTexture(GL_TEXTURE3);
             glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-    
             glActiveTexture(GL_TEXTURE5);
+
+            // GL_TEXTURE5 - auto resolved
             premadeBRDFLUT.Bind();
 
             chessPBRModel.meshes[i].Draw(speculaIBLTexturedShader);
@@ -377,6 +379,56 @@ public:
         }
     }
 
+    void RenderPickingStage()
+    {
+        for (int i = 0; i < chessPBRModel.meshes.size(); i++) {
+
+            renderer.set_mvp(chessPBRModel.meshes[i].worldTransform, pickingStageShader);
+
+            pickingStageShader.Use();
+            pickingStageShader.setUniform1ui("objectIndex", i + 1);
+            pickingStageShader.setUniform1ui("drawIndex", i);
+
+            chessPBRModel.meshes[i].Draw(pickingStageShader);
+        }
+    }
+
+//------------------------------------------------------------------------------
+
+    void OnStart() override
+    {
+        ////////////////////////////////////////////////////////////////////////
+        // Convert the Spherical envmap into Cubemap
+        hdr_to_cubemap_fbo_pass();
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // Convolute the cubemap
+        convolute_cubemap();
+        ////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////////
+        // Pre-Filter Cubemap
+        pre_filter_envmap();
+        ////////////////////////////////////////////////////////////////////////
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // Add random scales to models
+     
+        //for (auto& mesh : chessPBRModel.meshes) {
+
+        //    float i = (float) rand() / RAND_MAX;
+        //    if (i > Model::probabilityOfMissing) {
+        //        mesh.worldTransform.setScale(glm::vec3(i));
+        //    }
+        //}
+
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_STENCIL_TEST);
+        glStencilOp(GL_KEEP, GL_REPLACE, GL_REPLACE);
+    }
+
     void OnUpdate() override
     {
 
@@ -384,7 +436,9 @@ public:
 
     void OnRender() override
     {
-        glDepthFunc(GL_LESS);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glEnable(GL_BLEND);
         glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
         glViewport(0, 0, window.getWidth(), window.getHeight());
 
@@ -422,10 +476,63 @@ public:
             // postPassFBO.Bind();
             //     PBRRender();
             // postPassFBO.Unbind();
+            pickingTexture.enableWriting();
 
-            PBRRender();
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            // Enable the picking effect shader for the picking stage
+
+            RenderPickingStage();
+
+            pickingTexture.disableWriting();
+
         }
         ////////////////////////////////////////////////////////////////////////
+
+        // Draw the cubes while recording to the stencil buffer
+        //glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+        //glStencilFunc(GL_ALWAYS, 1, 0xFF); // All fragments pass the stencil test with reference value 1
+        //glStencilMask(0xFF); // Enable writing to the stencil buffer
+
+        PBRRender();
+
+
+        ////////////////////////////////////////////////////////////////////////
+        {
+            double x, y;
+            window.getMousePosition(x, y);
+            if (window.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1)) {
+                std::cout << "Mouse Clicked at : [" << x << ", " << y << std::endl;
+
+                pixelInfo = pickingTexture.readPixel(x, 720 - y - 1);
+
+            }
+
+            if (pixelInfo.ObjectID > chessPBRModel.meshes.size())
+                return;
+
+            if (pixelInfo.ObjectID != 0) {
+                click_object_id = pixelInfo.ObjectID - 1;
+
+                //glStencilMask(0x00); // Disable writing to the stencil buffer
+                //Transform worldTransform = chessPBRModel.meshes[click_object_id].worldTransform;
+              
+                //// scale and render
+                //glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+                //glStencilMask(0x00);
+                //glDisable(GL_DEPTH_TEST);
+
+                //chessPBRModel.meshes[click_object_id].worldTransform.setScale(glm::vec3(1.02));
+                renderer.set_mvp(chessPBRModel.meshes[click_object_id].worldTransform, outlineShader);
+                chessPBRModel.meshes[click_object_id].Draw(outlineShader);
+
+   /*             glStencilMask(0xFF);
+                glStencilFunc(GL_ALWAYS, 1, 0xFF);
+                glEnable(GL_DEPTH_TEST);*/
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////
+
 
         // glViewport(0, 0, window.getWidth(), window.getHeight());
         // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -441,6 +548,7 @@ public:
 
     void OnImGuiRender() override
     {
+        ATTACH_GUIZMO(Origin, ImGuizmo::TRANSLATE);
 
         ImGui::Begin("Scene");
         {
@@ -471,10 +579,14 @@ public:
             ImGui::RadioButton("unit cubeMap", &cubeMapVisMode, 0);
             ImGui::RadioButton("envMap --> cubeMap", &cubeMapVisMode, 1);
             ImGui::RadioButton("convoluted cubeMap", &cubeMapVisMode, 2);
-            ImGui::RadioButton("Force Prefiltered EnvMap", &cubeMapVisMode, 3);
+            ImGui::RadioButton("Force Pre filtered EnvMap", &cubeMapVisMode, 3);
             ImGui::Indent( 16.0f );
             ImGui::DragFloat("LOD", &LOD, 0.1f);
             ImGui::Unindent( 16.0f );
+
+            ImGui::Separator();
+
+            ImGui::Image((void *)pickingTexture.m_PickingTexture, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
 
             ImGui::Separator();
             //------------------------------------------------------------------
@@ -483,6 +595,8 @@ public:
                 DrawVec3Control("Scale", cerberusTransform.scale);
                 ImGui::Checkbox("Enable UVs", &enableUVVis);
             }
+
+            ImGui::Checkbox("Disable Bugs", &Mesh::noBugs);
 
             ImGui::Separator();
             //------------------------------------------------------------------
