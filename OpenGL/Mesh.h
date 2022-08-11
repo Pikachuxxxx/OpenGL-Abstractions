@@ -34,7 +34,6 @@ struct Texture
     GLuint      id;
     std::string type;
     aiString    path;
-    bool        missAlbedo;
 };
 
 class Mesh
@@ -44,9 +43,6 @@ public:
     std::vector<GLuint>     indices;
     std::vector<Texture>    textures;
     Transform               worldTransform;
-
-    static Texture2D*       pinkTexture;
-    static bool             noBugs;
 
 private:
     VertexArray*             m_VAO;

@@ -3,8 +3,10 @@
 
 // #include "Surfels/surfels_main.h"
 // #include "AdvancedLighting/PBR/PBRCerberusDemo.h"
-#include "AdvancedLighting/PBR/ChessBoardDemo.h"
+//#include "AdvancedLighting/PBR/ChessBoardDemo.h"
 // #include "AdvancedGL/Vignette.h"
+
+#include "AdvancedGL/PPFX/Bloom.h"
 
 int main()
 {

@@ -113,17 +113,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         // At startup control this or one can also control this while binding (Runtime control)! for now let's do this here
 
         std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "albedoMap");
-
-        if (diffuseMaps.size()) {
-            if ((float) rand() / RAND_MAX < probabilityOfMissing) {
-                // Diffuse maps
-                diffuseMaps[0].missAlbedo = false;
-            }
-            else {
-                diffuseMaps[0].missAlbedo = true;
-            }
-        }
-
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 
         // Specular maps

@@ -239,7 +239,7 @@ public:
 
 
         for (auto& mesh : model.meshes) {
-            transform = mesh.worldTransform;
+            //transform = mesh.worldTransform;
 
             CALCULATE_MODEL_MATRIX();
 

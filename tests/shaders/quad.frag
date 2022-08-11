@@ -3,11 +3,12 @@
 out vec3 position;
 
 in VS_OUT {
-    vec3 normal;
     vec2 texCoords;
 } vs_in;
 
-uniform sampler2D quad_texture;
+uniform sampler2D scene;
+uniform sampler2D bloomBlur;
+uniform float bloomStrength = 0.04f;
 
 // a pixel value multiplier of light before tone mapping and sRGB
 const float c_exposure = 0.5f;
@@ -130,18 +131,20 @@ vec3 sirBirdDenoise(sampler2D imageTexture, in vec2 uv, in vec2 imageResolution)
 void main()
 {
 
-    vec3 color = texture(quad_texture, vs_in.texCoords).rgb;
+    vec3 hdrColor = texture(scene, vs_in.texCoords).rgb;
+    vec3 bloomColor = texture(bloomBlur, vs_in.texCoords).rgb;
+    vec3 color =  mix(hdrColor, bloomColor, bloomStrength); // linear interpolation
 
-    color = sirBirdDenoise(quad_texture, vs_in.texCoords, vec2(500, 500)).rgb;
+    //color = sirBirdDenoise(quad_texture, vs_in.texCoords, vec2(500, 500)).rgb;
 
     // apply exposure (how long the shutter is open)
-    color *= c_exposure;
+    //color *= c_exposure;
 
     // convert unbounded HDR color range to SDR color range
     color = ACESFilm(color);
 
-    // convert from linear to sRGB for display
-    color = LinearToSRGB(color);
-
-    outFragColor = vec4(color, 1.0f);
+    // also gamma correct while we're at it
+    const float gamma = 2.2;
+    color = pow(color, vec3(1.0 / gamma));
+    outFragColor = vec4(color, 1.0);
 }

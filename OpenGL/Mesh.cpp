@@ -1,12 +1,7 @@
 #include "Mesh.h"
 
-Texture2D* Mesh::pinkTexture = nullptr;
-bool Mesh::noBugs = false;
-
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures)
 {
-    if (!pinkTexture)
-        pinkTexture = new Texture2D("./tests/textures/pink_missing_tex.png");
 
     this->vertices = vertices;
     this->indices = indices;
@@ -37,10 +32,8 @@ void Mesh::BindResources(Shader shader)
         std::string name = this->textures[i].type;
 
         // Transfer texture data to stream
-        if (name == "albedoMap" && textures[i].missAlbedo && !noBugs) {
-            pinkTexture->Bind();
-        }else
-            glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
+
+        glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
         // else if (name == "normalMap") {
         //stream << normalNumber++;
         //} else if (name == "metallicRoughnessMap") {
@@ -52,13 +45,14 @@ void Mesh::BindResources(Shader shader)
         //number = stream.str();
 
         // Set sampler to the correct texture unit and bind the texture
-        //glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
+        glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
     }
 }
 
 void Mesh::Draw(Shader shader)
 {
     shader.Use();
+    BindResources(shader);
      // Draw mesh
     m_VAO->Bind();
     m_IBO->Bind();
