@@ -120,6 +120,10 @@ public:
     // Variables
     int bloomMips = 5;
     glm::vec3 bodyLightColor = glm::vec3(0.3f, 4.3f, 8.0f);
+    int emissiveIntensity = 4.0f;
+    float bloomThreshold = 1.0f;
+    float bloomStrength = 0.05f;
+    float filterRadius = 0.005f;
 public:
     Scene() : Sandbox("Multi-pass Bloom", 1920, 1080),
 
@@ -198,7 +202,10 @@ public:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
         meshShader.Use();
-        meshShader.setUniform3f("bodyLightColor", bodyLightColor);
+
+        meshShader.setUniform1f("threshold", bloomThreshold);
+
+        meshShader.setUniform3f("bodyLightColor", bodyLightColor * glm::vec3(emissiveIntensity));
         renderer.draw_model(Origin, meshShader, bloomTextModel);
 
         meshShader.setUniform3f("bodyLightColor", glm::vec3(0.88, 0.3, 0.4));
@@ -213,12 +220,13 @@ public:
         m_BloomFBO.Bind();
         RenderDownsamples(colorBuffers[1]);
 
-        RenderUpsamples(0.005f);
+        RenderUpsamples(filterRadius);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         glViewport(0, 0, window.getWidth(), window.getHeight());
 
         quadShader.Use();
+        quadShader.setUniform1f("bloomStrength", bloomStrength);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 
@@ -244,9 +252,16 @@ public:
 
             ImGui::Separator();
 
-            ImGui::DragFloat3("Color", glm::value_ptr(bodyLightColor));
+            ImGui::ColorPicker3("Color", glm::value_ptr(bodyLightColor));
+            ImGui::DragInt("Emissive Intensity", &emissiveIntensity);
             //ImGui::Image((void*) colorBuffers[0], ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
             //ImGui::Image((void*) colorBuffers[1], ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
+
+            if (ImGui::CollapsingHeader("Bloom")) {
+                ImGui::DragFloat("Strength", &bloomStrength, 0.01f);
+                ImGui::DragFloat("Threshold", &bloomThreshold, 0.01f);
+                ImGui::DragFloat("filter radius", &filterRadius, 0.01f);
+            }
 
         }
         ImGui::End();

@@ -8,7 +8,7 @@ in VS_OUT {
 
 uniform sampler2D albedoMap;
 uniform vec3 bodyLightColor;
-
+uniform float threshold;
 layout (location = 0) out vec4 FragColor;
 layout (location = 1) out vec4 BrightColor;
 
@@ -26,7 +26,7 @@ void main()
     //FragColor = vec4(texture(albedoMap, vs_in.texCoords).xyz, 1.0f);
 
     // check whether result is higher than some threshold, if so, output as bloom threshold color
-    float brightness = dot(bodyLightColor, vec3(0.2126, 0.7152, 0.0722));
+    float brightness = dot(bodyLightColor, vec3(0.2126, 0.7152, 0.0722) * threshold);
     if(brightness > 1.0)
         BrightColor = vec4(bodyLightColor, 1.0);
     else
