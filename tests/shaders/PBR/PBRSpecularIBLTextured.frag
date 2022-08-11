@@ -245,6 +245,6 @@ void main()
     FragColor = vec4(color, 1.0);
 
     // FragColor = vec4(vs_in.TexCoords, 0.0f, 1.0);
-    //FragColor = vec4(texture(metallicRoughnessMap, vs_in.TexCoords));//vec4(ao, roughness, metallic, 1.0f);
+    FragColor = vec4(texture(albedoMap, vs_in.TexCoords));//vec4(ao, roughness, metallic, 1.0f);
 }
 ////////////////////////////////////////////////////////////////////////////////

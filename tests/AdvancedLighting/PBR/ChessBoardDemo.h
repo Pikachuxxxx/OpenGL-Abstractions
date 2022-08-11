@@ -78,7 +78,7 @@ public:
     pineTreeHDR("./tests/textures/PBR/EnvMaps/newport_loft.hdr", 0),
 
     //Models
-    chessPBRModel("C:/Users/phani/Downloads/Chess/Chess/scene.gltf"),
+    chessPBRModel("./tests/models/Sponza/sponza.obj"),
 
     // Shaders
     cubeMapVisShader("./tests/shaders/PBR/EnvMaps/visCubeMap.vert", "./tests/shaders/PBR/EnvMaps/visCubeMap.frag"),
@@ -126,7 +126,8 @@ public:
         // Textured Specular IBL Lighting
 
 
-        cerberusTransform = Transform(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(5.0f));
+        cerberusTransform = Transform(glm::vec3(0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f));
+        Origin.scale = glm::vec3(0.5f);
     }
 
     ~Scene() {}
@@ -341,7 +342,7 @@ public:
         for (int i = 0; i < chessPBRModel.meshes.size(); i++) {
             chessPBRModel.meshes[i].BindResources(speculaIBLTexturedShader);
 
-            chessPBRModel.meshes[i].worldTransform.setScale(glm::vec3(1.0));
+            chessPBRModel.meshes[i].worldTransform.setScale(glm::vec3(0.05));
 
             if (!Mesh::noBugs)
                 renderer.set_mvp(chessPBRModel.meshes[i].worldTransform, speculaIBLTexturedShader);
@@ -605,7 +606,6 @@ public:
             //     ImGui::DragFloat("Intensity", &intensity, 0.5f, 1.0f, 100.0f);
             //     ImGui::DragFloat("Extent", &extent, 0.01f, 0.0f, 1.0f);
             // }
-
         }
         ImGui::End();
     }
