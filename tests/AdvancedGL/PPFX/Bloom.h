@@ -253,7 +253,7 @@ public:
             ImGui::Separator();
 
             ImGui::ColorPicker3("Color", glm::value_ptr(bodyLightColor));
-            ImGui::DragInt("Emissive Intensity", &emissiveIntensity);
+            ImGui::DragInt("Emissive Intensity", &emissiveIntensity\);
             //ImGui::Image((void*) colorBuffers[0], ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
             //ImGui::Image((void*) colorBuffers[1], ImVec2(50, 50), ImVec2(0, 0), ImVec2(1.0f, -1.0f)); ImGui::SameLine();
 

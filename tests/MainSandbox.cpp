@@ -6,7 +6,11 @@
 //#include "AdvancedLighting/PBR/ChessBoardDemo.h"
 // #include "AdvancedGL/Vignette.h"
 
-#include "AdvancedGL/PPFX/Bloom.h"
+//#include "AdvancedGL/PPFX/Bloom.h"
+
+//#include "AdvancedGL/ToonShading.h"
+
+#include "Misc/overdraw_vis.h"
 
 int main()
 {

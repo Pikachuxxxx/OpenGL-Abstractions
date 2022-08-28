@@ -4,7 +4,7 @@
 // Project Includes
 #include "utils/sphere.h"
 
-class ExampleScene : public Sandbox
+class Scene : public Sandbox
 {
 public:
  VertexArray sphere_VAO;
@@ -14,8 +14,8 @@ public:
   Shader meshShader;
   Transform sphere_Transform;
 public:
-    ExampleScene() : meshShader("./tests/shaders/default.vert", "./tests/shaders/default.frag"), sphere_Transform(glm::vec3(0.0f, 0, 0), glm::vec3(0.0f, 90.0f, 0)) {}
-    ~ExampleScene() {}
+    Scene() : meshShader("./tests/shaders/default.vert", "./tests/shaders/default.frag"), sphere_Transform(glm::vec3(0.0f, 0, 0), glm::vec3(0.0f, 90.0f, 0)) {}
+    ~Scene() {}
 
     void OnStart() override
     {

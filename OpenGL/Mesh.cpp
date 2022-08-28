@@ -27,18 +27,21 @@ void Mesh::BindResources(Shader shader)
         // Activate proper texture unit and retrieve texture number
         //std::cout << "Binding at slot : " << i << std::endl;
         glActiveTexture(GL_TEXTURE0 + i);
-        //std::stringstream stream;
+        std::stringstream stream;
         //std::string number;
         std::string name = this->textures[i].type;
 
         // Transfer texture data to stream
+        //if (name != "albedoMap")
+        //    return;
 
         glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
-        // else if (name == "normalMap") {
-        //stream << normalNumber++;
-        //} else if (name == "metallicRoughnessMap") {
-        //stream << metalRoughnessNumber++;
-        //}
+         if (name == "albedoMap") {
+             glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
+         }
+         else if (name == "specularMap") {
+             glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
+         }
         // else if (name == "texture_height") {
         //     stream << heightNumber++;
         // }

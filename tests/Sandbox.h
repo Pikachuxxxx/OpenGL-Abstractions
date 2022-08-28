@@ -88,4 +88,38 @@ protected:
     virtual void OnUpdate() = 0;
     virtual void OnRender() = 0;
     virtual void OnImGuiRender() = 0;
+
+    void StatsOVerlay()
+    {
+        static int corner = 1;
+        static bool* p_open;
+        ImGuiIO& io = ImGui::GetIO();
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+        if (corner != -1) {
+            const float PAD = 10.0f;
+            const ImGuiViewport* viewport = ImGui::GetMainViewport();
+            ImVec2 work_pos = viewport->WorkPos; // Use work area to avoid menu-bar/task-bar, if any!
+            ImVec2 work_size = viewport->WorkSize;
+            ImVec2 window_pos, window_pos_pivot;
+            window_pos.x = (corner & 1) ? (work_pos.x + work_size.x - PAD) : (work_pos.x + PAD);
+            window_pos.y = (corner & 2) ? (work_pos.y + work_size.y - PAD) : (work_pos.y + PAD);
+            window_pos_pivot.x = (corner & 1) ? 1.0f : 0.0f;
+            window_pos_pivot.y = (corner & 2) ? 1.0f : 0.0f;
+            ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+            ImGui::SetNextWindowViewport(viewport->ID);
+            window_flags |= ImGuiWindowFlags_NoMove;
+        }
+        ImGui::SetNextWindowBgAlpha(0.25f); // Transparent background
+        if (ImGui::Begin("Stats", p_open, window_flags)) {
+            // FPS
+            ImGui::Text("FPS : %d", (uint8_t) (1.0f / window.deltaTime));
+            ImGui::Separator();
+            // Background Color
+            static float BGColor[3] = { 0.1f, 0.1f, 0.1f };
+            ImGui::ColorEdit3("BG Color", BGColor);
+            window.backgroundColor = glm::vec4(BGColor[0], BGColor[1], BGColor[2], window.backgroundColor.w);
+        }
+        ImGui::End();
+    }
+
 };

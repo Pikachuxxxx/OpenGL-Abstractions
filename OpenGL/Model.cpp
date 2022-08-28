@@ -115,12 +115,12 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "albedoMap");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 
-        // Specular maps
+        // Normal maps
         std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_NORMALS, "normalMap");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
-        // Normal maps
-        std::vector<Texture> metalRoughnes = this->loadMaterialTextures(material, aiTextureType_UNKNOWN, "metallicRoughnessMap");
+        // Specular maps
+        std::vector<Texture> metalRoughnes = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "specularMap");
         textures.insert(textures.end(), metalRoughnes.begin(), metalRoughnes.end());
 
         // Height maps
