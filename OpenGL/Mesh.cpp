@@ -30,25 +30,25 @@ void Mesh::BindResources(Shader shader)
         std::stringstream stream;
         //std::string number;
         std::string name = this->textures[i].type;
+        glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
 
         // Transfer texture data to stream
         //if (name != "albedoMap")
         //    return;
 
+         //if (name == "albedoMap") {
+         //    glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
+         //}
+         //else if (name == "specularMap") {
+         //    glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
+         //}
         glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
-         if (name == "albedoMap") {
-             glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
-         }
-         else if (name == "specularMap") {
-             glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
-         }
         // else if (name == "texture_height") {
         //     stream << heightNumber++;
         // }
         //number = stream.str();
 
         // Set sampler to the correct texture unit and bind the texture
-        glUniform1i(glGetUniformLocation(shader.Program, (name).c_str()), i);
     }
 }
 

@@ -84,10 +84,10 @@ protected:
     Camera3D    camera;
     Renderer    renderer;
 protected:
-    virtual void OnStart() = 0;
-    virtual void OnUpdate() = 0;
-    virtual void OnRender() = 0;
-    virtual void OnImGuiRender() = 0;
+    virtual void OnStart() {};
+    virtual void OnUpdate() {};
+    virtual void OnRender() {};
+    virtual void OnImGuiRender() {};
 
     void StatsOVerlay()
     {

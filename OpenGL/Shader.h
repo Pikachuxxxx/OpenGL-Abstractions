@@ -19,7 +19,8 @@ class Shader
 public:
     GLuint Program;
     // Constructor generates the shader on the fly
-    Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath = "");
+    Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
+    Shader(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar* geometryPath);
     Shader(const GLchar* computePath);
     // Uses the current shader
     void Use();

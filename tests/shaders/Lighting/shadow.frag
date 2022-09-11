@@ -8,9 +8,11 @@ in VS_OUT {
 } vs_in;
 
 // The final fragment output color
-out vec4 FragColor ;
+out vec4 FragColor;
 
-uniform sampler2D diffuseTexture;
+uniform sampler2D albedoMap;
+uniform sampler2D normalMap;
+uniform sampler2D metalRoughnessMap;
 uniform sampler2D shadowMap;
 
 uniform vec3 lightPos;
@@ -26,17 +28,17 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     float currentDepth = projCoords.z;
     float bias = max(0.05 * (1 - dot(normal, lightDir)), 0.05);
     // float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
-    float shadow = 0.0f;
+    float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-    for(int x = -2; x <= 2; ++x)
+    for(int x = -1; x <= 1; ++x)
     {
-        for(int y = -2; y <= 2; ++y)
+        for(int y = -1; y <= 1; ++y)
         {
-            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
-            shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
-        }
+            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
+            shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
+        }    
     }
-    shadow /= 25;
+    shadow /= 9.0;
 
     if(projCoords.z > 1.0)
         shadow = 0.0;
@@ -45,12 +47,12 @@ float ShadowCalculation(vec4 fragPosLightSpace)
 
 void main()
 {
-    vec3 color = texture(diffuseTexture, vs_in.texCoords).rgb;
+    vec3 color = texture(albedoMap, vs_in.texCoords).rgb;
     vec3 normal = normalize(vs_in.normal);
     vec3 lightColor = vec3(1.0f);
 
     // ambient
-    vec3 ambient = 0.25 * color;
+    vec3 ambient = 0.025 * color;
 
     // diffuse
     vec3 lightDir = normalize(lightPos - vs_in.FragPos);

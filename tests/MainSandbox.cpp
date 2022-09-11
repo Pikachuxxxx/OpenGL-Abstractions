@@ -10,7 +10,12 @@
 
 //#include "AdvancedGL/ToonShading.h"
 
-#include "Misc/overdraw_vis.h"
+#include "AdvancedGL/VXGI.h"
+
+//#include "Misc/overdraw_vis.h"
+
+ //#include "AdvancedLighting/ShadowMapping.h"
+
 
 int main()
 {

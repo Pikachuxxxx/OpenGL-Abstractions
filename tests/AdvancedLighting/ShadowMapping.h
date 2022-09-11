@@ -51,11 +51,15 @@ private:
     glm::mat4 lightProjection;
     FrameBuffer debugFBO;
     std::vector<Transform> cubeTransforms;
+    Model sponzaModel;
+    Transform sponzaTransform;
 public:
     Scene() : Sandbox("Shadow Mapping"), wood("./tests/textures/wood.png", 0), marble("./tests/textures/marble.jpg", 0),
     depthMapShader("./tests/shaders/Lighting/depthMap.vert", "./tests/shaders/empty.frag"),
     meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"), pointLightShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/pointLight.frag"),
-    debugFBO(window.getWidth(), window.getHeight()), debugShader("./tests/shaders/quad.vert", "./tests/shaders/depthMapVis.frag"), shadowShader("./tests/shaders/Lighting/shadow.vert", "./tests/shaders/Lighting/shadow.frag")
+     debugShader("./tests/shaders/quad.vert", "./tests/shaders/depthMapVis.frag"), shadowShader("./tests/shaders/Lighting/shadow.vert", "./tests/shaders/Lighting/shadow.frag"),
+        sponzaModel("./tests/models/Sponza/glTF/Sponza.gltf")
+
      {}
     ~Scene() {}
 
@@ -64,6 +68,7 @@ public:
         lightSource.scale = glm::vec3(0.2f);
         lightSource.position = glm::vec3(2.0f, 1.5f, -2.0f);
         woodTransform.scale = glm::vec3(0.5f, 0.5f, 0.5f);
+        sponzaTransform.scale = glm::vec3(0.01f);
 
         // Create a framebuffer to record the depth information to a texture
         glGenFramebuffers(1, &depthMapFBO);
@@ -86,8 +91,8 @@ public:
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
 
-        float near_plane = 1.0f, far_plane = 40.0f;
-        lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
+        float near_plane = 0.01f, far_plane = 20.0f;
+        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
         // lightProjection = glm::ortho((float)window.getWidth(), (float)-window.getWidth(), (float)window.getHeight(), (float)-window.getHeight(), near_plane, far_plane);
 
         for(uint32_t i = 0; i < 10; i++)
@@ -95,6 +100,10 @@ public:
             Transform transform(glm::vec3((float)GetRandomFloatInc(-5, 5), (float)GetRandomFloatInc(0, 10), (float)GetRandomFloatInc(-3, 3)), glm::vec3((float)GetRandomIntInc(-60, 60)));
             cubeTransforms.push_back(transform);
         }
+
+        
+        debugFBO.AddAttachment(0, GL_RGBA, GL_RGBA, window.getWidth(), window.getHeight());
+        debugFBO.Create(window.getWidth(), window.getHeight());
     }
 
     void OnUpdate() override
@@ -115,16 +124,18 @@ public:
         glm::mat4 lightSpaceMatrix = lightProjection * lightView;
         glm::mat4 lightModel(1.0f);
         lightModel       = glm::mat4(1.0f);
-        lightModel       = glm::translate(lightModel, pointLight.position);
+        //lightModel       = glm::translate(lightModel, pointLight.position);
         // lightModel       = glm::scale(lightModel, lightSource.scale);
 
         depthMapShader.Use();
         depthMapShader.setUniformMat4f("u_LightSpaceMatrix", lightSpaceMatrix);
         depthMapShader.setUniformMat4f("u_Model", lightModel);
 
-            renderer.draw_raw_arrays_with_texture(woodTransform, depthMapShader, wood, plane.vao, 6);
-        for(uint32_t i = 0; i < 10; i++)
-            renderer.draw_raw_arrays_with_texture(cubeTransforms[i], depthMapShader, marble, cube.vao, 36);
+        //    renderer.draw_raw_arrays_with_texture(woodTransform, depthMapShader, wood, plane.vao, 6);
+        //for(uint32_t i = 0; i < 10; i++)
+        //    renderer.draw_raw_arrays_with_texture(cubeTransforms[i], depthMapShader, marble, cube.vao, 36);
+
+        renderer.draw_model(sponzaTransform, depthMapShader, sponzaModel);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -168,20 +179,24 @@ public:
         ////////////////////////////////////////////////////////////////////////
         // Render the scene as usual
         glViewport(0, 0, window.getWidth(), window.getHeight());
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
         // Point light shader
         // Phong lighting model
         shadowShader.setUniform3f("viewPos", camera.Position);
         shadowShader.setUniform3f("lightPos", pointLight.position);
         shadowShader.setUniformMat4f("u_LightSpaceMatrix", lightSpaceMatrix);
-        shadowShader.setUniform1i("diffuseTexture", 0);
-        shadowShader.setUniform1i("shadowMap", 1);
-        glActiveTexture(GL_TEXTURE1);
+        shadowShader.setUniform1i("albedoMap", 0);
+        shadowShader.setUniform1i("shadowMap", 3);
+        glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, depthMap);
-        renderer.draw_raw_arrays_with_texture(woodTransform, shadowShader, wood, plane.vao, 6);
-        for(uint32_t i = 0; i < 10; i++)
-            renderer.draw_raw_arrays_with_texture(cubeTransforms[i], shadowShader, marble, cube.vao, 36);
+        //renderer.draw_raw_arrays_with_texture(woodTransform, shadowShader, wood, plane.vao, 6);
+        //for(uint32_t i = 0; i < 10; i++)
+        //    renderer.draw_raw_arrays_with_texture(cubeTransforms[i], shadowShader, marble, cube.vao, 36);
 
+        shadowShader.setUniform1i("shadowMap", 3);
+        glActiveTexture(GL_TEXTURE3);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
+        renderer.draw_model(sponzaTransform, shadowShader, sponzaModel);
         // Light source cube
         meshShader.setUniform3f("lightColor", lightColor);
         renderer.draw_raw_arrays(lightSource, meshShader, sourceCube.vao, 36, RenderingOptions(RenderingOptions::TRIANGLES, true, false));
@@ -242,10 +257,7 @@ public:
             if(ImGui::CollapsingHeader("Shadow Maps"))
             {
                 ImGui::Text("Depth Map (Raw)");
-                ImGui::Image((void*) depthMap, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
-
-                ImGui::Text("Depth Map (Averaged)");
-                ImGui::Image((void*) debugFBO.getRenderTexture(), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+                ImGui::Image((void*) depthMap, ImVec2(100, 100), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
             }
         }
         ImGui::End();

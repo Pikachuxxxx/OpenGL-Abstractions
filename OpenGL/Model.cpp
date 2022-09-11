@@ -118,14 +118,14 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         // Normal maps
         std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_NORMALS, "normalMap");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-
+        
         // Specular maps
         std::vector<Texture> metalRoughnes = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "specularMap");
         textures.insert(textures.end(), metalRoughnes.begin(), metalRoughnes.end());
 
-        // Height maps
-        // std::vector<Texture> heightMaps = this->loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-        // textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+        // metal roughness maps
+        std::vector<Texture> metalRoughnessMaps = this->loadMaterialTextures(material, aiTextureType_UNKNOWN, "metalRoughnessMap");
+        textures.insert(textures.end(), metalRoughnessMaps.begin(), metalRoughnessMaps.end());
     }
 
     this->vertexCount = vertices.size();
@@ -173,6 +173,7 @@ GLint TextureFromFile(const char* path, std::string directory)
     std::cout << "Loading model texture : " << filename << std::endl;
 
     int width, height, bpp;
+    stbi_set_flip_vertically_on_load(true);
     unsigned char* image = stbi_load(filename.c_str(), &width, &height, &bpp, 0);
 
     GLenum imageFormat = GL_RGBA;
