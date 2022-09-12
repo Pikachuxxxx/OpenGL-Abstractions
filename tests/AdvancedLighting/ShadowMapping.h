@@ -13,6 +13,15 @@ struct Material
     float shininess = 64.0f;
 };
 
+struct DirectionalLight
+{
+    glm::vec3 direction = glm::vec3(2.0f, 1.5f, -2.0f);
+
+    glm::vec3 ambient = glm::vec3(0.2f);
+    glm::vec3 diffuse = glm::vec3(0.5f);
+    glm::vec3 specular = glm::vec3(1.0f);
+};
+
 struct PointLight
 {
     glm::vec3 position = glm::vec3(2.0f, 1.5f, -2.0f);
@@ -44,8 +53,6 @@ private:
     Transform origin;
     Transform woodTransform;
     Material woodMaterial;
-    PointLight pointLight;
-    glm::vec3 lightColor;
     GLuint depthMapFBO;
     GLuint depthMap;
     glm::mat4 lightProjection;
@@ -53,6 +60,8 @@ private:
     std::vector<Transform> cubeTransforms;
     Model sponzaModel;
     Transform sponzaTransform;
+    
+    DirectionalLight dirLight;
 public:
     Scene() : Sandbox("Shadow Mapping"), wood("./tests/textures/wood.png", 0), marble("./tests/textures/marble.jpg", 0),
     depthMapShader("./tests/shaders/Lighting/depthMap.vert", "./tests/shaders/empty.frag"),
@@ -91,8 +100,8 @@ public:
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
 
-        float near_plane = 0.01f, far_plane = 20.0f;
-        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+        float near_plane = 0.1f, far_plane = 40.0f;
+        lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
         // lightProjection = glm::ortho((float)window.getWidth(), (float)-window.getWidth(), (float)window.getHeight(), (float)-window.getHeight(), near_plane, far_plane);
 
         for(uint32_t i = 0; i < 10; i++)
@@ -108,8 +117,7 @@ public:
 
     void OnUpdate() override
     {
-        // lightSource.position = camera.Position;
-        pointLight.position = lightSource.position;
+        //dirLight.direction = glm::vec3(lightSource.transformMatrix * glm::vec4(0.0f, -1.0f, 0.0f, 0.0f));
     }
 
     void OnRender() override
@@ -119,7 +127,7 @@ public:
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::mat4 lightView = glm::lookAt(pointLight.position /*+ camera.Position*/, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 lightView = glm::lookAt(dirLight.direction/*+ camera.Position*/, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         // lightView = glm::inverse(camera.GetViewMatrix());
         glm::mat4 lightSpaceMatrix = lightProjection * lightView;
         glm::mat4 lightModel(1.0f);
@@ -168,43 +176,62 @@ public:
         // renderer.draw_raw_arrays(lightSource, meshShader, sourceCube.vao, 36, RenderingOptions(RenderingOptions::TRIANGLES, true, false));
 
         // Get the render texure of the 8-bit shadow map in a grayscale form
-        debugFBO.Bind();
-        glViewport(0, 0, window.getWidth(), window.getHeight());
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, depthMap);
-        debugShader.setUniform1i("depthTexture", 0);
-        renderer.draw_raw_arrays(origin, debugShader, depthVisualizationQuad.vao, 6);
-        debugFBO.Unbind();
+        //debugFBO.Bind();
+        //glViewport(0, 0, window.getWidth(), window.getHeight());
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //glActiveTexture(GL_TEXTURE0);
+        //glBindTexture(GL_TEXTURE_2D, depthMap);
+        //debugShader.setUniform1i("depthTexture", 0);
+        //renderer.draw_raw_arrays(origin, debugShader, depthVisualizationQuad.vao, 6);
+        //debugFBO.Unbind();
         ////////////////////////////////////////////////////////////////////////
         // Render the scene as usual
         glViewport(0, 0, window.getWidth(), window.getHeight());
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+        shadowShader.Use();
         // Point light shader
         // Phong lighting model
         shadowShader.setUniform3f("viewPos", camera.Position);
-        shadowShader.setUniform3f("lightPos", pointLight.position);
         shadowShader.setUniformMat4f("u_LightSpaceMatrix", lightSpaceMatrix);
         shadowShader.setUniform1i("albedoMap", 0);
         shadowShader.setUniform1i("shadowMap", 3);
         glActiveTexture(GL_TEXTURE3);
         glBindTexture(GL_TEXTURE_2D, depthMap);
-        //renderer.draw_raw_arrays_with_texture(woodTransform, shadowShader, wood, plane.vao, 6);
-        //for(uint32_t i = 0; i < 10; i++)
-        //    renderer.draw_raw_arrays_with_texture(cubeTransforms[i], shadowShader, marble, cube.vao, 36);
 
-        shadowShader.setUniform1i("shadowMap", 3);
-        glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, depthMap);
+        //glActiveTexture(GL_TEXTURE0);
+        //glBindTexture(GL_TEXTURE_2D, wood.m_TID);
+        //renderer.draw_raw_arrays_with_texture(woodTransform, shadowShader, wood, plane.vao, 6);
+        //for (uint32_t i = 0; i < 10; i++) {
+        //    glActiveTexture(GL_TEXTURE0);
+        //    glBindTexture(GL_TEXTURE_2D, marble.m_TID);
+        //    renderer.draw_raw_arrays_with_texture(cubeTransforms[i], shadowShader, marble, cube.vao, 36);
+        //}
+
         renderer.draw_model(sponzaTransform, shadowShader, sponzaModel);
         // Light source cube
-        meshShader.setUniform3f("lightColor", lightColor);
-        renderer.draw_raw_arrays(lightSource, meshShader, sourceCube.vao, 36, RenderingOptions(RenderingOptions::TRIANGLES, true, false));
+        //renderer.draw_raw_arrays(lightSource, meshShader, sourceCube.vao, 36, RenderingOptions(RenderingOptions::TRIANGLES, true, false));
+
+        // set the dir light props
+        shadowShader.setUniform3f("u_DirLight.direction", dirLight.direction);
+        shadowShader.setUniform3f("u_DirLight.ambient",  dirLight.ambient);
+        shadowShader.setUniform3f("u_DirLight.diffuse",  dirLight.diffuse);
+        shadowShader.setUniform3f("u_DirLight.specular", dirLight.specular);
     }
 
     void OnImGuiRender() override
     {
-        ATTACH_GUIZMO(lightSource, ImGuizmo::OPERATION::TRANSLATE);
+        //ATTACH_GUIZMO(Origin, ImGuizmo::TRANSLATE);
+        static ImGuizmo::OPERATION operation = ImGuizmo::ROTATE;
+
+        if (window.isKeyPressed(GLFW_KEY_E))
+            operation = ImGuizmo::TRANSLATE;
+        else if (window.isKeyPressed(GLFW_KEY_R))
+            operation = ImGuizmo::ROTATE;
+        else if (window.isKeyPressed(GLFW_KEY_T))
+            operation = ImGuizmo::SCALE;
+
+        ATTACH_GUIZMO(lightSource, operation);
+
         ImGui::Begin("Scene");
         {
             // FPS
@@ -213,49 +240,31 @@ public:
             static float BGColor[3] = { 0.1f, 0.1f, 0.1f };
             ImGui::ColorEdit3("BG Color", BGColor);
             window.backgroundColor = glm::vec4(BGColor[0], BGColor[1], BGColor[2], window.backgroundColor.w);
-        }
-        ImGui::End();
 
-        ImGui::Begin("Wood Material");
-        {
-            // Specular
-            static float spec[3] = { 1.0f, 1.0f, 1.0f };
-            ImGui::DragFloat3("Specular", spec, 0.1f);
-            woodMaterial.specular = glm::vec3(spec[0], spec[1], spec[2]);
-            // Shininess
-            ImGui::DragFloat("Shininess", &woodMaterial.shininess);
-        }
-        ImGui::End();
+            ImGui::Separator();
 
-        ImGui::Begin("Lighting Settings");
-        {
-            static float Color[3] = { 1.0f, 1.0f, 1.0f };
-            ImGui::ColorEdit3("Light Color", Color);
-            lightColor = glm::vec3(Color[0], Color[1], Color[2]);
+            if (ImGui::CollapsingHeader("Dir Light")) {
 
-            if(ImGui::CollapsingHeader("Poing Light"))
-            {
-                ImGui::Text("Light position : [%f, %f, %f]", pointLight.position.x, pointLight.position.y, pointLight.position.z);
+                // Directionn  
+                static float Direction[3] = { 1.7f, 21.0f, 5.6f };
+                ImGui::DragFloat3("Direction", Direction, 0.1f);
+                dirLight.direction = glm::vec3(Direction[0], Direction[1], Direction[2]);
+
                 // Ambient
-                static float ambient[3] = {0.2f, 0.2f, 0.2f};
+                static float ambient[3] = { 0.1f, 0.1f, 0.1f };
                 ImGui::DragFloat3("Ambient", ambient, 0.1f);
-                pointLight.ambient = glm::vec3(ambient[0], ambient[1], ambient[2]);
+                dirLight.ambient = glm::vec3(ambient[0], ambient[1], ambient[2]);
                 // Diffuse
-                static float diffuse[3] = {0.5f, 0.5f, 0.5f};
+                static float diffuse[3] = { 0.5f, 0.5f, 0.5f };
                 ImGui::DragFloat3("Diffuse", diffuse, 0.1f);
-                pointLight.diffuse = glm::vec3(diffuse[0], diffuse[1], diffuse[2]);
+                dirLight.diffuse = glm::vec3(diffuse[0], diffuse[1], diffuse[2]);
                 // Specular
-                static float specular[3] = {1.0f, 1.0f, 1.0f};
+                static float specular[3] = { 1.0f, 1.0f, 1.0f };
                 ImGui::DragFloat3("Specular", specular, 0.1f);
-                pointLight.specular = glm::vec3(specular[0], specular[1], specular[2]);
-                // Point light cutoff variables
-                ImGui::DragFloat("Constant", &pointLight.constant);
-                ImGui::DragFloat("linear", &pointLight.linear);
-                ImGui::DragFloat("Quadratic", &pointLight.quadratic);
+                dirLight.specular = glm::vec3(specular[0], specular[1], specular[2]);
             }
 
-            if(ImGui::CollapsingHeader("Shadow Maps"))
-            {
+            if (ImGui::CollapsingHeader("Shadow Maps")) {
                 ImGui::Text("Depth Map (Raw)");
                 ImGui::Image((void*) depthMap, ImVec2(100, 100), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
             }

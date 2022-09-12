@@ -75,7 +75,8 @@ public:
     bool                enable_indirect_diffuse = true;
     bool                enable_indirect_specular = true;
     Voxelization        voxelization;
-
+    glm::vec3           lightDirection;
+    glm::vec3           lightColor;
 public:
     Scene() : Sandbox("VXGI", 1280, 720),
         // Buffers
@@ -191,7 +192,7 @@ public:
         // Voxelize the scene
 
         // Final render
-#if 1
+#if 0
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glViewport(0, 0, window.getWidth(), window.getHeight());
         shadowShader.Use();
@@ -208,6 +209,8 @@ public:
         // Use the GBuffer to draw the final render
         renderer.draw_model(Origin, shadowShader, sponzaModel);
 #endif
+
+        VoxelizeScene();
     }
 
     void OnImGuiRender() override
@@ -245,6 +248,20 @@ public:
                 ImGui::Image((void*) depthMap, ImVec2(100, 100), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
             }
 
+
+        }
+        ImGui::End();
+
+        ImGui::Begin("Lighting Settings");
+        {
+            // Light color
+            static float Color[3] = { 1.0f, 1.0f, 1.0f };
+            ImGui::ColorEdit3("Light Color", Color);
+            lightColor = glm::vec3(Color[0], Color[1], Color[2]);
+            // Light direction
+            static float lightDir[3] = { 0.0f, 0.0f, 0.0f };
+            ImGui::DragFloat3("Light Direction", &lightDir[0], 0.1f);
+            lightDirection = glm::vec3(lightDir[0], lightDir[1], lightDir[2]);
         }
         ImGui::End();
     }
@@ -264,14 +281,45 @@ public:
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_BLEND);
 
-        // voxelization.frag uniforms
-        voxelizationShader.setUniform1i("u_settings.use_ambient_light", 1);
-        voxelizationShader.setUniform1i("u_settings.visualize_mipmap_level", 0);
-
-        voxelizationShader.setUniform3f("u_scene_voxel_scale", glm::vec3(0.1f));
-
-        voxelizationShader.setUniform3f("u_scene_voxel_scale", glm::vec3(0.1f));
-
+        // Vert : MVP will be set by the Renderer
+        {
+            voxelizationShader.setUniform3f("u_scene_voxel_scale", glm::vec3(0.1f));
+        }
         
+        // Geom
+        {
+            voxelizationShader.setUniform3f("u_shadowmap_mvp", glm::vec3(0.1f));
+        }
+        
+        // Frag 
+        {
+            voxelizationShader.setUniform1i("u_tex_voxelgrid", 0); // Binding ID of the 3D image
+            glActiveTexture(GL_TEXTURE0);
+            currVoxelGrid->Bind();
+            glBindImageTexture(0, currVoxelGrid->m_TID, 0, GL_TRUE, 0, GL_WRITE_ONLY, GL_RGBA8);
+
+            // Bind the shadow map
+            // We use sampler2DShadow isntead of sampler coz it enable hardware support for better sampling of the shadow map
+            voxelizationShader.setUniform1i("u_tex_shadowmap", 1); // Binding ID of the shadowmap
+            glActiveTexture(GL_TEXTURE0 + 1);
+            glBindTexture(GL_TEXTURE_2D, depthMap);
+
+            voxelizationShader.setUniform1i("u_settings.use_ambient_light", 1); // true
+            voxelizationShader.setUniform1i("u_settings.visualize_mipmap_level", 0);
+
+            // Draw call will bind the material textures
+
+            voxelizationShader.setUniform1i("u_total_directional_lights", 1);
+
+            // Dir light
+            voxelizationShader.setUniform1f("u_directional_lights[0].strength", 1.0f);
+            voxelizationShader.setUniform3f("u_directional_lights[0].direction", lightDirection);
+            voxelizationShader.setUniform3f("u_directional_lights[0].color", lightColor);
+            voxelizationShader.setUniform3f("u_directional_lights[0].attenuation", glm::vec3(0.1f));
+
+            voxelizationShader.setUniform3f("u_scene_voxel_scale", glm::vec3(0.1f));
+
+            renderer.draw_model(Origin, voxelizationShader, sponzaModel);
+        }
     }
 };

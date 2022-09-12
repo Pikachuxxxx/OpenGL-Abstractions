@@ -16,23 +16,14 @@ struct Directional_Light
 	vec3 attenuation;
 };
 
-struct Material
-{
-	vec3 Ka;
-	vec3 Kd;
-	vec3 Ke;
-};
-
 layout(RGBA8) uniform image3D u_tex_voxelgrid;
 uniform sampler2DShadow u_tex_shadowmap;
 
 uniform Voxelization_Settings u_settings;
-uniform Material u_material;
-uniform sampler2D u_tex_ambient;
-uniform sampler2D u_tex_diffuse;
-//uniform sampler2D u_tex_emission;
+uniform sampler2D albedoMap;
+uniform sampler2D normalMap;
+uniform sampler2D metalRoughnessMap;
 
-uniform	vec3 u_ambient_light;
 uniform int u_total_directional_lights;
 uniform Directional_Light u_directional_lights[MAX_DIRECTIONAL_LIGHTS];
 
@@ -92,14 +83,10 @@ void main()
 		return;
 
 	f_visibility = calc_visibility();
-	f_albedo = vec4(u_material.Kd, 1.0) * texture(u_tex_diffuse, f_tex_coords);
+	f_albedo = texture(albedoMap, f_tex_coords);
 
 	vec4 color = f_albedo * vec4(calc_direct_light(), 1.0f);
 	color.a = 1.0;
-	//color += vec4(u_material.Ke, 1.0) * texture(u_tex_emission, f_tex_coords);
-	color += vec4(u_material.Ke, 1.0);
-	if (u_settings.use_ambient_light == 1)
-		color.rgb += f_albedo.rgb * u_ambient_light;
 
 	vec3 voxelgrid_tex_pos = from_clipspace_to_texcoords(f_voxel_pos);
 	ivec3 voxelgrid_resolution = imageSize(u_tex_voxelgrid);
