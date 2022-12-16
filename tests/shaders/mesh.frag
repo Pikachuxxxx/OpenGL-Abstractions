@@ -1,4 +1,4 @@
-#version 450 core
+#version 410 core
 
 in VS_OUT {
     vec3 normal;
@@ -13,8 +13,8 @@ in VS_OUT {
 //uniform float threshold;
 uniform int mode;
 
-layout (std430, binding=0) buffer OverDrawData
-{ 
+layout (binding=0) buffer OverDrawData
+{
     int pixels[921600];
 }overDrawBuffer;
 

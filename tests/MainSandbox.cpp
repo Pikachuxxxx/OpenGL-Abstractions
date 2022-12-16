@@ -10,7 +10,13 @@
 
 //#include "AdvancedGL/ToonShading.h"
 
-#include "Misc/overdraw_vis.h"
+// #include "Misc/overdraw_vis.h"
+
+// #include "AdvancedGL/LODs.h"
+
+#include "FGTest/FGTest.h"
+
+// #include "AdvancedLighting/ShadowMapping.h"
 
 int main()
 {

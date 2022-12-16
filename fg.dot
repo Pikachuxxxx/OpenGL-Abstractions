@@ -1,0 +1,22 @@
+digraph FrameGraph {
+graph [style=invis, rankdir="TB" ordering=out, splines=spline]
+node [shape=record, fontname="helvetica", fontsize=10, margin="0.2,0.03"]
+
+P0 [label=<{ {<B>Geometry Pass</B>} | {Refs: 0<BR/> Index: 0} }> style="rounded,filled", fillcolor=lightgray]
+
+R0_1 [label=<{ {<B>DepthMap_0</B><BR/>(2048, 2048)} | {Index: 0<BR/>Refs : 0} }> style=filled, fillcolor=skyblue]
+
+P0 -> { R0_1 } [color=orangered]
+
+R0_1 -> { } [color=olivedrab3]
+
+subgraph cluster_0 {
+P0 R0_1 
+}
+
+subgraph cluster_imported_resources {
+graph [style=dotted, fontname="helvetica", label=< <B>Imported</B> >]
+
+}
+
+}

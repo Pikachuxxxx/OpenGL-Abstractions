@@ -17,7 +17,7 @@ private:
     unsigned int            overDrawSSBO;
 
     // Models
-    Model                   chessModel;
+    // Model                   chessModel;
     Model                   sponzaModel;
     // Shaders
     Shader                  geomPassShader;
@@ -39,7 +39,7 @@ public:
 
 
         //Models
-        chessModel("C:/Users/phani/Downloads/Chess/Chess/scene.gltf"),
+        // chessModel("C:/Users/phani/Downloads/Chess/Chess/scene.gltf"),
         sponzaModel("./tests/models/Sponza/sponza.obj"),
 
         // Shaders

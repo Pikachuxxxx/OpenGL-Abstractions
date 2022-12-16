@@ -13,3 +13,6 @@
 [submodule "vendor/ImGuizmo"]
 	path = vendor/ImGuizmo
 	url = https://github.com/CedricGuillemet/ImGuizmo.git
+[submodule "vendor/FrameGraph"]
+	path = vendor/FrameGraph
+	url = https://github.com/skaarj1989/FrameGraph.git
