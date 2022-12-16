@@ -280,7 +280,7 @@ public:
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, srcTexture);
 
-        // Progressively downsample through the mip chain
+        // Progressively down sample through the mip chain
         for (int i = 0; i < mipChain.size(); i++) {
             const BloomMip& mip = mipChain[i];
             glViewport(0, 0, mip.size.x, mip.size.y);
@@ -288,7 +288,7 @@ public:
                 GL_TEXTURE_2D, mip.texture, 0);
 
             // Render screen-filled quad of resolution of current mip
-            screenQuad.Draw();
+            screenQuad.Draw(mip.texture);
 
             // Set current mip resolution as srcResolution for next iteration
             downsamplingShader.setUniform2f("srcResolution", mip.size);

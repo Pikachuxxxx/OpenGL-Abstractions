@@ -3,6 +3,8 @@
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 texCoords;
+layout (location = 3) in vec3 tangent;
+layout (location = 4) in vec3 biTangent;
 
 out VS_OUT {
     vec3 normal;
@@ -11,10 +13,8 @@ out VS_OUT {
     vec4 FragPosLightSpace;
 } vs_out;
 
-uniform vec3 lightPos;
-
-uniform mat4 u_Model = mat4(1.0f);
 uniform mat4 u_LightSpaceMatrix;
+uniform mat4 u_Model = mat4(1.0f);
 layout (std140) uniform VPMatrices
 {
     mat4 u_View;

@@ -25,6 +25,10 @@ struct Light
 in VS_OUT {
     vec3 normal;
     vec2 texCoords;
+    vec3 tangent;
+    vec3 biTangent;
+    mat3 TBN;
+    vec3 worldPos;
     vec4 FragPos;
 } vs_in;
 

@@ -10,6 +10,10 @@ layout (location = 4) in vec3 biTangent;
 out VS_OUT {
     vec3 normal;
     vec2 texCoords;
+    vec3 tangent;
+    vec3 biTangent;
+    mat3 TBN;
+    vec3 worldPos;
     vec4 FragPos;
 } vs_out;
 
@@ -27,7 +31,10 @@ void main()
     gl_Position = u_Projection * u_View * u_Model * vec4(position, 1.0f);
     mat3 normalMatrix = mat3(transpose(inverse(u_View * u_Model)));
     vs_out.normal = normalize(vec3(u_Projection * vec4(normalMatrix * normal, 1.0)));
-    //vs_out.normal = normal;
     vs_out.texCoords = texCoords;
-    vs_out.FragPos = u_Model * vec4(position, 1.0f);
+    vs_out.tangent = tangent;
+    vs_out.biTangent = biTangent;
+
+    vs_out.FragPos = u_Projection * u_View * u_Model * vec4(position, 1.0f);
+    vs_out.worldPos = (u_Model * vec4(position, 1.0f)).xyz;
 }

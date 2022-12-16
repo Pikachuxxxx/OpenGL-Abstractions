@@ -101,8 +101,6 @@ vec4 reinhard(vec4 hdr_color)
 
 void main()
 {
-
-
     // Ambient lighting
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, vs_in.texCoords));
 
@@ -127,6 +125,5 @@ void main()
     FragColor = vec4(result, 1.0f);
 
     FragColor = reinhard(toonShading(normalize(normal)));
-
     //FragColor = vec4(vs_in.normal.xyz, 1.0f);
 }

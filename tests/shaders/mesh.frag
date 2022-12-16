@@ -3,20 +3,33 @@
 in VS_OUT {
     vec3 normal;
     vec2 texCoords;
+    vec3 tangent;
+    vec3 biTangent;
+    mat3 TBN;
+    vec3 worldPos;
     vec4 FragPos;
 } vs_in;
 
-//uniform sampler2D albedoMap;
-//uniform sampler2D specularMap;
+uniform sampler2D albedoMap;
+uniform sampler2D normalMap;
+uniform sampler2D metalRoughnessMap;
 
 //uniform vec3 bodyLightColor;
 //uniform float threshold;
-uniform int mode;
+//uniform int mode;
+//uniform int width;
 
+<<<<<<< HEAD
 layout (binding=0) buffer OverDrawData
 {
     int pixels[921600];
 }overDrawBuffer;
+=======
+//layout (std430, binding=0) buffer OverDrawData
+//{ 
+//    int pixels[];
+//}overDrawBuffer;
+>>>>>>> f5a152426a5fac19124107ebfa81708d4c2f509a
 
 layout (location = 0) out vec4  FragColor;
 
@@ -101,24 +114,24 @@ void main()
     // color = vec4(1, 1, 1, 1);
     //color = vec4(vs_in.texCoords, 0.0f, 1.0f); // Testing Normal cooridinates
 
-    int idx = int(gl_FragCoord.x) + int(gl_FragCoord.y) * 1280;
-    overDrawBuffer.pixels[idx] += 1;
+    //int idx = int(gl_FragCoord.x) + int(gl_FragCoord.y) * width;
+    //overDrawBuffer.pixels[idx] += 1;
+    //
+    //float pixelOverlap = float(overDrawBuffer.pixels[idx]) / 10.0;
+    //
+    //
+    //if(mode == 0)
+    //    FragColor = vec4(turbo(pixelOverlap), 1.0f);
+    //else if(mode  == 1)
+    //    FragColor = vec4(inferno(pixelOverlap), 1.0f);
+    //else if(mode == 2)
+    //    FragColor = vec4(magma(pixelOverlap), 1.0f);
+    //else if(mode == 3)
+    //    FragColor = vec4(plasma(pixelOverlap), 1.0f);
+    //else if(mode == 4)
+    //    FragColor = vec4(viridis(pixelOverlap), 1.0f);
 
-    float pixelOverlap = float(overDrawBuffer.pixels[idx]) / 10.0;
-
-
-    if(mode == 0)
-        FragColor = vec4(turbo(pixelOverlap), 1.0f);
-    else if(mode  == 1)
-        FragColor = vec4(inferno(pixelOverlap), 1.0f);
-    else if(mode == 2)
-        FragColor = vec4(magma(pixelOverlap), 1.0f);
-    else if(mode == 3)
-        FragColor = vec4(plasma(pixelOverlap), 1.0f);
-    else if(mode == 4)
-        FragColor = vec4(viridis(pixelOverlap), 1.0f);
-
-    //FragColor = vec4(texture(albedoMap, vs_in.texCoords).xyz, 1.0f);
+    FragColor = vec4(texture(albedoMap, vs_in.texCoords).xyz, 1.0f);
 
     // check whether result is higher than some threshold, if so, output as bloom threshold color
     //float brightness = dot(bodyLightColor, vec3(0.2126, 0.7152, 0.0722) * threshold);

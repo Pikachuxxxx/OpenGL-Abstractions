@@ -30,6 +30,7 @@
 #include "RenderBuffer.h"
 #include "Shader.h"
 #include "Texture2D.h"
+#include "Texture3D.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "CubeMap.h"
