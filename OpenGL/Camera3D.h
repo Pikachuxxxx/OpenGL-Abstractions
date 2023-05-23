@@ -18,11 +18,11 @@ enum Camera_Movement {
 };
 
 // Default camera values
-const GLfloat YAW        = -90.0f;
-const GLfloat PITCH      =  0.0f;
-const GLfloat SPEED      =  5.0f;
-const GLfloat SENSITIVTY =  0.75f;
-const GLfloat ZOOM       =  45.0f;
+const GLfloat YAW = -90.0f;
+const GLfloat PITCH = 0.0f;
+const GLfloat SPEED = 5.0f;
+const GLfloat SENSITIVTY = 0.75f;
+const GLfloat ZOOM = 45.0f;
 
 class Camera3D
 {
@@ -40,6 +40,9 @@ public:
     GLfloat MovementSpeed;
     GLfloat MouseSensitivity;
     GLfloat Zoom;
+    bool record = false;
+    //std::ofstream cam_record;
+    //std::ifstream cam_play;
 public:
     // Constructor with vectors
     Camera3D(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), GLfloat yaw = YAW, GLfloat pitch = PITCH);

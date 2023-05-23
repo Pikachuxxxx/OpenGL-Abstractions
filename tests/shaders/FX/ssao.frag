@@ -13,7 +13,7 @@ uniform vec3 samples[MAX_SAMPLES];
 uniform mat4 u_Projection;
 uniform float ssaoRadius;
 uniform int kernelSize;
-float bias = 0.025; // TODO: Make this a uniform
+uniform float bias; // TODO: Make this a uniform
 
 const vec2 noiseScale = vec2(1280.0/4.0, 720.0/4.0); // screen = 800x600
 

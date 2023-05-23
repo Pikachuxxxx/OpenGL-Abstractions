@@ -20,7 +20,7 @@ layout (location = 2) out vec4 gAlbedoSpec;
 
 void main() {
     // store the fragment position vector in the first gbuffer texture
-    gPosition = vec4(vs_in.worldPos.xyz, 1.0f);
+    gPosition = vec4(vs_in.FragPos.xyz, 1.0f);
     // gPosition = vs_in.FragPos;
     // also store the per-fragment normals into the gbuffer
     gNormal = vec4(normalize(vs_in.normal), 1.0f);

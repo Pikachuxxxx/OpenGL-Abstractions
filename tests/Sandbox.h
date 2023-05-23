@@ -50,7 +50,7 @@ public:
         while(!window.closed())
         {
             window.clear();
-            camera.Update(window);
+            //camera.Update(window);
             renderer.SetViewMatrix(camera.GetViewMatrix());
             renderer.SetProjectionMatrix(glm::perspective(45.0f, float(window.getWidth() / window.getHeight()), 0.1f, 100.0f));
             glEnable(GL_MULTISAMPLE);
