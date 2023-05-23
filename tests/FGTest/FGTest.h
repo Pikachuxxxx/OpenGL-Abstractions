@@ -99,12 +99,11 @@ public:
         [=](const DepthPassData& data, FrameGraphPassResources& resources, void* renderContext) {
                 auto &texture = resources.get<FGTexture>(data.depthMap);
 
-                std::cout << "Executing Data for Depth pass" << std::endl;
-
                 GLuint texID = resources.get<FGTexture>(data.depthMap).getTexID();
-                glGenFramebuffers(1, &texID);
-                glBindFramebuffer(GL_FRAMEBUFFER, texID);
-                glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture.getTexID(), 0);
+                GLuint id;
+                glGenFramebuffers(1, &id);
+                glBindFramebuffer(GL_FRAMEBUFFER, id);
+                glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texID, 0);
                 glDrawBuffer(GL_NONE);
                 glReadBuffer(GL_NONE);
                 if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
@@ -143,11 +142,8 @@ public:
         },
         [=](const auto&, FrameGraphPassResources &resources, void *){
 
-            std::cout << "Executing Data for Final pass......." << std::endl;
-
                 auto depthData = blackboard.get<DepthPassData>();
                 GLuint texID = resources.get<FGTexture>(depthData.depthMap).getTexID();
-
 
                 // Render the scene as usual
                 glViewport(0, 0, window.getWidth(), window.getHeight());
@@ -166,7 +162,7 @@ public:
                 shadowShader.setUniform1i("diffuseTexture", 0);
                 shadowShader.setUniform1i("shadowMap", 1);
                 shadowShader.setUniform3f("lightColor", lightColor);
-
+                
                 glActiveTexture(GL_TEXTURE1);
                 glBindTexture(GL_TEXTURE_2D, texID);
                 renderer.draw_raw_arrays_with_texture(origin, shadowShader, wood, plane.vao, 6);

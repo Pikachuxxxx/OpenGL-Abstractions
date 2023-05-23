@@ -19,17 +19,16 @@ uniform sampler2D metalRoughnessMap;
 //uniform int mode;
 //uniform int width;
 
-<<<<<<< HEAD
-layout (binding=0) buffer OverDrawData
-{
-    int pixels[921600];
-}overDrawBuffer;
-=======
+// layout (binding=0) buffer OverDrawData
+// {
+//     int pixels[921600];
+// }overDrawBuffer;
 //layout (std430, binding=0) buffer OverDrawData
-//{ 
+//{
 //    int pixels[];
 //}overDrawBuffer;
->>>>>>> f5a152426a5fac19124107ebfa81708d4c2f509a
+
+uniform int outputMode;
 
 layout (location = 0) out vec4  FragColor;
 
@@ -130,7 +129,6 @@ void main()
     //    FragColor = vec4(plasma(pixelOverlap), 1.0f);
     //else if(mode == 4)
     //    FragColor = vec4(viridis(pixelOverlap), 1.0f);
-
     FragColor = vec4(texture(albedoMap, vs_in.texCoords).xyz, 1.0f);
 
     // check whether result is higher than some threshold, if so, output as bloom threshold color

@@ -2,13 +2,13 @@
 
 float PlaneVertices[] = {
        // positions            // normals         // texcoords
-        10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-       -10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  0.0f,
-       -10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f,
+        10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+       -10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+       -10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
-        10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f,
-       -10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f,
-        10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  1.0f
+        10.0f, -0.5f,  10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+       -10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        10.0f, -0.5f, -10.0f,  0.0f, 1.0f, 0.0f,  1.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 };
 
 // TODO: Add subdivisions while generating Plane vertices, or add logic to subdivide mesh
@@ -28,6 +28,9 @@ public:
        Planelayout.Push<float>(3); // position
        Planelayout.Push<float>(3); // normals
        Planelayout.Push<float>(2); // uv coords
+       Planelayout.Push<float>(3); // tangent
+       Planelayout.Push<float>(3); // bi-tangent
+
        vao.AddBuffer(*vbo, Planelayout);
    }
 

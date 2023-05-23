@@ -14,9 +14,13 @@
 
 // #include "AdvancedGL/LODs.h"
 
-#include "FGTest/FGTest.h"
+// #include "FGTest/FGTest.h"
 
 // #include "AdvancedLighting/ShadowMapping.h"
+
+// #include "AdvancedGL/PPFX/SSR.h"
+
+#include "AdvancedLighting/SSAOScene.h"
 
 int main()
 {

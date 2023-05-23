@@ -155,9 +155,9 @@ public:
     void set_mvp(Transform& transform, Shader& shader)
     {
         shader.Use();
-        
+
         CALCULATE_MODEL_MATRIX();
-        
+
         set_uniforms(m_ModelMatrix, m_View, m_Projection, shader);
     }
 

@@ -3,7 +3,7 @@
 
 FrameBuffer::FrameBuffer()
 {
-	
+
 }
 
 FrameBuffer::~FrameBuffer()
@@ -23,7 +23,7 @@ void FrameBuffer::Create(int Width, int Height)
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_Attachments[i], 0);
     }
 
-    glDrawBuffers(m_Attachments.size(), attachments.data());
+    glDrawBuffers(attachments.size(), attachments.data());
 
     m_RBO = new RenderBuffer(Width, Height);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_RBO->m_BufferID);
@@ -37,22 +37,24 @@ void FrameBuffer::Create(int Width, int Height)
 void FrameBuffer::Bind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, m_BufferID);
+	m_RBO->Bind();
 }
 
 void FrameBuffer::Unbind() const
 {
+	m_RBO->Unbind();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void FrameBuffer::AddAttachment(int idx, int internalFormat, int format, int Width, int Height)
 {
-
     unsigned int rt;
     glGenTextures(1, &rt);
     glBindTexture(GL_TEXTURE_2D, rt);
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, Width, Height, 0, format, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + idx, GL_TEXTURE_2D, rt, 0);
 
     m_Attachments.push_back(rt);
 }

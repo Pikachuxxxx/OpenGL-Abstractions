@@ -29,8 +29,8 @@ void main()
 {
     gl_PointSize = 50.0;
     gl_Position = u_Projection * u_View * u_Model * vec4(position, 1.0f);
-    mat3 normalMatrix = mat3(transpose(inverse(u_View * u_Model)));
-    vs_out.normal = normalize(vec3(u_Projection * vec4(normalMatrix * normal, 1.0)));
+    mat3 normalMatrix = transpose(inverse(mat3(u_View * u_Model)));
+    vs_out.normal = normalMatrix * normal;//normalize(vec3(u_Projection * vec4(normalMatrix * normal, 1.0)));
     vs_out.texCoords = texCoords;
     vs_out.tangent = tangent;
     vs_out.biTangent = biTangent;
