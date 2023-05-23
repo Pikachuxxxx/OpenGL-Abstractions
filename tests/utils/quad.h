@@ -37,7 +37,7 @@ public:
        shader = new Shader("./tests/shaders/quad.vert", "./tests/shaders/quad.frag");
    }
    ~Quad() = default;
-   
+
    void Draw(Texture2D tex)
    {
        shader->Use();
@@ -56,4 +56,12 @@ public:
        ibo->Bind();
        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
    }
+
+   void Draw()
+   {
+       vao.Bind();
+       ibo->Bind();
+       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+   }
+
 };

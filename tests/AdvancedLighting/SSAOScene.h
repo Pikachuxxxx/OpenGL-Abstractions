@@ -20,20 +20,23 @@ class Scene : public Sandbox
 {
 private:
     Plane plane;
-    Shader meshShader;
     Shader gbufferShader;
+    Shader ssaoShader;
+    Shader ssaoBlurShader;
     // Texture2D wood;
     Transform origin;
     Transform sponzaTransform;
     Model sponza;
-    unsigned int gBufferFBO;
-    unsigned int depthMap;
-    unsigned int gPosition;
-    unsigned int gNormal;
-    unsigned int gAlbedo;
+    FrameBuffer gBufferFBO;
+    FrameBuffer ssaoFBO;
+    FrameBuffer ssaoBlurFBO;
     Quad screenQuad;
 
     uint32_t outputMode = 0;
+    std::vector<glm::vec3> ssaoKernel;
+    std::vector<glm::vec3> ssaoNoise;
+    unsigned int noiseTexture;
+
 public:
     Scene() : Sandbox("SSAO", WIDTH, HEIGHT),
     // Models
@@ -41,8 +44,9 @@ public:
     // Textures
     // wood("./tests/textures/wood.png", 0),
     // Shaders
-    meshShader("./tests/shaders/mesh.vert", "./tests/shaders/mesh.frag"),
-    gbufferShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/gbuffer.frag")
+    gbufferShader("./tests/shaders/mesh.vert", "./tests/shaders/Lighting/gbuffer.frag"),
+    ssaoShader("./tests/shaders/quad.vert", "./tests/shaders/FX/ssao.frag"),
+    ssaoBlurShader("./tests/shaders/quad.vert", "./tests/shaders/FX/ssao_blur.frag")
     {}
 
     ~Scene() {}
@@ -54,6 +58,49 @@ public:
 
         // Init GBuffer pass stuff
         InitGBufferPass();
+
+        std::uniform_real_distribution<float> randomFloats(0.0, 1.0); // random floats between [0.0, 1.0]
+        std::default_random_engine generator;
+        for (unsigned int i = 0; i < 64; ++i)
+        {
+            glm::vec3 sample(
+                randomFloats(generator) * 2.0 - 1.0,
+                randomFloats(generator) * 2.0 - 1.0,
+                randomFloats(generator)
+            );
+            sample  = glm::normalize(sample);
+            sample *= randomFloats(generator);
+            float scale = (float)i / 64.0;
+            scale   = lerp(0.1f, 1.0f, scale * scale);
+            sample *= scale;
+            ssaoKernel.push_back(sample);
+        }
+
+        for (unsigned int i = 0; i < 16; i++)
+        {
+            glm::vec3 noise(
+                randomFloats(generator) * 2.0 - 1.0,
+                randomFloats(generator) * 2.0 - 1.0,
+                0.0f);
+            ssaoNoise.push_back(noise);
+        }
+
+        glGenTextures(1, &noiseTexture);
+        glBindTexture(GL_TEXTURE_2D, noiseTexture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, 4, 4, 0, GL_RGBA, GL_FLOAT, &ssaoNoise[0]);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        ssaoFBO.AddAttachment(0, GL_RGBA32F, GL_RGBA, WIDTH, HEIGHT);
+        ssaoFBO.Create(WIDTH, HEIGHT, false);
+
+        for (unsigned int i = 0; i < 64; ++i)
+            ssaoShader.setUniform3f(std::string("samples[" + std::to_string(i) + "]").c_str(), ssaoKernel[i]);
+
+        ssaoBlurFBO.AddAttachment(0, GL_RGBA, GL_RGBA, WIDTH, HEIGHT);
+        ssaoBlurFBO.Create(WIDTH, HEIGHT, false);
     }
 
     void OnUpdate() override
@@ -68,76 +115,54 @@ public:
 
         shader.Use();
 
-        // renderer.draw_raw_arrays_with_texture(woodTransform, shadowShader, wood, plane.vao, 6);
-
         // Draw the stormtrooper model
         renderer.draw_model(sponzaTransform, shader, sponza);
-
     }
 
     void InitGBufferPass()
     {
-        // Create a framebuffer to record the depth information to a texture
-        glGenFramebuffers(1, &gBufferFBO);
-        glBindFramebuffer(GL_FRAMEBUFFER, gBufferFBO);
-        // Create a texture to hold the 2D depth buffer information
-        // glGenTextures(1, &depthMap);
-        // glBindTexture(GL_TEXTURE_2D, depthMap);
-        // glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, WIDTH, HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
-        glGenRenderbuffers(1, &depthMap);
-        glBindRenderbuffer(GL_RENDERBUFFER, depthMap);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WIDTH, HEIGHT);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthMap);
-        // Position
-        glGenTextures(1, &gPosition);
-        glBindTexture(GL_TEXTURE_2D, gPosition);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPosition, 0);
-        // Normal
-        glGenTextures(1, &gNormal);
-        glBindTexture(GL_TEXTURE_2D, gNormal);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gNormal, 0);
-        // Albedo
-        glGenTextures(1, &gAlbedo);
-        glBindTexture(GL_TEXTURE_2D, gAlbedo);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WIDTH, HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gAlbedo, 0);
-
-        unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2};
-        glDrawBuffers(3, attachments);
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete" << std::endl;
-
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+        gBufferFBO.AddAttachment(0, GL_RGBA, GL_RGBA, WIDTH, HEIGHT); // World Pos
+        gBufferFBO.AddAttachment(1, GL_RGBA, GL_RGBA, WIDTH, HEIGHT); // Normals
+        gBufferFBO.AddAttachment(2, GL_RGBA, GL_RGBA, WIDTH, HEIGHT); // Albedo
+        gBufferFBO.Create(WIDTH, HEIGHT);
     }
 
 
     void OnRender() override
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, gBufferFBO);
-        GeometryPass(meshShader);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        gBufferFBO.Bind();
+        GeometryPass(gbufferShader);
+        gBufferFBO.Unbind();
 
-        screenQuad.Draw(gAlbedo);
+        ssaoFBO.Bind();
+        glClearColor(0.0, 0.0, 0.0, 1.0); // black so it won’t leak in g-buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, gBufferFBO.getAttachmentAt(1));
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, gBufferFBO.getAttachmentAt(2));
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, noiseTexture);
+        ssaoShader.setUniform1i("gPosition", 0);
+        ssaoShader.setUniform1i("gNormal", 1);
+        ssaoShader.setUniform1i("noiseTexture", 2);
+        ssaoShader.setUniformMat4f("u_Projection", renderer.m_Projection);
+        ssaoShader.setUniform1f("ssaoRadius", 0.8f);
+        ssaoShader.setUniform1i("kernelSize", 64);
+
+        screenQuad.Draw();
+        ssaoFBO.Unbind();
+
+        ssaoBlurFBO.Bind();
+        glClearColor(0.0, 0.0, 0.0, 1.0); // black so it won’t leak in g-buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        screenQuad.Draw(ssaoFBO.getAttachmentAt(0));
+        ssaoBlurFBO.Unbind();
+
+        glClearColor(0.0, 0.0, 0.0, 1.0); // black so it won’t leak in g-buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // screenQuad.Draw(gBufferFBO.getDepthAttachment());
+        screenQuad.Draw(ssaoBlurFBO.getAttachmentAt(0));
     }
 
     void OnImGuiRender() override
@@ -172,10 +197,12 @@ public:
                    ImGui::EndCombo();
                }
                //------------------------------------------------------------------
-               ImGui::Image((void*) gPosition, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
-               ImGui::Image((void*) gNormal, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
-               // ImGui::Image((void*) gAlbedo, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
-               // ImGui::Image((void*) depthMap, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+               ImGui::Image((void*) gBufferFBO.getAttachmentAt(0), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+               ImGui::Image((void*) gBufferFBO.getAttachmentAt(1), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+               ImGui::Image((void*) gBufferFBO.getAttachmentAt(2), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+               ImGui::Image((void*) noiseTexture, ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+               ImGui::Image((void*) ssaoFBO.getAttachmentAt(0), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
+               ImGui::Image((void*) ssaoBlurFBO.getAttachmentAt(0), ImVec2(ImGui::GetWindowSize()[0], 200), ImVec2(0, 0), ImVec2(1.0f, -1.0f));
 
             }
         }

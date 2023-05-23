@@ -28,5 +28,5 @@ void main() {
     gAlbedoSpec.rgb = texture(albedoMap, vs_in.texCoords).rgb;
     // store specular intensity in gAlbedoSpec’s alpha component
     // metalRoughnessMap : R => AO, G channel => roughness values, B => metallic values
-    gAlbedoSpec.a = texture(metalRoughnessMap, vs_in.texCoords).r;
+    gAlbedoSpec.a = 1.0f;//texture(metalRoughnessMap, vs_in.texCoords).r;
 }

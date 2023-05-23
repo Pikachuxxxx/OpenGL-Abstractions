@@ -10,13 +10,13 @@ class FrameBuffer
 {
 public:
 	GLuint						m_BufferID;
-	RenderBuffer*				m_RBO;
+	unsigned int 				m_DepthAttachment;
 	std::vector<unsigned int>	m_Attachments;
 public:
 	FrameBuffer();
 	~FrameBuffer();
 
-	void Create(int Width, int Height);
+	void Create(int Width, int Height, bool enableDepth = true);
 
 	void Bind() const;
 	void Unbind() const;
@@ -25,5 +25,5 @@ public:
 	void AddAttachment(int idx, int internalFormat, int format, int Width, int Height);
 
 	inline unsigned int getAttachmentAt(int idx) { return m_Attachments[idx]; }
-	inline unsigned int getDepthAttachment() { return m_RBO->m_BufferID; }
+	inline unsigned int getDepthAttachment() { return m_DepthAttachment; }
 };
